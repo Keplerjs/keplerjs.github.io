@@ -1,0 +1,15 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Stefano Cudini -- Author -- @zakis
+
+# THANKS
+
+    <name>
+
+# TECHNOLOGY COLOPHON
+
+    Meteor, Leaflet
+    Openstreetmap

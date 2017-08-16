@@ -1,0 +1,19 @@
+{
+  "name": "keplerjs.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Keplerjs/keplerjs.github.io.git"
+  },
+  "author": {
+    "name": "Stefano Cudini",
+    "email": "stefano.cudini@gmail.com",
+    "url": "http://labs.easyblog.it/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Keplerjs/keplerjs.github.io/issues"
+  },
+  "homepage": "https://github.com/Keplerjs/keplerjs.github.io#readme"
+}
