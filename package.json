@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/Keplerjs/keplerjs.github.io/issues"
   },
-  "homepage": "https://github.com/Keplerjs/keplerjs.github.io#readme"
+  "homepage": "https://github.com/Keplerjs/keplerjs.github.io#readme",
+  "devDependencies": {
+    "livereload": "^0.6.2"
+  },
+  "scripts": {
+    "start": "livereload ./**/*"
+  }
 }
