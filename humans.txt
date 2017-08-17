@@ -3,7 +3,7 @@
 
 # TEAM
 
-    Stefano Cudini -- Author -- @zakis
+    Stefano Cudini -- Author -- stefano.cudini@gmail.com
 
 # THANKS
 
