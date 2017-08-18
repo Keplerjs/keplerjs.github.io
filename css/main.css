@@ -1,4 +1,4 @@
-/*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
+	/*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
 
 html {
     color: #222;
@@ -44,6 +44,9 @@ textarea {
     resize: vertical;
 }
 
+section {
+	padding-bottom: 10px;
+}
 .browserupgrade {
     margin: 0.2em 0;
     background: #ccc;
@@ -58,7 +61,8 @@ textarea {
 
 body {
     font: 16px/26px Helvetica, Helvetica Neue, Arial;
-    background: #ddd
+    background: #ddd;
+    color: #333;
 }
 a,
 a:hover,
@@ -66,6 +70,12 @@ a:active,
 a:visited {
 	color: #257;
 	text-decoration: none;
+}
+a:hover {
+	text-decoration:underline;
+}
+h1,h2,h3,h4,h5 {
+	color: #257;
 }
 footer a,
 footer a:hover,
@@ -113,7 +123,8 @@ aside a:visited {
     text-shadow: 0 0 2px #257;
 }
 .main aside {
-    background: #9c0
+    background: #9c0;
+    /*rgba(153, 204, 0, 0.8);*/
 }
 
 aside ul {
