@@ -82,8 +82,8 @@ footer a:hover,
 footer a:active,
 footer a:visited {
 	font-size: 18px;
-	text-decoration: none;
-	color: #9c0
+	color: #eee;
+    text-shadow: 0 0 2px #257;	
 }
 aside a,
 aside a:hover,
@@ -98,6 +98,13 @@ aside a:visited {
     margin: 0 5%;
 }
 
+#tryitout a,
+#tryitout a:hover,
+#tryitout a:active,
+#tryitout a:visited {
+	font-size: 18px;
+	color: #5c0;
+}
 
 /* ===================
     ALL: Orange Theme
@@ -107,20 +114,20 @@ aside a:visited {
     border-bottom: 20px solid #257;
 }
 
-.footer-container,
 .main aside {
     border-top: 20px solid #257;
 }
 
 .header-container {
-	background: url('../images/back-hex.png') repeat-x center top #ddd;
+	background: url('../images/back-hex.png') repeat-x center top #eee;
 }
 .main-container {
 	background: #eee;
 }
 .footer-container {
     background: #257;
-    text-shadow: 0 0 2px #257;
+    /*background: url('../images/cover-hex.svg') repeat-x center bottom #eee;
+    text-shadow: 0 0 2px #257;*/
 }
 .main aside {
     background: #9c0;
@@ -131,15 +138,22 @@ aside ul {
 	list-style:disc;
 	padding-left:16px;
 }
+aside li {
+	margin-bottom: 6px;
+}
+footer {
+	overflow:hidden;
+}
 footer ul {
+	float: left;
 	margin: 0;
-	padding-left: 5px;
+	margin-left: 5px;
 }
 .title {
 	text-align: center;
 	font-size: 30px;
     color: #257;
-    text-shadow: 0 0 16px #ddd;
+    text-shadow: 0 0 10px #eee;
     line-height: 110px;
     margin: 0;
 }
