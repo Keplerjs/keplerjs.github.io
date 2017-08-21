@@ -236,7 +236,9 @@ nav a:hover {
    Author's custom styles
    ========================================================================== */
 
-
+nav {
+	display: none;
+}
 
 
 
@@ -268,11 +270,14 @@ nav a:hover {
 		height: 200px;
 		width: 200px;
 	}
+	nav {
+		display: block;
+	}
     nav a {
         float: left;
         width: 27%;
         margin: 0 1.7%;
-        padding: 25px 2%;
+        padding: 20px 2%;
         margin-bottom: 0;
     }
 
