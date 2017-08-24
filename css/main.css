@@ -5,7 +5,6 @@ html {
     font-size: 1em;
     line-height: 1.4;
 }
-
 ::-moz-selection {
     background: #b3d4fc;
     text-shadow: none;
@@ -46,6 +45,10 @@ textarea {
 
 section {
 	padding-bottom: 10px;
+}
+aside {
+	margin-bottom: 50px;
+	border-radius: 5px;
 }
 .browserupgrade {
     margin: 0.2em 0;
@@ -114,8 +117,10 @@ aside a:visited {
     border-bottom: 20px solid #257;
 }
 
-.main aside {
+.main .principles {
+    background: #9c0;	
     border-top: 20px solid #257;
+    box-shadow: none;
 }
 
 .header-container {
@@ -129,10 +134,7 @@ aside a:visited {
     /*background: url('../images/cover-hex.svg') repeat-x center bottom #eee;
     text-shadow: 0 0 2px #257;*/
 }
-.main aside {
-    background: #9c0;
-    /*rgba(153, 204, 0, 0.8);*/
-}
+
 
 aside ul {
 	list-style:disc;
@@ -342,9 +344,13 @@ nav {
         width: 57%;
     }
 
+	.main .news,
     .main aside {
         float: right;
-        width: 28%;
+        width: 26%;
+    }
+    .main .news {
+    	width: 36%
     }
 }
 
