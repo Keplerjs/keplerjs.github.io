@@ -1,5 +1,5 @@
 {
-  "name": "keplerjs-website",
+  "name": "keplerjs.io",
   "version": "1.1.0",
   "description": "The open source full-stack geosocial network platform",
   "repository": {
@@ -15,5 +15,5 @@
   "bugs": {
     "url": "https://github.com/Keplerjs/keplerjs.github.io/issues"
   },
-  "homepage": "https://keplerjs.github.io"
+  "homepage": "http://keplerjs.io"
 }
