@@ -72,6 +72,7 @@ a:hover,
 a:active,
 a:visited {
 	color: #257;
+	font-weight: bold;
 	text-decoration: none;
 }
 a:hover {
@@ -86,7 +87,7 @@ footer a:active,
 footer a:visited {
 	font-size: 18px;
 	color: #eee;
-    text-shadow: 0 0 2px #257;	
+    text-shadow: 0 0 2px #257;
 }
 aside a,
 aside a:hover,
@@ -106,7 +107,7 @@ aside a:visited {
 #tryitout a:active,
 #tryitout a:visited {
 	font-size: 18px;
-	color: #5c0;
+	color: #257;
 }
 
 /* ===================
@@ -118,9 +119,15 @@ aside a:visited {
 }
 
 .main .principles {
-    background: #9c0;	
+    background: rgba(153,204,0,0.7);	
     border-top: 20px solid #257;
     box-shadow: none;
+}
+article {
+	background: rgba(255,255,255,0.3);
+	border-radius: 5px;
+	padding: 16px;	
+	margin-bottom: 16px;
 }
 
 .header-container {
@@ -128,9 +135,12 @@ aside a:visited {
 }
 .main-container {
 	background: #eee;
+	color: #000;
 }
 .footer-container {
     background: #257;
+    min-height: 200px;
+    /*background: url('../images/world-dots.svg') no-repeat center center #257;*/
     /*background: url('../images/cover-hex.svg') repeat-x center bottom #eee;
     text-shadow: 0 0 2px #257;*/
 }
@@ -140,8 +150,8 @@ aside ul {
 	list-style:disc;
 	padding-left:16px;
 }
-aside li {
-	margin-bottom: 6px;
+footer li {
+	margin-bottom: 16px;
 }
 footer {
 	overflow:hidden;
@@ -149,7 +159,7 @@ footer {
 footer ul {
 	float: left;
 	margin: 0;
-	margin-left: 5px;
+	margin-left: 16px;
 }
 .title {
 	text-align: center;
