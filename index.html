@@ -160,7 +160,8 @@
     </aside>
 
     <div class="news">
-		<a class="twitter-timeline" data-lang="en" data-width="370" data-height="550" data-link-color="#55cc00" href="https://twitter.com/Kepler_JS">Tweets by Kepler_JS</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+		<a class="twitter-timeline" data-lang="en" data-width="370" data-height="550" data-link-color="#55cc00" href="https://twitter.com/Kepler_JS">Tweets by Kepler_JS</a>
+		<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>
 
     </div> <!-- #main -->
@@ -222,11 +223,12 @@
 			weight:1,
 			fillColor:'#99cc00',
 			//fillColor:'none',
+			opacity:1,
 			fillOpacity:0.05,
 			//color:'#ddd'
-			color:'#99cc00',
+			color:'#99cc00'
 		}
-	});//.addTo(map);
+	});
 	
 	$.get('https://raw.githubusercontent.com/stefanocudini/GeoJSONResources/master/world.json', function(data) {
 		geo.addData(JSON.parse(data));
