@@ -22,20 +22,6 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css" />
     <link rel="stylesheet" href="css/main.css">
     <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-<style type="text/css">
-.main-container {
-	position: relative;
-	z-index: 0;
-}
-#map {
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	position: absolute;
-	z-index: -1;
-}
-</style>
 </head>
 <body>
 
@@ -122,27 +108,7 @@
 				Created by <a href="https://github.com/stefanocudini" target="_blank">Stefano Cudini</a> <a href="http://twitter.com/zakis" target="_blank">@zakis</a> 
 				and other <a href="https://github.com/Keplerjs/Kepler/graphs/contributors" target="_blank">contributors</a> 
 				under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT License</a>
-			</p>				            	
-
-		<a class="github-button" href="https://github.com/Keplerjs/Kepler" data-size="large" data-show-count="true" aria-label="Star Keplerjs/KeplerJs on GitHub">GitHub Star</a>
-		<script async defer src="https://buttons.github.io/buttons.js"></script>
-
-						
-		<!-- <a href="https://twitter.com/Kepler_JS" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @Kepler_JS</a>
-		<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script> -->
-		<br /><br />
-
-		<div class="fb-like" data-href="https://www.facebook.com/KeplerJs" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
-		<div id="fb-root"></div>
-		<script>(function(d, s, id) {
-		  var js, fjs = d.getElementsByTagName(s)[0];
-		  if (d.getElementById(id)) return;
-		  js = d.createElement(s); js.id = id;
-		  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=133848430551055";
-		  fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-		</script>
-
+			</p>
 		</section>  
 
     </article>
@@ -159,10 +125,10 @@
 		<a href="http://docs.keplerjs.io/">Learn more...</a>
     </aside>
 
-    <div class="news">
-		<a class="twitter-timeline" data-lang="en" data-width="370" data-height="550" data-link-color="#55cc00" href="https://twitter.com/Kepler_JS">Tweets by Kepler_JS</a>
-		<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-    </div>
+	<aside class="stats">
+		 <h2 class="places"><big></big> places</h2>
+		 <h2 class="users"><big></big> users</h2>
+	</aside>
 
     </div> <!-- #main -->
 </div> <!-- #main-container -->
@@ -182,13 +148,37 @@
 			<li><a href="https://waffle.io/Keplerjs/Kepler">Issues</a></li>
 			
 		</ul>
+		<!-- 		
+			<a class="twitter-timeline" data-lang="en" data-width="370" data-height="100" data-link-color="#55cc00" href="https://twitter.com/Kepler_JS">Tweets by Kepler_JS</a>
+			<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+		 -->
+		<div class="info">
+ 
+			<a class="github-button" href="https://github.com/Keplerjs/Kepler" data-size="large" data-show-count="true" aria-label="Star Keplerjs/KeplerJs on GitHub">GitHub Star</a>
+			<script async defer src="https://buttons.github.io/buttons.js"></script>
+<br /><br />
+			<a href="https://twitter.com/Kepler_JS" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @Kepler_JS</a>
+			<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<br /><br />
+			<div class="fb-like" data-href="https://www.facebook.com/KeplerJs" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
+			<div id="fb-root"></div>
+			<script>(function(d, s, id) {
+			  var js, fjs = d.getElementsByTagName(s)[0];
+			  if (d.getElementById(id)) return;
+			  js = d.createElement(s); js.id = id;
+			  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=133848430551055";
+			  fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+			</script>
+		</div>
+
     </footer>
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-
-<script src="js/main.js"></script>
+<script async src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"></script>
+<script async src="js/main.js"></script>
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
@@ -200,46 +190,6 @@
   ga('create', 'UA-104501199-2', 'auto');
   ga('send', 'pageview');
 
-</script>
-
-<script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"></script>
-<script>
-	var map = L.map('map', {
-		center:[20,0],
-		zoom:3,
-		minZoom:3,
-		boxZoom: false,
-		trackResize:true,
-		dragging: false,
-		keyboard: false,
-		scrollWheelZoom:false,
-		doubleClickZoom:false,
-		attributionControl: false,
-		zoomControl: false,
-	}).fitWorld();
-
-	var geo = L.geoJSON(null,{
-		style: {
-			weight:1,
-			fillColor:'#99cc00',
-			//fillColor:'none',
-			opacity:1,
-			fillOpacity:0.05,
-			//color:'#ddd'
-			color:'#99cc00'
-		}
-	});
-	
-	$.get('https://raw.githubusercontent.com/stefanocudini/GeoJSONResources/master/world.json', function(data) {
-		geo.addData(JSON.parse(data));
-		setTimeout(function() {
-			geo.addTo(map);
-		},500);
-	});
-
-	$(function() {
-		map.invalidateSize(false)
-	});
 </script>
 </body>
 </html>

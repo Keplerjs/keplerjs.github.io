@@ -57,7 +57,37 @@ aside {
     padding: 0.2em 0;
 }
 
-
+.main-container {
+	position: relative;
+	z-index: 0;
+}
+#map {
+	background: #eee;
+	top: 0;
+	left: 0;
+	right: 0;	
+	bottom: 0;
+	position: absolute;
+	z-index: -1;
+}
+.info {
+	padding: 16px;
+	float: right;
+	background: rgba(255,255,255, 0.2);
+	border-radius: 5px;
+	min-width: 32%;
+}
+.stats {
+	font-size:30px;
+	opacity: 0.8;
+	text-shadow: 1px 1px 3px rgba(0,0,0, 0.4);
+}
+.stats .places {
+	color: #225577;
+}
+.stats .users {
+	color: #ff7b24;
+}
 /* ===== Initializr Styles ==================================================
    Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
    ========================================================================== */
@@ -85,7 +115,7 @@ footer a,
 footer a:hover,
 footer a:active,
 footer a:visited {
-	font-size: 18px;
+	font-size: 26px;
 	color: #eee;
     text-shadow: 0 0 2px #257;
 }
@@ -121,12 +151,12 @@ aside a:visited {
 .main .principles {
     background: rgba(153,204,0,0.6);	
     border-top: 20px solid #257;
-    box-shadow: none;
+
 }
 article {
-	background: rgba(255,255,255,0.3);
+/*	background: rgba(255,255,255,0.3);*/
 	border-radius: 5px;
-	padding: 16px;	
+	padding: 16px;
 	margin-bottom: 16px;
 }
 
@@ -136,6 +166,12 @@ article {
 .main-container {
 	background: #eee;
 	color: #000;
+		-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .footer-container {
     background: #257;
@@ -279,8 +315,8 @@ nav {
 	.logo {
 		margin-left: -30px;
 		margin-top: 10px;
-		height: 200px;
-		width: 200px;
+		height: 150px;
+		width: 150px;
 	}
 	nav {
 		display: block;
@@ -321,17 +357,6 @@ nav {
 
 @media only screen and (min-width: 768px) {
 
-/* ====================
-    WIDE: CSS3 Effects
-   ==================== */
-
-    .header-container,
-    .main aside {
-        -webkit-box-shadow: 0 5px 10px #aaa;
-           -moz-box-shadow: 0 5px 10px #aaa;
-                box-shadow: 0 5px 10px #aaa;
-    }
-
 /* ============
     WIDE: Menu
    ============ */
@@ -354,13 +379,10 @@ nav {
         width: 57%;
     }
 
-	.main .news,
+	.main .stats,
     .main aside {
         float: right;
         width: 26%;
-    }
-    .main .news {
-    	width: 36%
     }
 }
 
