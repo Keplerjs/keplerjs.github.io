@@ -1,6 +1,6 @@
 
 var map = L.map('map', {
-	center:[10,10],
+	center:[62.3087, -5.9765],
 	zoom:3,
 	minZoom:3,
 	boxZoom: false,
@@ -48,7 +48,7 @@ $.when(
 			var r = point.properties.rank
 			r = Math.min(r, 21);
 			r = Math.max(r, 6);
-			return L.circleMarker(ll, {radius: r})
+			return L.circleMarker(ll, {radius: r, className:'pulse-marker'})
 		},
 		style: {
 			weight:0,
@@ -79,8 +79,8 @@ $.when(
 
 	map.fitBounds(stats.getBounds(), {
 		maxZoom:3,
-		paddingTopLeft: L.point(0,800),
-		paddingBottomRight: L.point(200,100),		
+		paddingTopLeft: L.point(0,900),
+		paddingBottomRight: L.point(300,100),		
 	});
 });
 
