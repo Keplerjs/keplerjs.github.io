@@ -16,10 +16,11 @@ var map = L.map('map', {
 
 var stats = L.featureGroup().addTo(map);
 
-var host = 'https://demo.keplerjs.io';
+//var host = 'https://demo.keplerjs.io';
+var host = 'http://climbo.local';
 
 $.when(
-	$.getJSON('https://raw.githubusercontent.com/stefanocudini/GeoJSONResources/master/world.json'),
+	$.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json'),
 	$.ajax({
 		url: host+'/stats/places',
 	    jsonp: 'jsonp', dataType: 'jsonp'
@@ -47,29 +48,23 @@ $.when(
 		}
 	}).addTo(map);
 
-	var lastPlace = {
-		loc: places.features[places.features.length-1].geometry.coordinates,
-		rank: Math.max(places.features[places.features.length-1].properties.rank, 3),
-	};
-
-
-	L.marker(lastPlace.loc.reverse(), {
-		icon: L.icon.pulse({
-			heartbeat: 2,
-			iconSize: [lastPlace.rank, lastPlace.rank],
-			color:'#225577',
-			fillColor:null
-		})
-	}).addTo(stats);
-
-
-
+	var i=0;
 	var lplaces = L.geoJSON(places, {
-		pointToLayer: function(point, ll) {
+		pointToLayer: function(point, loc) {
 			var r = point.properties.rank;
-			//r = Math.min(r, 20);
 			r = Math.max(r, 3);
-			return L.circleMarker(ll, {radius: r })
+
+			if(++i==1) {	//the latest created
+				return L.marker(loc, {
+					icon: L.icon.pulse({
+						heartbeat: 2,
+						iconSize: [8,8],
+						color:'#225577'
+					})
+				})
+			}
+			else
+				return L.circleMarker(loc, {radius: r })
 		},
 		style: {
 			weight:0,
@@ -85,18 +80,24 @@ $.when(
 		return f.geometry.coordinates.length;
 	});
 
-	users.features.map(function(f) {
-		console.log(f.geometry.coordinates, f.properties.rank)
-	});
-
-	//var lastUser = users.features.pop();
-
+	var i=0;
 	var lusers = L.geoJSON(users, {
-		pointToLayer: function(point, ll) {
+		pointToLayer: function(point, loc) {
 			var r = point.properties.rank;
-			r = Math.min(r, 4);
+			r = Math.min(r, 3);
 			r = Math.max(r, 2);
-			return L.circleMarker(ll, {radius: r });
+
+			if(++i==1) {	//the latest created
+				return L.marker(loc, {
+					icon: L.icon.pulse({
+						heartbeat: 2,
+						iconSize: [8, 8],
+						color:'#ff7b24'
+					})
+				})
+			}
+			else
+				return L.circleMarker(loc, {radius: r })		
 		},
 		style: {
 			weight:0,
@@ -115,19 +116,7 @@ $.when(
 		paddingTopLeft: L.point(0,600),
 		paddingBottomRight: L.point(300,0),
 		animate:false
-	});
-	
-	map.setZoom(zoom,{animate:false});
-
-
-/*	L.marker(lastUser.geometry.coordinates.reverse(), {
-		icon: L.icon.pulse({
-			heartbeat: 2,
-			iconSize:[8,8],
-			color:'#ff7b24'
-		})
-	}).addTo(stats);*/
-
+	}).setZoom(zoom,{animate:false});
 });
 
 
