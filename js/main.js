@@ -13,8 +13,31 @@ var map = L.map('map', {
 	zoomControl: false,
 }).fitWorld();
 
-$.getJSON('https://raw.githubusercontent.com/stefanocudini/GeoJSONResources/master/world.json', function(data) {
-	L.geoJSON(data, {
+
+var stats = L.featureGroup().addTo(map);
+
+var host = 'https://demo.keplerjs.io';
+
+$.when(
+	$.getJSON('https://raw.githubusercontent.com/stefanocudini/GeoJSONResources/master/world.json'),
+	$.ajax({
+		url: host+'/stats/places',
+	    jsonp: 'jsonp', dataType: 'jsonp'
+	}),
+	$.ajax({
+		url: host+'/stats/users',
+	    jsonp: 'jsonp', dataType: 'jsonp'
+	})	
+)
+.then(function(ret0, ret1, ret2) {
+	var base = ret0[0],
+		places = ret1[0],
+		users = ret2[0];
+
+	$('.stats .places big').text(places && places.features && places.features.length);
+	$('.stats .users big').text(users && users.features && users.features.length);
+
+	L.geoJSON(base, {
 		style: {
 			weight:1,
 			fillColor:'#99cc00',
@@ -23,32 +46,13 @@ $.getJSON('https://raw.githubusercontent.com/stefanocudini/GeoJSONResources/mast
 			color:'#99cc00'
 		}
 	}).addTo(map);
-});
-var stats = L.featureGroup().addTo(map);
-
-$.when(
-	$.ajax({
-		url: 'https://demo.keplerjs.io/stats/places',
-	    jsonp: 'jsonp', dataType: 'jsonp'
-	}),
-	$.ajax({
-		url: 'https://demo.keplerjs.io/stats/users',
-	    jsonp: 'jsonp', dataType: 'jsonp'
-	})	
-)
-.then(function(ret1, ret2) {
-	var places = ret1[0],
-		users = ret2[0];
-
-	$('.stats .places big').text(places && places.features && places.features.length);
-	$('.stats .users big').text(users && users.features && users.features.length);
 
 	var lplaces = L.geoJSON(places, {
 		pointToLayer: function(point, ll) {
-			var r = point.properties.rank
-			r = Math.min(r, 21);
-			r = Math.max(r, 6);
-			return L.circleMarker(ll, {radius: r, className:'pulse-marker'})
+			var r = point.properties.rank;
+/*			r = Math.min(r, 20);
+			r = Math.max(r, 2);*/
+			return L.circleMarker(ll, {radius: r })
 		},
 		style: {
 			weight:0,
@@ -59,15 +63,19 @@ $.when(
 	}).addTo(stats);
 
 	users.features = users.features.filter(function(f) {
-		return !!f.geometry.coordinates[0];
+		return f.geometry.coordinates.length;
 	});
+
+	users.features.map(function(f) {
+		console.log(f.geometry.coordinates, f.properties.rank)
+	})
 
 	var lusers = L.geoJSON(users, {
 		pointToLayer: function(point, ll) {
-			var r = point.properties.rank
-			r = Math.min(r, 3);
+			var r = point.properties.rank;
+			r = Math.min(r, 4);
 			r = Math.max(r, 2);
-			return L.circleMarker(ll, {radius: r})
+			return L.circleMarker(ll, {radius: r });
 		},
 		style: {
 			weight:0,
@@ -77,11 +85,17 @@ $.when(
 		}
 	}).addTo(stats);
 
-	map.fitBounds(stats.getBounds(), {
-		maxZoom:3,
-		paddingTopLeft: L.point(0,900),
-		paddingBottomRight: L.point(300,100),		
+	var bb = stats.getBounds(),
+		center = bb.getCenter(),
+		zoom = map.getBoundsZoom(bb)+1;
+
+	map.fitBounds(bb, {
+		//maxZoom:3,
+		paddingTopLeft: L.point(0,600),
+		paddingBottomRight: L.point(300,0),
+		animate:false
 	});
+	map.setZoom(zoom,{animate:false})
 });
 
 
