@@ -47,20 +47,39 @@ $.when(
 		}
 	}).addTo(map);
 
+	var lastPlace = {
+		loc: places.features[places.features.length-1].geometry.coordinates,
+		rank: Math.max(places.features[places.features.length-1].properties.rank, 3),
+	};
+
+
+	L.marker(lastPlace.loc.reverse(), {
+		icon: L.icon.pulse({
+			heartbeat: 2,
+			iconSize: [lastPlace.rank, lastPlace.rank],
+			color:'#225577',
+			fillColor:null
+		})
+	}).addTo(stats);
+
+
+
 	var lplaces = L.geoJSON(places, {
 		pointToLayer: function(point, ll) {
 			var r = point.properties.rank;
-/*			r = Math.min(r, 20);
-			r = Math.max(r, 2);*/
+			//r = Math.min(r, 20);
+			r = Math.max(r, 3);
 			return L.circleMarker(ll, {radius: r })
 		},
 		style: {
 			weight:0,
-			fillOpacity:0.2,
+			fillOpacity:0.5,
 			fillColor:'#225577',
 			color:'#225577'
 		}
 	}).addTo(stats);
+
+	//users 
 
 	users.features = users.features.filter(function(f) {
 		return f.geometry.coordinates.length;
@@ -68,7 +87,9 @@ $.when(
 
 	users.features.map(function(f) {
 		console.log(f.geometry.coordinates, f.properties.rank)
-	})
+	});
+
+	//var lastUser = users.features.pop();
 
 	var lusers = L.geoJSON(users, {
 		pointToLayer: function(point, ll) {
@@ -95,7 +116,18 @@ $.when(
 		paddingBottomRight: L.point(300,0),
 		animate:false
 	});
-	map.setZoom(zoom,{animate:false})
+	
+	map.setZoom(zoom,{animate:false});
+
+
+/*	L.marker(lastUser.geometry.coordinates.reverse(), {
+		icon: L.icon.pulse({
+			heartbeat: 2,
+			iconSize:[8,8],
+			color:'#ff7b24'
+		})
+	}).addTo(stats);*/
+
 });
 
 
