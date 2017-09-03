@@ -34,8 +34,8 @@ $.when(
 		places = ret1[0],
 		users = ret2[0];
 
-	$('.stats .places big').text(places && places.features && places.features.length);
-	$('.stats .users big').text(users && users.features && users.features.length);
+	$('.stats .places').html('<big>'+(places && places.features && places.features.length)+'</big> places');
+	$('.stats .users').html('<big>'+(users && users.features && users.features.length)+'</big> users');
 
 	L.geoJSON(base, {
 		style: {
@@ -117,7 +117,6 @@ $.when(
 		animate:false
 	}).setZoom(zoom,{animate:false});
 });
-
 
 $(function() {
 	map.invalidateSize(false)

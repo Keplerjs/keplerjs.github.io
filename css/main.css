@@ -72,11 +72,9 @@ aside {
 }
 
 .info {
-	padding: 16px;
 	float: right;
-	background: rgba(255,255,255, 0.2);
-	border-radius: 5px;
 	min-width: 32%;
+	color: #fff;
 }
 .stats {
 	white-space: nowrap;
@@ -110,9 +108,15 @@ a:visited {
 a:hover {
 	text-decoration:underline;
 }
-h1,h2,h3,h4,h5 {
+
+article h1,
+article h2,
+article h3,
+article h4,
+article h5 {
 	color: #257;
 }
+
 footer a,
 footer a:hover,
 footer a:active,
@@ -120,6 +124,11 @@ footer a:visited {
 	font-size: 26px;
 	color: #eee;
     text-shadow: 0 0 2px #257;
+}
+footer h2 {
+	color: #eee;
+	font-size: 26px;
+	margin-top: 0
 }
 aside a,
 aside a:hover,
@@ -206,6 +215,9 @@ footer ul {
     text-shadow: 0 0 10px #eee;
     line-height: 110px;
     margin: 0;
+}
+.title a:hover {
+	text-decoration:none;
 }
 .logo {
 	margin-left: 0;
