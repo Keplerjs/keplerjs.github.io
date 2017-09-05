@@ -11,7 +11,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="288"
-   height="320"
+   height="300"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.5 r10040"
@@ -19,8 +19,7 @@
    inkscape:export-filename="/home/z4k/www/keplerjs/keplerjs.io/images/cover-hex.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
-   style="enable-background:new"
-   enable-background="new">
+   style="enable-background:new">
   <defs
      id="defs4">
     <linearGradient
@@ -31,7 +30,7 @@
          offset="0"
          id="stop4861" />
       <stop
-         style="stop-color:#21506f;stop-opacity:0;"
+         style="stop-color:#225577;stop-opacity:1"
          offset="1"
          id="stop4863" />
     </linearGradient>
@@ -206,7 +205,8 @@
        gradientUnits="userSpaceOnUse" />
     <filter
        inkscape:collect="always"
-       id="filter4729">
+       id="filter4729"
+       color-interpolation-filters="sRGB">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="1.5477346"
@@ -238,7 +238,7 @@
        xlink:href="#linearGradient4859"
        id="linearGradient4865"
        x1="161.92744"
-       y1="1050.2452"
+       y1="1123.7883"
        x2="161.92744"
        y2="874.77264"
        gradientUnits="userSpaceOnUse" />
@@ -251,10 +251,10 @@
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4142136"
-     inkscape:cx="150.35923"
+     inkscape:cx="38.282808"
      inkscape:cy="45.959808"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer3"
      showgrid="false"
      inkscape:snap-global="true"
      inkscape:window-width="1237"
@@ -280,7 +280,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -288,20 +288,20 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="background"
-     sodipodi:insensitive="true">
+     transform="translate(0,-20)">
     <rect
-       style="fill:#225577;fill-opacity:1;stroke:#ffffff;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#225577;fill-opacity:1;stroke:#ffffff;stroke-width:0.48027858;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect4046"
        width="311"
-       height="342"
+       height="315.55319"
        x="-12"
-       y="-12.999991" />
+       y="12.964037" />
   </g>
   <g
      inkscape:label="shadow"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-732.36218)"
+     transform="translate(0,-752.36218)"
      style="display:inline">
     <path
        inkscape:connector-curvature="0"
@@ -314,7 +314,8 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="reticule"
-     style="display:inline">
+     style="display:inline"
+     transform="translate(0,-20)">
     <path
        inkscape:connector-curvature="0"
        id="path3010-3-7"
