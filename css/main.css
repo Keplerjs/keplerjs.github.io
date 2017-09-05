@@ -64,29 +64,59 @@ aside {
 #map {
 	background: #eee;
 	top: 0;
+	min-height: 400px;
 	left: 0;
 	right: 0;	
 	bottom: 0;
 	position: absolute;
 	z-index: -1;
 }
-
+.links,
 .info {
 	float: right;
-	min-width: 32%;
+	color: #fff;
+}
+.links{
+	float: left;
 	color: #fff;
 }
 .stats {
 	white-space: nowrap;
-	font-size:30px;
-	opacity: 0.8;
-	text-shadow: 1px 1px 3px rgba(0,0,0, 0.4);
+	color: #9c0;
+	background: rgba(255,255,255, 0.5);
+}
+.stats .users,
+.stats .places {
+	font-size: 180%;
+	margin:10px 0;
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+}
+.stats a:hover {
+	text-decoration: none;
 }
 .stats .places {
 	color: #225577;
+	text-shadow: 1px 1px 3px rgba(0,0,0, 0.5);
 }
 .stats .users {
-	color: #ff7b24;
+	color: #f72;
+	text-shadow: 1px 1px 3px rgba(0,0,0, 0.5);
+}
+.stats .demo {
+	background: #9c0;
+	display: inline-block;
+	border-radius: 5px;
+	padding: 10px;
+	color: #fff;
+	text-decoration: none;
+}
+.stats a {
+	opacity: 0.8;
+}
+.stats a:hover {
+	opacity: 1;
 }
 /* ===== Initializr Styles ==================================================
    Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
@@ -134,9 +164,7 @@ aside a,
 aside a:hover,
 aside a:active,
 aside a:visited {
-	font-size: 18px;
 	text-decoration: underline;
-	color: #fff
 }
 .wrapper {
     width: 90%;
@@ -159,10 +187,13 @@ aside a:visited {
     border-bottom: 20px solid #257;
 }
 
-.main .principles {
+.principles {
     background: rgba(153,204,0,0.6);	
+        color: white;
     border-top: 20px solid #257;
-
+}
+.principles a  {
+	color: #fff
 }
 article {
 /*	background: rgba(255,255,255,0.3);*/
@@ -187,9 +218,8 @@ article {
 .footer-container {
     background: #257;
     min-height: 200px;
-    /*background: url('../images/world-dots.svg') no-repeat center center #257;*/
-    /*background: url('../images/cover-hex.svg') repeat-x center bottom #eee;
-    text-shadow: 0 0 2px #257;*/
+    background: url('../images/cover-hex.png') repeat-x center bottom #eee;
+    text-shadow: 0 0 2px #257;
 }
 
 
@@ -240,9 +270,11 @@ nav ul {
 }
 
 nav a {
-    display: block;
+
+	display: block;
+
     margin-bottom: 10px;
-    padding: 10px 0;
+    padding: 0;
 
     text-align: center;
     text-decoration: none;
@@ -277,7 +309,6 @@ nav a:hover {
 }
 
 .main aside {
-    color: white;
     padding: 0px 5% 10px;
 }
 
@@ -298,22 +329,6 @@ nav a:hover {
    Author's custom styles
    ========================================================================== */
 
-nav {
-	display: none;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ==========================================================================
    Media Queries
    ========================================================================== */
@@ -331,9 +346,6 @@ nav {
 		margin-top: 10px;
 		height: 150px;
 		width: 150px;
-	}
-	nav {
-		display: block;
 	}
     nav a {
         float: left;
@@ -405,7 +417,6 @@ nav {
 /* ===============
     Maximal Width
    =============== */
-
     .wrapper {
         width: 1026px; /* 1140px - 10% for margins */
         margin: 0 auto;
