@@ -126,14 +126,15 @@ $.when(
 		stats.addLayer(lusers);
 
 		//var bb = stats.getBounds(),
-		var bb = bbplaces.extend(bbusers);
+		//
+		var bb = L.latLngBounds().extend(bbplaces).extend(bbusers);
 
 		//center = bb.getCenter(),
 		//zoom = map.getBoundsZoom(bb);
 
-		map.fitBounds(bbplaces, {
-			paddingTopLeft: L.point(0,600),
-			paddingBottomRight: L.point(600,200),
+		map.fitBounds(bb, {
+			paddingTopLeft: L.point(300,600),
+			paddingBottomRight: L.point(400,0),
 			animate: anim
 		})
 		//.setZoom(zoom,{animate: anim});
