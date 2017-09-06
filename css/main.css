@@ -237,12 +237,12 @@ article {
 	float: left;
 }
 .tech {
-	opacity: 0.8;
+	
 	clear: both;
 	height: 200px;
 	width: auto;
 	padding: 0px 5% 10px;
-	background: url('../images/tech.png') no-repeat center center rgba(255,255,255,0.6);
+	background: url('../images/tech.png') no-repeat center center rgba(255,255,255,0.8);
 	border-radius: 5px;
 	background-size: contain;
 }
