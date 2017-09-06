@@ -63,7 +63,7 @@ aside {
 }
 #map {
 	background: #eee;
-	top: 0;
+	top: -200px;
 	min-height: 400px;
 	left: 0;
 	right: 0;	
@@ -71,14 +71,17 @@ aside {
 	position: absolute;
 	z-index: -1;
 }
+body {
+	position: relative;
+}
 .links,
-.info {
-	float: right;
+.social {
 	color: #fff;
 }
-.links{
+.social iframe {
+	margin: 0 10px 10px 0;
 	float: left;
-	color: #fff;
+	display: inline-block;
 }
 .stats {
 	white-space: nowrap;
@@ -147,19 +150,6 @@ article h5 {
 	color: #257;
 }
 
-footer a,
-footer a:hover,
-footer a:active,
-footer a:visited {
-	font-size: 26px;
-	color: #eee;
-    text-shadow: 0 0 2px #257;
-}
-footer h2 {
-	color: #eee;
-	font-size: 26px;
-	margin-top: 0
-}
 aside a,
 aside a:hover,
 aside a:active,
@@ -183,9 +173,6 @@ aside a:visited {
     ALL: Orange Theme
    =================== */
 
-.header-container {
-    border-bottom: 20px solid #257;
-}
 
 .principles {
     background: rgba(153,204,0,0.6);	
@@ -204,11 +191,16 @@ article {
 
 .header-container {
 	background: url('../images/back-hex.png') repeat-x center top #eee;
+    border-bottom: 10px solid #257;
+    /*border-bottom: 5px dotted #9c0;*/
+   /* background-color: rgba(255,255,255,0.5);*/
+    /*box-shadow: 0 0 20px rgba(100,100,100,0.3);*/
+
+	z-index: 1000;
 }
 .main-container {
-	background: #eee;
 	color: #000;
-		-webkit-touch-callout: none;
+	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	-moz-user-select: none;
@@ -218,25 +210,52 @@ article {
 .footer-container {
     background: #257;
     min-height: 200px;
-    background: url('../images/cover-hex.png') repeat-x center bottom #eee;
+    background: url('../images/cover-hex.png') repeat-x center bottom #257;
     text-shadow: 0 0 2px #257;
 }
-
+.links {
+	color: #fff;
+	margin: 0;
+	margin-left: 0;	
+}
+.links ul {
+	padding: 0;
+}
+.links li {
+	float: left;
+	font-size: 80%;
+	margin-right: 10px;
+	list-style: none;
+}
+.links a,
+.links a:hover,
+.links a:active,
+.links a:visited {
+	cursor: pointer;
+	font-size: 20px;
+	color: #eee;
+    text-shadow: 0 0 2px #257;
+}
+.social {
+	float: left;
+}
+.tech {
+	opacity: 0.8;
+	clear: both;
+	height: 200px;
+	width: auto;
+	padding: 0px 5% 10px;
+	background: url('../images/tech.png') no-repeat center center rgba(255,255,255,0.6);
+	border-radius: 5px;
+	background-size: contain;
+}
 
 aside ul {
 	list-style:disc;
 	padding-left:16px;
 }
-footer li {
-	margin-bottom: 16px;
-}
 footer {
 	overflow:hidden;
-}
-footer ul {
-	float: left;
-	margin: 0;
-	margin-left: 16px;
 }
 .title {
 	text-align: center;
@@ -404,12 +423,24 @@ nav a:hover {
         float: left;
         width: 57%;
     }
-
+	.tech,
 	.main .stats,
     .main aside {
         float: right;
         width: 26%;
+        clear: right;
     }
+    .links {
+    	float: left;
+    }
+    .links li {
+    	float: none;
+    }
+    .links,
+	.social {
+		width: 27%;
+		float: left;
+	}
 }
 
 @media only screen and (min-width: 1140px) {

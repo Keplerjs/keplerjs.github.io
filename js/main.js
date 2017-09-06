@@ -16,7 +16,8 @@ var map = L.map('map', {
 
 var stats = L.featureGroup().addTo(map);
 
-var host = 'https://demo.keplerjs.io';
+//var host = 'https://demo.keplerjs.io';
+var host = 'http://climbo.local';
 
 $.when(
 	$.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json'),
@@ -59,7 +60,8 @@ $.when(
 			r = Math.min(r, 30);
 			r = Math.max(r, 3);
 
-			bbplaces.extend(loc);
+			if(r>3)
+				bbplaces.extend(loc);
 
 			if(++i==1) {	//the latest created
 				return L.marker(loc, {
@@ -118,29 +120,43 @@ $.when(
 		}
 	});
 
-	function fitStats(anim) {
-		anim = !!anim;
+	function getPadding(anim) {
+		var sOffset = $('.stats').offset();
+		return {
+			animate:anim,
+			paddingTopLeft: L.point(-(sOffset.left/6),300+sOffset.top/2),
+			paddingBottomRight: L.point(200,0)
+		}
+	}
+
+	function fitStats() {
 		stats.removeLayer(lusers);
 		stats.removeLayer(lplaces);		
 		stats.addLayer(lplaces);
 		stats.addLayer(lusers);
 
-		//var bb = stats.getBounds(),
-		//
-		var bb = L.latLngBounds().extend(bbplaces).extend(bbusers);
+		//var bb = stats.getBounds();
+		//var bb = L.latLngBounds().extend(bbplaces).extend(bbusers);
+		var bb = L.latLngBounds()
+			.extend(lplaces.getBounds())
+			.extend(lusers.getBounds());
 
-		//center = bb.getCenter(),
-		//zoom = map.getBoundsZoom(bb);
+		map.fitBounds(bb, getPadding(false) );
 
-		map.fitBounds(bb, {
-			paddingTopLeft: L.point(300,600),
-			paddingBottomRight: L.point(400,0),
-			animate: anim
-		})
-		//.setZoom(zoom,{animate: anim});
+		var c = bb.getCenter(),
+			z = map.getBoundsZoom(bb);
+		//map.setView(c, z+1, getPadding() );
+		//map.setZoom(z)
+		map.zoomIn(1,{animate:false});
 	}
 
 	fitStats();
+		
+
+/*	$(function() {
+		//map.invalidateSize(false)
+		setTimeout(fitStats, 1000)
+	});*/
 
 	$places.on('click', function(e) {
 		stats.removeLayer(lusers);
@@ -148,10 +164,7 @@ $.when(
 		map.once('zoomend moveend', function(e) {
 			stats.addLayer(lplaces);
 		});
-		map.flyToBounds(bbplaces, {
-			paddingTopLeft: L.point(0,100),
-			paddingBottomRight: L.point(300,0)
-		});
+		map.flyToBounds(bbplaces, getPadding());
 	});
 	$users.on('click', function(e) {
 		
@@ -160,15 +173,11 @@ $.when(
 		map.once('zoomend moveend', function(e) {
 			stats.addLayer(lusers);
 		});		
-		map.flyToBounds(bbusers, {
-			paddingTopLeft: L.point(0,600),
-			paddingBottomRight: L.point(300,0)
-		});
+		map.flyToBounds(bbusers, getPadding());
 	});
 	$('article').on('click', fitStats)
+	$('article').on('dblclick', function(e) {
+		map.zoomIn()
+	})
 	//*/
-});
-
-$(function() {
-	map.invalidateSize(false)
 });
