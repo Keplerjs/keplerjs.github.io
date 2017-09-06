@@ -16,8 +16,7 @@ var map = L.map('map', {
 
 var stats = L.featureGroup().addTo(map);
 
-//var host = 'https://demo.keplerjs.io';
-var host = 'http://climbo.local';
+var host = 'https://demo.keplerjs.io';
 
 $.when(
 	$.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json'),
