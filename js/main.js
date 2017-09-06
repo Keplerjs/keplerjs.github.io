@@ -176,8 +176,6 @@ $.when(
 		map.flyToBounds(bbusers, getPadding());
 	});
 	$('article').on('click', fitStats)
-	$('article').on('dblclick', function(e) {
-		map.zoomIn()
-	})
+	//$('article').on('dblclick', function(e) { map.zoomIn() })
 	//*/
 });
