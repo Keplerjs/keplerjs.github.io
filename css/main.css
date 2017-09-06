@@ -63,7 +63,7 @@ aside {
 }
 #map {
 	background: #eee;
-	top: -200px;
+	top: 0;
 	min-height: 400px;
 	left: 0;
 	right: 0;	
