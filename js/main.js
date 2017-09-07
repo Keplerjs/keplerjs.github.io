@@ -17,6 +17,7 @@ var map = L.map('map', {
 var stats = L.featureGroup().addTo(map);
 
 var host = 'https://demo.keplerjs.io';
+//var host = 'http://climbo.local';
 
 $.when(
 	$.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json'),
@@ -38,8 +39,8 @@ $.when(
 		$places = $('.stats .places')
 		$users = $('.stats .users');
 
-	$places.html('<big>'+(places && places.features && places.features.length)+'</big> places');
-	$users.html('<big>'+(users && users.features && users.features.length)+'</big> users');
+	$places.html('<big>'+(places && places.stats && places.stats.count)+'</big> places');
+	$users.html('<big>'+(users && users.stats && users.stats.count)+'</big> users');
 
 	L.geoJSON(base, {
 		style: {
@@ -53,14 +54,15 @@ $.when(
 
 	var i = 0;
 	var bbplaces = L.latLngBounds();
-	var lplaces = L.geoJSON(places, {
+	var lplaces = L.geoJSON(places.geojson, {
 		pointToLayer: function(point, loc) {
 			var r = point.properties.rank;
 			r = Math.min(r, 15);
 			r = Math.max(r, 5);
 
-			if(r>3)
+			if(r>5)
 				bbplaces.extend(loc);
+			//TODO calc bbox server side
 
 			if(++i==1) {	//the latest created
 				return L.marker(loc, {
@@ -83,14 +85,13 @@ $.when(
 	});
 
 	//users 
-
-	users.features = users.features.filter(function(f) {
+	users.geojson.features = users.geojson.features.filter(function(f) {
 		return f.geometry.coordinates.length;
 	});
 
 	var i = 0;
 	var bbusers = L.latLngBounds();
-	var lusers = L.geoJSON(users, {
+	var lusers = L.geoJSON(users.geojson, {
 		pointToLayer: function(point, loc) {
 			var r = point.properties.rank;
 			r = Math.min(r, 3);
@@ -98,7 +99,8 @@ $.when(
 			
 			if(r>2)
 				bbusers.extend(loc);
-
+			//TODO calc bbox server side
+			
 			if(++i==1) {	//the latest created
 				return L.marker(loc, {
 					icon: L.icon.pulse({
@@ -150,12 +152,6 @@ $.when(
 	}
 
 	fitStats();
-		
-
-/*	$(function() {
-		//map.invalidateSize(false)
-		setTimeout(fitStats, 1000)
-	});*/
 
 	$places.on('click', function(e) {
 		stats.removeLayer(lusers);
@@ -174,7 +170,9 @@ $.when(
 		});		
 		map.flyToBounds(bbusers, getPadding());
 	});
-	$('article').on('click', fitStats)
+	$('article').on('click', function() {
+		fitStats();
+	})
 	//$('article').on('dblclick', function(e) { map.zoomIn() })
 	//*/
 });
