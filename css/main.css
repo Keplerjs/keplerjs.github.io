@@ -131,6 +131,7 @@ a,
 a:hover,
 a:active,
 a:visited {
+	cursor: pointer;
 	color: #257;
 	font-weight: bold;
 	text-decoration: none;
@@ -247,6 +248,12 @@ article {
 	background-size: contain;
 }
 
+.copy,
+.copy a {
+	color: #8ab;
+	text-align: center;
+	clear: both;
+}
 aside ul {
 	list-style:disc;
 	padding-left:16px;

@@ -56,8 +56,8 @@ $.when(
 	var lplaces = L.geoJSON(places, {
 		pointToLayer: function(point, loc) {
 			var r = point.properties.rank;
-			r = Math.min(r, 30);
-			r = Math.max(r, 3);
+			r = Math.min(r, 15);
+			r = Math.max(r, 5);
 
 			if(r>3)
 				bbplaces.extend(loc);
