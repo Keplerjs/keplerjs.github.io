@@ -185,6 +185,7 @@ article {
 	border-radius: 5px;
 	padding: 16px;
 	margin-bottom: 16px;
+	text-shadow: 0 0 5px #eee;
 }
 
 .header-container {

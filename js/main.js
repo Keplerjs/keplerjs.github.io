@@ -17,7 +17,6 @@ var map = L.map('map', {
 var stats = L.featureGroup().addTo(map);
 
 var host = 'https://demo.keplerjs.io';
-//var host = 'http://climbo.local';
 
 $.when(
 	$.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json'),
@@ -94,10 +93,10 @@ $.when(
 	var lusers = L.geoJSON(users.geojson, {
 		pointToLayer: function(point, loc) {
 			var r = point.properties.rank;
-			r = Math.min(r, 3);
+			r = Math.min(r, 4);
 			r = Math.max(r, 2);
 			
-			if(r>2)
+			if(r>3)
 				bbusers.extend(loc);
 			//TODO calc bbox server side
 			
