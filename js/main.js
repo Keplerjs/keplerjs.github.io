@@ -77,7 +77,7 @@ $.when(
 		},
 		style: {
 			weight:0,
-			fillOpacity:0.5,
+			fillOpacity:0.4,
 			fillColor:'#257',
 			color:'#257'
 		}
@@ -105,7 +105,7 @@ $.when(
 					icon: L.icon.pulse({
 						heartbeat: 2,
 						iconSize: [8, 8],
-						color:'#f72'
+						color:'#f83'
 					})
 				})
 			}
@@ -113,10 +113,11 @@ $.when(
 				return L.circleMarker(loc, {radius: r })		
 		},
 		style: {
-			weight:0,
+			weight:1,
+			opacity:1,
 			fillOpacity:1,
-			fillColor:'#f72',
-			color:'#f72'
+			fillColor:'#f83',
+			color:'#f61'
 		}
 	});
 
@@ -138,8 +139,10 @@ $.when(
 		//var bb = stats.getBounds();
 		//var bb = L.latLngBounds().extend(bbplaces).extend(bbusers);
 		var bb = L.latLngBounds()
-			.extend(lplaces.getBounds())
-			.extend(lusers.getBounds());
+			.extend(bbplaces)
+			.extend(bbusers)
+			//.extend(lplaces.getBounds())
+			//.extend(lusers.getBounds());
 
 		map.fitBounds(bb, getPadding(false) );
 

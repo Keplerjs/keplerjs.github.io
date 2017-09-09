@@ -244,7 +244,7 @@ article {
 	height: 200px;
 	width: auto;
 	padding: 0px 5% 10px;
-	background: url('../images/tech.png') no-repeat center center rgba(255,255,255,0.8);
+	background: url('../images/tech.png') no-repeat center center rgba(255,255,255,0.7);
 	border-radius: 5px;
 	background-size: contain;
 }
@@ -338,7 +338,7 @@ nav a:hover {
 
 .footer-container footer {
     color: white;
-    padding: 20px 0;
+    padding-top: 20px;
 }
 
 /* ===============
