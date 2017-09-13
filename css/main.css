@@ -230,7 +230,7 @@ article {
 .links ul {
 	padding: 0;
 	float: left;
-	margin-right: 20px
+	margin: 0 20px 20px 0;
 }
 .links li {
 	float: left;
@@ -276,6 +276,7 @@ article {
 .copy a {
 	color: #8ab;
 	text-align: center;
+	font-weight: normal;
 	clear: both;
 }
 aside ul {
@@ -361,7 +362,7 @@ nav a:hover {
 
 .footer-container footer {
     color: white;
-    padding-top: 20px;
+    padding: 20px 0 10px 0;
 }
 
 /* ===============
