@@ -71,14 +71,8 @@ aside {
 	position: absolute;
 	z-index: -1;
 }
-.links,
-.social {
+.links {
 	color: #fff;
-}
-.social iframe {
-	margin: 0 10px 10px 0;
-	float: left;
-	display: inline-block;
 }
 .stats {
 	white-space: nowrap;
@@ -170,6 +164,21 @@ aside a:visited {
 /* ===================
     ALL: Orange Theme
    =================== */
+.icon {
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	line-height: 1;
+	/* come .glyphicon */
+	vertical-align: text-bottom;/*non modificare!*/
+	height: 18px;
+	width: 18px;
+	background: url("https://demo.keplerjs.io/packages/keplerjs_theme/assets/images/sprite.svg") no-repeat;
+}
+.icon-git { background-position: -180px -360px; } 
+.icon-twit{ background-position: -180px -390px; } 
+.icon-face{ background-position: -180px -420px; } 
+.icon-medi{ background-position: -180px -450px; } 
 
 
 .principles {
@@ -216,9 +225,12 @@ article {
 	color: #fff;
 	margin: 0;
 	margin-left: 0;	
+	margin-bottom: 20px;	
 }
 .links ul {
 	padding: 0;
+	float: left;
+	margin-right: 20px
 }
 .links li {
 	float: left;
@@ -235,18 +247,29 @@ article {
 	color: #eee;
     text-shadow: 0 0 2px #257;
 }
-.social {
+.slogan {
 	float: left;
 }
+.social a {
+	font-size: 12px;
+	text-align: right;
+	float: right;
+	margin-left: 10px
+}
 .tech {
-	
-	clear: both;
 	height: 200px;
 	width: auto;
 	padding: 0px 5% 10px;
 	background: url('../images/tech.png') no-repeat center center rgba(255,255,255,0.7);
 	border-radius: 5px;
 	background-size: contain;
+	margin-bottom: 20px;
+	float: right;
+}
+.news {
+	float: left;
+	margin-bottom: 20px;	
+	opacity: 0.7
 }
 
 .copy,
@@ -298,7 +321,7 @@ nav a {
 	display: block;
 
     margin-bottom: 10px;
-    padding: 0;
+	padding: 10px 2%;
 
     text-align: center;
     text-decoration: none;
@@ -435,17 +458,15 @@ nav a:hover {
         width: 26%;
         clear: right;
     }
+    aside iframe {
+    	min-width: 500px;
+    }
     .links {
     	float: left;
     }
     .links li {
     	float: none;
     }
-    .links,
-	.social {
-		width: 27%;
-		float: left;
-	}
 }
 
 @media only screen and (min-width: 1140px) {
