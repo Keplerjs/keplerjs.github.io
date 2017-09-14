@@ -6,7 +6,7 @@ var map = L.map('map', {
 	boxZoom: false,
 	trackResize:true,
 	//dragging: false,
-	keyboard: false,
+	//keyboard: false,
 	scrollWheelZoom:false,
 	//doubleClickZoom:false,
 	attributionControl: false,
