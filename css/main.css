@@ -183,11 +183,26 @@ aside a:visited {
 
 .principles {
     background: rgba(153,204,0,0.6);	
-        color: white;
+    color: white;
     border-top: 20px solid #257;
+    font-size: 14px;
+    line-height: 16px;
 }
-.principles a  {
-	color: #fff
+.principles li {
+	list-style:none;
+	margin-bottom: 10px;
+}
+.principles a {
+	color: #fff;
+	text-decoration: none;
+}
+.principles b {
+	margin-right: 5px;
+	display: inline-block;
+	float: left;
+	vertical-align: top;	
+	font-size: 32px;
+	line-height: 30px
 }
 article {
 /*	background: rgba(255,255,255,0.3);*/
@@ -251,10 +266,14 @@ article {
 	float: left;
 }
 .social a {
+	letter-spacing: 2px;
 	font-size: 12px;
 	text-align: right;
 	float: right;
 	margin-left: 10px
+}
+.social a:hover {
+	text-decoration: none;
 }
 .tech {
 	height: 200px;
@@ -357,7 +376,7 @@ nav a:hover {
 }
 
 .main aside {
-    padding: 0px 5% 10px;
+    padding: 0px 3% 10px;
 }
 
 .footer-container footer {
