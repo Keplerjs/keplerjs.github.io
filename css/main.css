@@ -79,6 +79,11 @@ aside {
 	color: #9c0;
 	background: rgba(255,255,255, 0.5);
 }
+.stats h3 {
+	margin-top: 20px;
+	display: inline-block;
+	vertical-align: baseline;
+}
 .stats .users,
 .stats .places {
 	font-size: 180%;
@@ -87,18 +92,20 @@ aside {
 	cursor: pointer;
 	display: block;
 }
-.stats a:hover {
+aside.stats a:hover {
 	text-decoration: none;
 }
-.stats .places {
+aside.stats .places,
+aside.stats .places:hover {
 	color: #225577;
 	text-shadow: 1px 1px 3px rgba(0,0,0, 0.5);
 }
-.stats .users {
-	color: #f72;
+aside.stats .users,
+aside.stats .users:hover {
+	color: #ff7722;
 	text-shadow: 1px 1px 3px rgba(0,0,0, 0.5);
 }
-.stats .demo {
+aside.stats .demo {
 	background: #9c0;
 	display: inline-block;
 	border-radius: 5px;
@@ -106,10 +113,10 @@ aside {
 	color: #fff;
 	text-decoration: none;
 }
-.stats a {
+aside.stats a {
 	opacity: 0.8;
 }
-.stats a:hover {
+aside.stats a:hover {
 	opacity: 1;
 }
 /* ===== Initializr Styles ==================================================
@@ -139,6 +146,7 @@ article h2,
 article h3,
 article h4,
 article h5 {
+	margin-top: 20px; 
 	color: #257;
 }
 
@@ -207,7 +215,7 @@ aside a:visited {
 article {
 /*	background: rgba(255,255,255,0.3);*/
 	border-radius: 5px;
-	padding: 16px;
+	padding: 0;
 	margin-bottom: 16px;
 	text-shadow: 0 0 5px #eee;
 }
@@ -328,6 +336,16 @@ footer {
 	clear:both;
 	color:#257;
 }
+
+.carousel-inner {
+	height:500px;
+	overflow: hidden;
+	/*filter: blur(4px);*/
+}
+.carousel-control-next-icon {
+	opacity: 1
+}
+
 /* ==============
     MOBILE: Menu
    ============== */
@@ -417,7 +435,7 @@ nav a:hover {
 		width: 150px;
 	}
     nav a {
-        float: left;
+        float: right;
         width: 27%;
         margin: 0 1.7%;
         padding: 20px 2%;
@@ -463,7 +481,7 @@ nav a:hover {
 
     nav {
         float: right;
-        width: 38%;
+        width: 36%;
     }
 
 /* ============
@@ -478,7 +496,7 @@ nav a:hover {
 	.main .stats,
     .main aside {
         float: right;
-        width: 26%;
+        width: 30%;
         clear: right;
     }
     .news {
