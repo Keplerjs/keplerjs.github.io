@@ -186,7 +186,7 @@ aside a:visited {
     color: white;
     border-top: 20px solid #257;
     font-size: 14px;
-    line-height: 16px;
+    line-height: 17px;
 }
 .principles li {
 	list-style:none;
@@ -197,7 +197,7 @@ aside a:visited {
 	text-decoration: none;
 }
 .principles b {
-	margin-right: 5px;
+	margin-right: 12px;
 	display: inline-block;
 	float: left;
 	vertical-align: top;	
@@ -278,15 +278,17 @@ article {
 .tech {
 	height: 200px;
 	width: auto;
+	max-width: auto;
 	padding: 0px 5% 10px;
 	background: url('../images/tech.png') no-repeat center center rgba(255,255,255,0.7);
 	border-radius: 5px;
 	background-size: contain;
 	margin-bottom: 20px;
-	float: right;
+	clear: both;
 }
 .news {
 	float: left;
+	width: 150px;
 	margin-bottom: 20px;	
 	opacity: 0.7
 }
@@ -448,6 +450,7 @@ nav a:hover {
     }
 }
 
+
 @media only screen and (min-width: 768px) {
 
 /* ============
@@ -478,10 +481,15 @@ nav a:hover {
         width: 26%;
         clear: right;
     }
+    .news {
+    	width: auto;
+    	max-width: 200px;
+    }
     aside iframe {
     	min-width: 500px;
     }
     .links {
+    	width: 33%;
     	float: left;
     }
     .links li {

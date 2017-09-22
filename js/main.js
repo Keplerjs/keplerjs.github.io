@@ -77,7 +77,7 @@ $.when(
 		},
 		style: {
 			weight:0,
-			fillOpacity:0.4,
+			fillOpacity:0.3,
 			fillColor:'#257',
 			color:'#257'
 		}
@@ -113,8 +113,8 @@ $.when(
 				return L.circleMarker(loc, {radius: r })		
 		},
 		style: {
-			weight:1,
-			opacity:1,
+			weight:0,
+			opacity:0.8,
 			fillOpacity:1,
 			fillColor:'#f83',
 			color:'#f61'
@@ -125,7 +125,7 @@ $.when(
 		var sOffset = $('.stats').offset();
 		return {
 			animate:anim,
-			paddingTopLeft: L.point(-(sOffset.left/6),300+sOffset.top/2),
+			paddingTopLeft: L.point((sOffset.left/3),300+sOffset.top/2),
 			paddingBottomRight: L.point(200,0)
 		}
 	}
