@@ -124,7 +124,8 @@ aside.stats a:hover {
    ========================================================================== */
 
 body {
-    font: 16px/26px Helvetica, Helvetica Neue, Arial;
+    font-family: 'Source Sans Pro',sans-serif;
+    font-size: 18px;
     background: #eee;
     color: #333;
 }
@@ -205,12 +206,12 @@ aside a:visited {
 	text-decoration: none;
 }
 .principles b {
-	margin-right: 12px;
+	margin-right: 5px;
 	display: inline-block;
 	float: left;
 	vertical-align: top;	
 	font-size: 32px;
-	line-height: 30px
+	line-height: 32px
 }
 article {
 /*	background: rgba(255,255,255,0.3);*/
