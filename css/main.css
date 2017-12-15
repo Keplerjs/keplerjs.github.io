@@ -87,7 +87,7 @@ aside {
 .stats .users,
 .stats .places {
 	font-size: 180%;
-	margin:10px 0;
+    line-height: 120%;
 	text-decoration: none;
 	cursor: pointer;
 	display: block;
@@ -162,6 +162,14 @@ aside a:visited {
     margin: 0 5%;
 }
 
+input {
+    border: solid 1px #ccc;
+    font-size: small;
+    padding: 4px;
+    font-family: courier;
+    border-radius:3px;
+    background: #eee;
+}
 #tryitout a,
 #tryitout a:hover,
 #tryitout a:active,
@@ -276,7 +284,7 @@ article {
 }
 .social a {
 	letter-spacing: 2px;
-	font-size: 12px;
+	font-size: 14px;
 	text-align: right;
 	float: right;
 	margin-left: 10px
