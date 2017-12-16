@@ -310,6 +310,12 @@ article {
 	opacity: 0.7
 }
 
+a.bitcoin {
+    font-family: courier;
+    font-size:14px;
+    font-weight: normal;
+}
+
 .copy,
 .copy a {
 	color: #8ab;
