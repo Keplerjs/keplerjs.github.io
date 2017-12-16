@@ -74,7 +74,7 @@ aside {
 .links {
 	color: #fff;
 }
-.stats {
+aside.stats {
 	white-space: nowrap;
 	color: #9c0;
 	background: rgba(255,255,255, 0.5);
@@ -110,6 +110,7 @@ aside.stats .demo {
 	display: inline-block;
 	border-radius: 5px;
 	padding: 10px;
+    margin: 10px 0;
 	color: #fff;
 	text-decoration: none;
 }
@@ -141,7 +142,9 @@ a:visited {
 a:hover {
 	text-decoration:underline;
 }
-
+b {
+    color: #257;
+}
 article h1,
 article h2,
 article h3,
@@ -214,6 +217,7 @@ input {
 	text-decoration: none;
 }
 .principles b {
+    color: #fff;
 	margin-right: 5px;
 	display: inline-block;
 	float: left;
@@ -312,7 +316,7 @@ article {
 
 a.bitcoin {
     font-family: courier;
-    font-size:14px;
+    font-size:12px;
     font-weight: normal;
 }
 
