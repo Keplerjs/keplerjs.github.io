@@ -62,14 +62,16 @@ $.when(
 			if(r>5)
 				bbplaces.extend(loc);
 			//TODO calc bbox server side
+			//
+			var icon = L.icon.pulse({
+				heartbeat: 2,
+				iconSize: [8,8],
+				color:'#257'
+			});
 
 			if(++i==1) {	//the latest created
 				return L.marker(loc, {
-					icon: L.icon.pulse({
-						heartbeat: 2,
-						iconSize: [8,8],
-						color:'#257'
-					})
+					icon: icon
 				})
 			}
 			else
@@ -100,13 +102,15 @@ $.when(
 				bbusers.extend(loc);
 			//TODO calc bbox server side
 			
+			var icon = L.icon.pulse({
+				heartbeat: 2,
+				iconSize: [8, 8],
+				color:'#f83'
+			});
+
 			if(++i==1) {	//the latest created
 				return L.marker(loc, {
-					icon: L.icon.pulse({
-						heartbeat: 2,
-						iconSize: [8, 8],
-						color:'#f83'
-					})
+					icon: icon
 				})
 			}
 			else
