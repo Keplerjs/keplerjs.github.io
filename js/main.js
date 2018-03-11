@@ -16,7 +16,7 @@ var map = L.map('map', {
 
 var stats = L.featureGroup().addTo(map);
 
-var host = 'https://demo.keplerjs.io';
+var host = 'https://demo.keplerjs.local';
 
 $.when(
 	$.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json'),
@@ -29,13 +29,26 @@ $.when(
 		url: host+'/stats/users',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    timeout: 1000
+	}),
+	$.ajax({
+		url: host+'/stats/usersCount',
+	    jsonp: 'jsonp', dataType: 'jsonp',
+	    timeout: 1000
+	}),
+	$.ajax({
+		url: host+'/stats/placesCount',
+	    jsonp: 'jsonp', dataType: 'jsonp',
+	    timeout: 1000
 	})	
 )
-.then(function(ret0, ret1, ret2) {
+.then(function(ret0, ret1, ret2, ret3, ret4) {
 	var base = ret0[0],
 		places = ret1[0],
 		users = ret2[0],
-		$places = $('.stats .places')
+		usersCount = ret3[0],
+		placesCount = ret4[0];
+
+	var	$places = $('.stats .places')
 		$users = $('.stats .users');
 
 	$places.html('<big>'+(places && places.stats && places.stats.count)+'</big> places');
@@ -178,7 +191,56 @@ $.when(
 	});
 	$('article').on('click', function() {
 		fitStats();
-	})
-	//$('article').on('dblclick', function(e) { map.zoomIn() })
-	//*/
+	});
+
+var chartUsers = []
+for(var i in usersCount.stats.rows) {
+	chartUsers.push({
+		x: new Date(usersCount.stats.rows[i][0]),
+		y: usersCount.stats.rows[i][1]
+	});
+}
+
+var chartPlaces = []
+for(var i in placesCount.stats.rows) {
+	chartPlaces.push({
+		x: new Date(placesCount.stats.rows[i][0]),
+		y: placesCount.stats.rows[i][1]
+	});
+}
+
+var chart = new Chartist.Line('.chartStats', {
+  series: [
+    {
+      name: 'New Users',
+      data: chartUsers
+    },
+    {
+      name: 'New Places',
+      data: chartPlaces
+    }    
+  ]
+}, {
+	fullWidth: true,
+	height: '160px',
+	showPoint: false,
+	showArea: true,
+	chartPadding: {
+		left: 0,
+		right: 0,
+	},
+	axisY: {
+		//showGrid: false
+	},
+	axisX: {
+		showGrid: false,
+		type: Chartist.FixedScaleAxis,
+		divisor: 6,
+		labelInterpolationFnc: function(d) {
+		  var s = (new Date(d)).toDateString().split(' ')
+		  return s[1];
+		}
+	}
+});
+
 });
