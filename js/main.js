@@ -16,7 +16,7 @@ var map = L.map('map', {
 
 var stats = L.featureGroup().addTo(map);
 
-var host = 'https://demo.keplerjs.io';
+var host = 'https://demo.keplerjs.local';
 
 $.when(
 	$.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json'),
@@ -31,12 +31,12 @@ $.when(
 	    timeout: 1000
 	}),
 	$.ajax({
-		url: host+'/stats/usersCount',
+		url: host+'/stats/users/count',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    timeout: 1000
 	}),
 	$.ajax({
-		url: host+'/stats/placesCount',
+		url: host+'/stats/places/count',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    timeout: 1000
 	})	
