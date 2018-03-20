@@ -16,7 +16,7 @@ var map = L.map('map', {
 
 var stats = L.featureGroup().addTo(map);
 
-var host = 'https://demo.keplerjs.io';
+var host = 'http://demo.keplerjs.local';
 
 $.when(
 	$.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json'),
@@ -49,10 +49,12 @@ $.when(
 		placesCount = ret4[0];
 
 	var	$places = $('.stats .places')
-		$users = $('.stats .users');
+		$users = $('.stats .users'),
+		pval = (places && places.stats && places.stats.count),
+		uval = (users && users.stats && users.stats.count);
 
-	$places.html('<big>'+(places && places.stats && places.stats.count)+'</big> places');
-	$users.html('<big>'+(users && users.stats && users.stats.count)+'</big> users');
+	$places.html('<big>'+pval+'</big> places');
+	$users.html('<big>'+uval+'</big> users ');
 
 	L.geoJSON(base, {
 		style: {
