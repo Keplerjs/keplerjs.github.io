@@ -1,4 +1,6 @@
 
+var host = 'https://demo.keplerjs.io';
+
 var map = L.map('map', {
 	center:[62.3087, -5.9765],
 	zoom:3,
@@ -13,13 +15,24 @@ var map = L.map('map', {
 	zoomControl: false,
 }).fitWorld();
 
+var geoLayer = L.geoJSON(null, {
+	style: {
+		weight: 1,
+		opacity: 0.3,
+		color:'#9c0',
+		fillColor:'#9c0',
+		fillOpacity: 0.1
+	}
+}).addTo(map);
 
-var stats = L.featureGroup().addTo(map);
+var statsLayer = L.featureGroup().addTo(map);
 
-var host = 'https://demo.keplerjs.io';
+$.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json', function(json) {
+	geoLayer.addData(json);
+});
 
+/* layers */
 $.when(
-	$.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json'),
 	$.ajax({
 		url: host+'/stats/places',
 	    jsonp: 'jsonp', dataType: 'jsonp',
@@ -29,24 +42,10 @@ $.when(
 		url: host+'/stats/users',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    timeout: 1000
-	}),
-	$.ajax({
-		url: host+'/stats/users/count',
-	    jsonp: 'jsonp', dataType: 'jsonp',
-	    timeout: 1000
-	}),
-	$.ajax({
-		url: host+'/stats/places/count',
-	    jsonp: 'jsonp', dataType: 'jsonp',
-	    timeout: 1000
-	})	
-)
-.then(function(ret0, ret1, ret2, ret3, ret4) {
-	var base = ret0[0],
-		places = ret1[0],
-		users = ret2[0],
-		usersCount = ret3[0],
-		placesCount = ret4[0];
+	})
+).then(function(ret1, ret2, ret3, ret4) {
+	var places = ret1[0],
+		users = ret2[0];
 
 	var	$places = $('.stats .places')
 		$users = $('.stats .users'),
@@ -55,16 +54,6 @@ $.when(
 
 	$places.html('<big>'+pval+'</big> places');
 	$users.html('<big>'+uval+'</big> users ');
-
-	L.geoJSON(base, {
-		style: {
-			weight:1,
-			fillColor:'#9c0',
-			opacity:0.3,
-			fillOpacity:0.1,
-			color:'#9c0'
-		}
-	}).addTo(map);
 
 	var i = 0;
 	var bbplaces = L.latLngBounds();
@@ -150,12 +139,12 @@ $.when(
 	}
 
 	function fitStats() {
-		stats.removeLayer(lusers);
-		stats.removeLayer(lplaces);		
-		stats.addLayer(lplaces);
-		stats.addLayer(lusers);
+		statsLayer.removeLayer(lusers);
+		statsLayer.removeLayer(lplaces);		
+		statsLayer.addLayer(lplaces);
+		statsLayer.addLayer(lusers);
 
-		//var bb = stats.getBounds();
+		//var bb = statsLayer.getBounds();
 		//var bb = L.latLngBounds().extend(bbplaces).extend(bbusers);
 		var bb = L.latLngBounds()
 			.extend(bbplaces)
@@ -175,74 +164,92 @@ $.when(
 	fitStats();
 
 	$places.on('click', function(e) {
-		stats.removeLayer(lusers);
-		stats.removeLayer(lplaces);
+		statsLayer.removeLayer(lusers);
+		statsLayer.removeLayer(lplaces);
 		map.once('zoomend moveend', function(e) {
-			stats.addLayer(lplaces);
+			statsLayer.addLayer(lplaces);
 		});
 		map.flyToBounds(bbplaces, getPadding());
 	});
 	$users.on('click', function(e) {
 		
-		stats.removeLayer(lusers);
-		stats.removeLayer(lplaces);
+		statsLayer.removeLayer(lusers);
+		statsLayer.removeLayer(lplaces);
 		map.once('zoomend moveend', function(e) {
-			stats.addLayer(lusers);
+			statsLayer.addLayer(lusers);
 		});		
 		map.flyToBounds(bbusers, getPadding());
 	});
 	$('article').on('click', function() {
 		fitStats();
 	});
-
-var chartUsers = []
-for(var i in usersCount.stats.rows) {
-	chartUsers.push({
-		x: new Date(usersCount.stats.rows[i][0]),
-		y: usersCount.stats.rows[i][1]
-	});
-}
-
-var chartPlaces = []
-for(var i in placesCount.stats.rows) {
-	chartPlaces.push({
-		x: new Date(placesCount.stats.rows[i][0]),
-		y: placesCount.stats.rows[i][1]
-	});
-}
-
-var chart = new Chartist.Line('.chartStats', {
-  series: [
-    {
-      name: 'New Users',
-      data: chartUsers
-    },
-    {
-      name: 'New Places',
-      data: chartPlaces
-    }    
-  ]
-}, {
-	fullWidth: true,
-	height: '160px',
-	showPoint: false,
-	showArea: true,
-	chartPadding: {
-		left: 0,
-		right: 0,
-	},
-	axisY: {
-		//showGrid: false
-	},
-	axisX: {
-		showGrid: false,
-		type: Chartist.FixedScaleAxis,
-		divisor: 6,
-		labelInterpolationFnc: function(d) {
-		  var s = (new Date(d)).toDateString().split(' ')
-		  return s[1];
-		}
-	}
 });
+
+/* charts */
+
+$.when(
+	$.ajax({
+		url: host+'/stats/users/count',
+	    jsonp: 'jsonp', dataType: 'jsonp',
+	    timeout: 1000
+	}),
+	$.ajax({
+		url: host+'/stats/places/count',
+	    jsonp: 'jsonp', dataType: 'jsonp',
+	    timeout: 1000
+	})
+).then(function(ret3, ret4) {
+	var usersCount = ret3[0],
+		placesCount = ret4[0];
+
+	var chartUsers = []
+	for(var i in usersCount.stats.rows) {
+		chartUsers.push({
+			x: new Date(usersCount.stats.rows[i][0]),
+			y: usersCount.stats.rows[i][1]
+		});
+	}
+
+	var chartPlaces = []
+	for(var i in placesCount.stats.rows) {
+		chartPlaces.push({
+			x: new Date(placesCount.stats.rows[i][0]),
+			y: placesCount.stats.rows[i][1]
+		});
+	}
+
+	var chart = new Chartist.Line('.chartStats', {
+	  series: [
+	    {
+	      name: 'New Users',
+	      data: chartUsers
+	    },
+	    {
+	      name: 'New Places',
+	      data: chartPlaces
+	    }    
+	  ]
+	}, {
+		fullWidth: true,
+		height: '160px',
+		showPoint: false,
+		showArea: true,
+		chartPadding: {
+			left: 0,
+			right: 0,
+		},
+		axisY: {
+			//showGrid: false
+		},
+		axisX: {
+			showGrid: false,
+			type: Chartist.FixedScaleAxis,
+			divisor: 6,
+			labelInterpolationFnc: function(d) {
+			  var s = (new Date(d)).toDateString().split(' ')
+			  return s[1];
+			}
+		}
+	});
 
 });
