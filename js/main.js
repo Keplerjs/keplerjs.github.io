@@ -2,7 +2,7 @@
 var host = 'https://demo.keplerjs.io';
 
 var map = L.map('map', {
-	center:[62.3087, -5.9765],
+	center:[40,0],
 	zoom:3,
 	minZoom:3,
 	boxZoom: false,
@@ -60,7 +60,7 @@ $.when(
 	var lplaces = L.geoJSON(places.geojson, {
 		pointToLayer: function(point, loc) {
 			var r = point.properties.rank;
-			r = Math.min(r, 15);
+			r = Math.min(r, 12);
 			r = Math.max(r, 5);
 
 			if(r>5)
@@ -99,8 +99,8 @@ $.when(
 	var lusers = L.geoJSON(users.geojson, {
 		pointToLayer: function(point, loc) {
 			var r = point.properties.rank;
-			r = Math.min(r, 4);
-			r = Math.max(r, 2);
+			r = Math.min(r, 3);
+			r = Math.max(r, 1);
 			
 			if(r>3)
 				bbusers.extend(loc);
@@ -143,7 +143,7 @@ $.when(
 		statsLayer.removeLayer(lplaces);		
 		statsLayer.addLayer(lplaces);
 		statsLayer.addLayer(lusers);
-
+/*
 		//var bb = statsLayer.getBounds();
 		//var bb = L.latLngBounds().extend(bbplaces).extend(bbusers);
 		var bb = L.latLngBounds()
@@ -155,10 +155,10 @@ $.when(
 		map.fitBounds(bb, getPadding(false) );
 
 		var c = bb.getCenter(),
-			z = map.getBoundsZoom(bb);
-		//map.setView(c, z+1, getPadding() );
+			z = map.getBoundsZoom(bb);*/
+		map.setView([40,0], 3, {animate:false} );
 		//map.setZoom(z)
-		map.zoomIn(1,{animate:false});
+		//map.zoomIn(1,{animate:false});
 	}
 
 	fitStats();
@@ -169,7 +169,7 @@ $.when(
 		map.once('zoomend moveend', function(e) {
 			statsLayer.addLayer(lplaces);
 		});
-		map.flyToBounds(bbplaces, getPadding());
+		map.flyToBounds(bbplaces);
 	});
 	$users.on('click', function(e) {
 		
@@ -178,7 +178,7 @@ $.when(
 		map.once('zoomend moveend', function(e) {
 			statsLayer.addLayer(lusers);
 		});		
-		map.flyToBounds(bbusers, getPadding());
+		map.flyToBounds(bbusers);
 	});
 	$('article').on('click', function() {
 		fitStats();
