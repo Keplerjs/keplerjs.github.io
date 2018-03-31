@@ -1,3 +1,4 @@
+$(function() {
 
 var host = 'https://demo.keplerjs.io';
 
@@ -251,5 +252,6 @@ $.when(
 			}
 		}
 	});
+});
 
 });
