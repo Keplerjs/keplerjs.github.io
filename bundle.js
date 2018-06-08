@@ -28940,7 +28940,7 @@ $.when(
 			r = Math.min(r, 3);
 			r = Math.max(r, 1);
 			
-			if(r>3)
+			if(r>2)
 				bbusers.extend(loc);
 			//TODO calc bbox server side
 			
@@ -29015,7 +29015,7 @@ $.when(
 		statsLayer.removeLayer(lplaces);
 		map.once('zoomend moveend', function(e) {
 			statsLayer.addLayer(lusers);
-		});		
+		});
 		map.flyToBounds(bbusers);
 	});
 	$('article').on('click', function() {
