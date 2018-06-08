@@ -1,6 +1,21 @@
-$(function() {
+
 
 var host = 'https://demo.keplerjs.io';
+
+var $ = jQuery = require('jquery');
+
+var L = require('leaflet');
+var Pulse = require('leaflet-pulse-icon');
+var Chartist = require('chartist');
+
+require('../node_modules/leaflet/dist/leaflet.css');
+require('../node_modules/leaflet-pulse-icon/src/L.Icon.Pulse.css');
+require('../node_modules/chartist/dist/chartist.css');
+
+require('../css/main.css');
+
+
+$(function() {
 
 var map = L.map('map', {
 	center:[40,0],
