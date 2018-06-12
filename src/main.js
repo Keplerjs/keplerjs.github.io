@@ -8,6 +8,9 @@ var L = require('leaflet');
 var Pulse = require('leaflet-pulse-icon');
 var Chartist = require('chartist');
 
+var d3 = require('d3');
+var d3L = require('@asymmetrik/leaflet-d3');
+
 require('../node_modules/leaflet/dist/leaflet.css');
 require('../node_modules/leaflet-pulse-icon/src/L.Icon.Pulse.css');
 require('../node_modules/chartist/dist/chartist.css');
@@ -40,6 +43,17 @@ var geoLayer = L.geoJSON(null, {
 
 var statsLayer = L.featureGroup().addTo(map);
 
+var hexPlacesLayer = L.hexbinLayer({
+	radius : 16,
+	opacity: 1,
+	duration: 10,
+	//colorScaleExtent: [ 1, undefined ],
+	//radiusScaleExtent: [ 1, undefined ],
+	colorRange: [ '#eeeeee', '#08306b' ],
+	radiusRange: [ 4, 16 ],
+	//pointerEvents: 'all'
+}).addTo(map);
+
 $.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json', function(json) {
 	geoLayer.addData(json);
 });
@@ -68,6 +82,8 @@ $.when(
 	$places.html('<big>'+pval+'</big> places');
 	$users.html('<big>'+uval+'</big> users ');
 
+	var hexPlaces = [];
+
 	var i = 0;
 	var bbplaces = L.latLngBounds();
 	var lplaces = L.geoJSON(places.geojson, {
@@ -76,6 +92,8 @@ $.when(
 			r = Math.min(r, 12);
 			r = Math.max(r, 5);
 
+			hexPlaces.push([loc.lng, loc.lat]);
+			
 			if(r>5)
 				bbplaces.extend(loc);
 			//TODO calc bbox server side
@@ -101,6 +119,8 @@ $.when(
 			color:'#257'
 		}
 	});
+
+	hexPlacesLayer.data(hexPlaces);
 
 	//users 
 	users.geojson.features = users.geojson.features.filter(function(f) {
@@ -154,8 +174,12 @@ $.when(
 	function fitStats() {
 		statsLayer.removeLayer(lusers);
 		statsLayer.removeLayer(lplaces);		
-		statsLayer.addLayer(lplaces);
-		statsLayer.addLayer(lusers);
+		
+		//statsLayer.addLayer(lplaces);
+		//statsLayer.addLayer(lusers);
+
+		statsLayer.addLayer(hexPlacesLayer);
+
 /*
 		//var bb = statsLayer.getBounds();
 		//var bb = L.latLngBounds().extend(bbplaces).extend(bbusers);
@@ -211,9 +235,9 @@ $.when(
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    timeout: 1000
 	})
-).then(function(ret3, ret4) {
-	var usersCount = ret3[0],
-		placesCount = ret4[0];
+).then(function(retUsers, retPlaces) {
+	var usersCount = retUsers[0],
+		placesCount = retPlaces[0];
 
 	var chartUsers = []
 	for(var i in usersCount.stats.rows) {
