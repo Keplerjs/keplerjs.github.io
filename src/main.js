@@ -12,9 +12,6 @@ require('../node_modules/leaflet/dist/leaflet.css');
 require('../node_modules/leaflet-pulse-icon/src/L.Icon.Pulse.css');
 require('../node_modules/chartist/dist/chartist.css');
 
-require('../css/main.css');
-
-
 $(function() {
 
 var map = L.map('map', {

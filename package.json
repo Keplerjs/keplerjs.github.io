@@ -35,6 +35,9 @@
   },
   "browserify-css": {
     "autoInject": true,
+    "autoInjectOptions": {
+      "insertAt": "top"
+    },
     "minify": true,
     "rootDir": "."
   },
