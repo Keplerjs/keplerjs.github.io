@@ -73,9 +73,9 @@ aside {
 }
 
 .hexbin-hexagon {
-    stroke: #257;
+    stroke: #eee;
     stroke-opacity: 0.2;
-    stroke-width: 1px;
+    stroke-width: 0
 }
 .pingPlaces {
     fill: #257;

@@ -3,6 +3,7 @@
 var host = 'https://demo.keplerjs.io';
 
 var $ = jQuery = require('jquery');
+var _ = require('underscore');
 
 var L = require('leaflet');
 var Chartist = require('chartist');
@@ -15,20 +16,22 @@ require('../node_modules/chartist/dist/chartist.css');
 
 $(function() {
 
-var map = L.map('map', {
-	center:[40,0],
-	zoom:3,
-	minZoom: 3,
-	maxZoom: 8,
-	boxZoom: false,
-	trackResize:true,
-	//dragging: false,
-	//keyboard: false,
-	scrollWheelZoom:false,
-	//doubleClickZoom:false,
-	attributionControl: false,
-	zoomControl: false,
-}).fitWorld();
+var worldCenter = [40,0],
+	worldZoom = 3,
+	map = L.map('map', {
+		center: worldCenter,
+		zoom: worldZoom,
+		minZoom: worldZoom,
+		maxZoom: 8,
+		boxZoom: false,
+		trackResize:true,
+		//dragging: false,
+		//keyboard: false,
+		scrollWheelZoom:false,
+		//doubleClickZoom:false,
+		attributionControl: false,
+		zoomControl: false,
+	});
 
 window.map = map;
 
@@ -42,14 +45,13 @@ var geoLayer = L.geoJSON(null, {
 	}
 }).addTo(map);
 
-var statsLayer = L.featureGroup().addTo(map);
 //
 //https://github.com/Asymmetrik/leaflet-d3
 //http://jsfiddle.net/reblace/acjnbu8t/?utm_source=website&utm_medium=embed&utm_campaign=acjnbu8t
 //
 var hexPlacesLayer = L.hexbinLayer({
 		radius: 20,
-		opacity: 1,
+		opacity: 0.9,
 		//colorScaleExtent: [ 1, undefined ],
 		//radiusScaleExtent: [ 1, undefined ],
 		colorRange: ['#d4dcd0','#225577'],
@@ -64,11 +66,11 @@ var hexPlacesLayer = L.hexbinLayer({
 
 var hexUsersLayer = L.hexbinLayer({
 		radius: 10,
-		opacity: 1,
+		opacity: 0.9,
 		//colorScaleExtent: [ 1, undefined ],
 		//radiusScaleExtent: [ 1, undefined ],
 		colorRange: ['#eacda0','#ff8833'],
-		radiusRange: [4, 8]
+		radiusRange: [4, 6]
 	})
 	.colorValue(function(d) {
 		return d.length*3;
@@ -77,12 +79,9 @@ var hexUsersLayer = L.hexbinLayer({
 		return d.length;
 	});
 
-var pingInterval = 1600;
+var pingInterval = 1500;
 
 var pingPlacesLayer = L.pingLayer({
-		//duration: 800,
-		//fps: 32,
-		//opacityRange: [1, 0],
 		radiusRange: [2, 16]
 	}).addTo(map);
 
@@ -118,139 +117,41 @@ $.when(
 	$places.html('<big>'+pval+'</big> places');
 	$users.html('<big>'+uval+'</big> users ');
 
-	var hexPlaces = [],
-		hexUsers = [];
+	setInterval(function() {
+		pingPlacesLayer.ping(places.geojson.features[0].geometry.coordinates, 'pingPlaces');
+	}, pingInterval);
 
-	var i = 0;
-	var bbplaces = L.latLngBounds();
-	var lplaces = L.geoJSON(places.geojson, {
-		pointToLayer: function(point, loc) {
-			var r = point.properties.rank,
-				ll = [loc.lng, loc.lat];
+	setInterval(function() {
+		pingUsersLayer.ping(users.geojson.features[0].geometry.coordinates, 'pingUsers');
+	}, pingInterval);
 
-			r = Math.min(r, 12);
-			r = Math.max(r, 5);
+	hexPlacesLayer.data( _.map(places.geojson.features, function(f) {
+		return f.geometry.coordinates;
+	}) );
 
-			hexPlaces.push(ll);
-			
-			if(r>6)
-				bbplaces.extend(loc);
-
-			if(++i==1) {	//the latest created
-				setInterval(function() {
-					pingPlacesLayer.ping(ll, 'pingPlaces');
-				}, pingInterval)
-			}
-
-			return L.circleMarker(loc, {radius: r })
-		},
-		style: {
-			weight:0,
-			fillOpacity:0.3,
-			fillColor:'#257',
-			color:'#257'
-		}
-	});
-
-	hexPlacesLayer.data(hexPlaces);
-
-	//users 
-	users.geojson.features = users.geojson.features.filter(function(f) {
-		return f.geometry.coordinates.length;
-	});
-
-	var i = 0;
-	var bbusers = L.latLngBounds();
-	var lusers = L.geoJSON(users.geojson, {
-		pointToLayer: function(point, loc) {
-			var r = point.properties.rank,
-				ll = [loc.lng, loc.lat];
-			r = Math.min(r, 3);
-			r = Math.max(r, 1);
-
-			hexUsers.push(ll);
-			
-			if(r>2)
-				bbusers.extend(loc);
-
-			if(++i==1) {	//the latest created
-				setInterval(function() {
-					pingUsersLayer.ping(ll, 'pingUsers');
-				}, pingInterval)
-			}
-
-			return L.circleMarker(loc, {radius: r })		
-		},
-		style: {
-			weight:0,
-			opacity:0.8,
-			fillOpacity:1,
-			fillColor:'#f83',
-			color:'#f61'
-		}
-	});
-
-	hexUsersLayer.data(hexUsers);
-
-	function getPadding(anim) {
-		var sOffset = $('.stats').offset();
-		return {
-			animate:anim,
-			paddingTopLeft: L.point((sOffset.left/3),300+sOffset.top/2),
-			paddingBottomRight: L.point(200,0)
-		}
-	}
+	hexUsersLayer.data( _.map(users.geojson.features, function(f) {
+		return f.geometry.coordinates;
+	}) );
 
 	function fitStats() {
-		//statsLayer.removeLayer(lusers);
-		//statsLayer.removeLayer(lplaces);
-		//statsLayer.addLayer(lplaces);
-		//statsLayer.addLayer(lusers);
-		//map.removeLayer(hexPlacesLayer);
-		//map.removeLayer(hexUsersLayer);
+		map.addLayer(geoLayer);
 		map.addLayer(hexPlacesLayer);
 		map.addLayer(hexUsersLayer);
-
-/*
-		//var bb = statsLayer.getBounds();
-		//var bb = L.latLngBounds().extend(bbplaces).extend(bbusers);
-		var bb = L.latLngBounds()
-			.extend(bbplaces)
-			.extend(bbusers)
-			//.extend(lplaces.getBounds())
-			//.extend(lusers.getBounds());
-
-		map.fitBounds(bb, getPadding(false) );
-
-		var c = bb.getCenter(),
-			z = map.getBoundsZoom(bb);*/
-		map.setView([40,0], 3, {animate:false} );
-		//map.setZoom(z)
-		//map.zoomIn(1,{animate:false});
+		map.setView(worldCenter, worldZoom, {animate: false });
 	}
 
 	fitStats();
+
+	$('article').on('click', fitStats);	
 /*
 	$places.on('click', function(e) {
-		//map.removeLayer(hexPlacesLayer);
-		map.removeLayer(hexUsersLayer);
-		//map.once('zoomend moveend', function(e) {
-			map.addLayer(hexPlacesLayer);
-		//});
-		//map.flyToBounds(bbplaces);
+		hexUsersLayer.setOpacity(0);
+		map.addLayer(hexPlacesLayer);
 	});
 	$users.on('click', function(e) {
-		map.removeLayer(hexPlacesLayer);
-		//map.removeLayer(hexUsersLayer);
-		//map.once('zoomend moveend', function(e) {
-			map.addLayer(hexUsersLayer);
-		//});
-		//map.flyToBounds(bbusers);
-	});
-	$('article').on('click', function() {
-		fitStats();
-	});
-	*/
+		hexPlacesLayer.setOpacity(0);
+		map.addLayer(hexUsersLayer);
+	});*/
 });
 
 /* charts */
