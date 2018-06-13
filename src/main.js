@@ -55,7 +55,7 @@ var hexPlacesLayer = L.hexbinLayer({
 		//colorScaleExtent: [ 1, undefined ],
 		//radiusScaleExtent: [ 1, undefined ],
 		colorRange: ['#d4dcd0','#225577'],
-		radiusRange: [6, 16]
+		radiusRange: [6, 12]
 	})
 	.colorValue(function(d) {
 		return d.length*3;
@@ -70,7 +70,7 @@ var hexUsersLayer = L.hexbinLayer({
 		//colorScaleExtent: [ 1, undefined ],
 		//radiusScaleExtent: [ 1, undefined ],
 		colorRange: ['#eacda0','#ff8833'],
-		radiusRange: [4, 6]
+		radiusRange: [3, 5]
 	})
 	.colorValue(function(d) {
 		return d.length*3;
