@@ -72,6 +72,23 @@ aside {
 	z-index: -1;
 }
 
+.hexbin-hexagon {
+    stroke: #257;
+    stroke-opacity: 0.2;
+    stroke-width: 1px;
+}
+.pingPlaces {
+    fill: #257;
+    stroke: #257;
+    stroke-width: 1px;
+}
+
+.pingUsers {
+    fill: #f83;
+    stroke: #f83;
+    stroke-width: 1px;
+}
+
 .ct-series-a .ct-point, .ct-series-a .ct-line, .ct-series-a .ct-bar, .ct-series-a .ct-slice-donut {
     stroke: #fc904a;
 }

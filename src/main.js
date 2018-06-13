@@ -5,14 +5,12 @@ var host = 'https://demo.keplerjs.io';
 var $ = jQuery = require('jquery');
 
 var L = require('leaflet');
-var Pulse = require('leaflet-pulse-icon');
 var Chartist = require('chartist');
 
 var d3 = require('d3');
 var d3L = require('@asymmetrik/leaflet-d3');
 
 require('../node_modules/leaflet/dist/leaflet.css');
-require('../node_modules/leaflet-pulse-icon/src/L.Icon.Pulse.css');
 require('../node_modules/chartist/dist/chartist.css');
 
 $(function() {
@@ -20,7 +18,8 @@ $(function() {
 var map = L.map('map', {
 	center:[40,0],
 	zoom:3,
-	minZoom:3,
+	minZoom: 3,
+	maxZoom: 8,
 	boxZoom: false,
 	trackResize:true,
 	//dragging: false,
@@ -31,28 +30,65 @@ var map = L.map('map', {
 	zoomControl: false,
 }).fitWorld();
 
+window.map = map;
+
 var geoLayer = L.geoJSON(null, {
 	style: {
 		weight: 1,
-		opacity: 0.3,
-		color:'#9c0',
-		fillColor:'#9c0',
+		opacity: 0.8,
+		color: '#9c0',
+		fillColor: '#9c0',
 		fillOpacity: 0.1
 	}
 }).addTo(map);
 
 var statsLayer = L.featureGroup().addTo(map);
-
+//
+//https://github.com/Asymmetrik/leaflet-d3
+//http://jsfiddle.net/reblace/acjnbu8t/?utm_source=website&utm_medium=embed&utm_campaign=acjnbu8t
+//
 var hexPlacesLayer = L.hexbinLayer({
-	radius : 16,
-	opacity: 1,
-	duration: 10,
-	//colorScaleExtent: [ 1, undefined ],
-	//radiusScaleExtent: [ 1, undefined ],
-	colorRange: [ '#eeeeee', '#08306b' ],
-	radiusRange: [ 4, 16 ],
-	//pointerEvents: 'all'
-}).addTo(map);
+		radius: 20,
+		opacity: 1,
+		//colorScaleExtent: [ 1, undefined ],
+		//radiusScaleExtent: [ 1, undefined ],
+		colorRange: ['#d4dcd0','#225577'],
+		radiusRange: [6, 16]
+	})
+	.colorValue(function(d) {
+		return d.length*3;
+	})
+	.radiusValue(function(d) {
+		return d.length;
+	});
+
+var hexUsersLayer = L.hexbinLayer({
+		radius: 10,
+		opacity: 1,
+		//colorScaleExtent: [ 1, undefined ],
+		//radiusScaleExtent: [ 1, undefined ],
+		colorRange: ['#eacda0','#ff8833'],
+		radiusRange: [4, 8]
+	})
+	.colorValue(function(d) {
+		return d.length*3;
+	})
+	.radiusValue(function(d) {
+		return d.length;
+	});
+
+var pingInterval = 1600;
+
+var pingPlacesLayer = L.pingLayer({
+		//duration: 800,
+		//fps: 32,
+		//opacityRange: [1, 0],
+		radiusRange: [2, 16]
+	}).addTo(map);
+
+var pingUsersLayer = L.pingLayer({
+		radiusRange: [2, 16]
+	}).addTo(map);
 
 $.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json', function(json) {
 	geoLayer.addData(json);
@@ -82,35 +118,31 @@ $.when(
 	$places.html('<big>'+pval+'</big> places');
 	$users.html('<big>'+uval+'</big> users ');
 
-	var hexPlaces = [];
+	var hexPlaces = [],
+		hexUsers = [];
 
 	var i = 0;
 	var bbplaces = L.latLngBounds();
 	var lplaces = L.geoJSON(places.geojson, {
 		pointToLayer: function(point, loc) {
-			var r = point.properties.rank;
+			var r = point.properties.rank,
+				ll = [loc.lng, loc.lat];
+
 			r = Math.min(r, 12);
 			r = Math.max(r, 5);
 
-			hexPlaces.push([loc.lng, loc.lat]);
+			hexPlaces.push(ll);
 			
-			if(r>5)
+			if(r>6)
 				bbplaces.extend(loc);
-			//TODO calc bbox server side
-			//
-			var icon = L.icon.pulse({
-				heartbeat: 2,
-				iconSize: [8,8],
-				color:'#257'
-			});
 
 			if(++i==1) {	//the latest created
-				return L.marker(loc, {
-					icon: icon
-				})
+				setInterval(function() {
+					pingPlacesLayer.ping(ll, 'pingPlaces');
+				}, pingInterval)
 			}
-			else
-				return L.circleMarker(loc, {radius: r })
+
+			return L.circleMarker(loc, {radius: r })
 		},
 		style: {
 			weight:0,
@@ -131,27 +163,23 @@ $.when(
 	var bbusers = L.latLngBounds();
 	var lusers = L.geoJSON(users.geojson, {
 		pointToLayer: function(point, loc) {
-			var r = point.properties.rank;
+			var r = point.properties.rank,
+				ll = [loc.lng, loc.lat];
 			r = Math.min(r, 3);
 			r = Math.max(r, 1);
+
+			hexUsers.push(ll);
 			
 			if(r>2)
 				bbusers.extend(loc);
-			//TODO calc bbox server side
-			
-			var icon = L.icon.pulse({
-				heartbeat: 2,
-				iconSize: [8, 8],
-				color:'#f83'
-			});
 
 			if(++i==1) {	//the latest created
-				return L.marker(loc, {
-					icon: icon
-				})
+				setInterval(function() {
+					pingUsersLayer.ping(ll, 'pingUsers');
+				}, pingInterval)
 			}
-			else
-				return L.circleMarker(loc, {radius: r })		
+
+			return L.circleMarker(loc, {radius: r })		
 		},
 		style: {
 			weight:0,
@@ -161,6 +189,8 @@ $.when(
 			color:'#f61'
 		}
 	});
+
+	hexUsersLayer.data(hexUsers);
 
 	function getPadding(anim) {
 		var sOffset = $('.stats').offset();
@@ -172,13 +202,14 @@ $.when(
 	}
 
 	function fitStats() {
-		statsLayer.removeLayer(lusers);
-		statsLayer.removeLayer(lplaces);		
-		
+		//statsLayer.removeLayer(lusers);
+		//statsLayer.removeLayer(lplaces);
 		//statsLayer.addLayer(lplaces);
 		//statsLayer.addLayer(lusers);
-
-		statsLayer.addLayer(hexPlacesLayer);
+		//map.removeLayer(hexPlacesLayer);
+		//map.removeLayer(hexUsersLayer);
+		map.addLayer(hexPlacesLayer);
+		map.addLayer(hexUsersLayer);
 
 /*
 		//var bb = statsLayer.getBounds();
@@ -199,27 +230,27 @@ $.when(
 	}
 
 	fitStats();
-
+/*
 	$places.on('click', function(e) {
-		statsLayer.removeLayer(lusers);
-		statsLayer.removeLayer(lplaces);
-		map.once('zoomend moveend', function(e) {
-			statsLayer.addLayer(lplaces);
-		});
-		map.flyToBounds(bbplaces);
+		//map.removeLayer(hexPlacesLayer);
+		map.removeLayer(hexUsersLayer);
+		//map.once('zoomend moveend', function(e) {
+			map.addLayer(hexPlacesLayer);
+		//});
+		//map.flyToBounds(bbplaces);
 	});
 	$users.on('click', function(e) {
-		
-		statsLayer.removeLayer(lusers);
-		statsLayer.removeLayer(lplaces);
-		map.once('zoomend moveend', function(e) {
-			statsLayer.addLayer(lusers);
-		});
-		map.flyToBounds(bbusers);
+		map.removeLayer(hexPlacesLayer);
+		//map.removeLayer(hexUsersLayer);
+		//map.once('zoomend moveend', function(e) {
+			map.addLayer(hexUsersLayer);
+		//});
+		//map.flyToBounds(bbusers);
 	});
 	$('article').on('click', function() {
 		fitStats();
 	});
+	*/
 });
 
 /* charts */
