@@ -45,17 +45,36 @@ var geoLayer = L.geoJSON(null, {
 	}
 }).addTo(map);
 
+L.HexbinLayer = L.HexbinLayer.extend({
+	show: function(map) {
+		
+		//hexPlacesLayer._dataPrev = hexPlacesLayer._data;
+		//hexPlacesLayer.data([]).redraw();
+		if(this._dataOld) {
+			this._data = this._dataOld;
+			delete this._dataOld;
+		}
+		this.redraw();
+	},
+	hide: function(map) {
+		if(!this._dataOld) {
+			this._dataOld = this._data;
+			this._data = [];
+		}
+		this.redraw();
+	}	
+});
 //
 //https://github.com/Asymmetrik/leaflet-d3
 //http://jsfiddle.net/reblace/acjnbu8t/?utm_source=website&utm_medium=embed&utm_campaign=acjnbu8t
 //
-var hexPlacesLayer = L.hexbinLayer({
+var hexPlacesLayer = new L.HexbinLayer({
 		radius: 20,
-		opacity: 0.9,
+		opacity: 0.8,
 		//colorScaleExtent: [ 1, undefined ],
 		//radiusScaleExtent: [ 1, undefined ],
-		colorRange: ['#d4dcd0','#225577'],
-		radiusRange: [6, 12]
+		colorRange: ['#a0b8b9','#225577'],
+		radiusRange: [8, 16]
 	})
 	.colorValue(function(d) {
 		return d.length*3;
@@ -64,12 +83,12 @@ var hexPlacesLayer = L.hexbinLayer({
 		return d.length;
 	});
 
-var hexUsersLayer = L.hexbinLayer({
+var hexUsersLayer = new L.HexbinLayer({
 		radius: 10,
 		opacity: 0.9,
 		//colorScaleExtent: [ 1, undefined ],
 		//radiusScaleExtent: [ 1, undefined ],
-		colorRange: ['#eacda0','#ff8833'],
+		colorRange: ['#f9b378','#ff8833'],
 		radiusRange: [3, 5]
 	})
 	.colorValue(function(d) {
@@ -138,20 +157,26 @@ $.when(
 		map.addLayer(hexPlacesLayer);
 		map.addLayer(hexUsersLayer);
 		map.setView(worldCenter, worldZoom, {animate: false });
+		hexPlacesLayer.show();
+		hexUsersLayer.show();
 	}
 
 	fitStats();
 
 	$('article').on('click', fitStats);	
-/*
+
 	$places.on('click', function(e) {
-		hexUsersLayer.setOpacity(0);
-		map.addLayer(hexPlacesLayer);
+		//map.removeLayer(hexUsersLayer);
+		////map.removeLayer(hexUsersLayer);
+		hexUsersLayer.hide();
+		hexPlacesLayer.show();
 	});
 	$users.on('click', function(e) {
-		hexPlacesLayer.setOpacity(0);
-		map.addLayer(hexUsersLayer);
-	});*/
+		//map.removeLayer(hexPlacesLayer);
+		//map.addLayer(hexUsersLayer);
+		hexPlacesLayer.hide();
+		hexUsersLayer.show();
+	});
 });
 
 /* charts */
