@@ -212,6 +212,20 @@ $.when(
 		});
 	}
 
+	var lp = _.last(chartPlaces),
+		lu = _.last(chartUsers);
+		
+	if(lp.x.getTime() > lu.x.getTime())
+		chartUsers.push({
+			x: lp.x,
+			y: lu.y
+		});
+	else
+		chartPlaces.push({
+			x: lu.x,
+			y: lp.y
+		});
+
 	var chart = new Chartist.Line('.chartStats', {
 	  series: [
 	    {
