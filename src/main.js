@@ -3,42 +3,110 @@
 var host = 'https://demo.keplerjs.io';
 
 var $ = jQuery = require('jquery');
+var _ = require('underscore');
 
 var L = require('leaflet');
-var Pulse = require('leaflet-pulse-icon');
 var Chartist = require('chartist');
 
+var d3 = require('d3');
+var d3L = require('@asymmetrik/leaflet-d3');
+
 require('../node_modules/leaflet/dist/leaflet.css');
-require('../node_modules/leaflet-pulse-icon/src/L.Icon.Pulse.css');
 require('../node_modules/chartist/dist/chartist.css');
 
 $(function() {
 
-var map = L.map('map', {
-	center:[40,0],
-	zoom:3,
-	minZoom:3,
-	boxZoom: false,
-	trackResize:true,
-	//dragging: false,
-	//keyboard: false,
-	scrollWheelZoom:false,
-	//doubleClickZoom:false,
-	attributionControl: false,
-	zoomControl: false,
-}).fitWorld();
+var worldCenter = [40,0],
+	worldZoom = 3,
+	map = L.map('map', {
+		center: worldCenter,
+		zoom: worldZoom,
+		minZoom: worldZoom,
+		maxZoom: 8,
+		boxZoom: false,
+		trackResize:true,
+		//dragging: false,
+		//keyboard: false,
+		scrollWheelZoom:false,
+		//doubleClickZoom:false,
+		attributionControl: false,
+		zoomControl: false,
+	});
+
+window.map = map;
 
 var geoLayer = L.geoJSON(null, {
 	style: {
 		weight: 1,
-		opacity: 0.3,
-		color:'#9c0',
-		fillColor:'#9c0',
+		opacity: 0.8,
+		color: '#9c0',
+		fillColor: '#9c0',
 		fillOpacity: 0.1
 	}
 }).addTo(map);
 
-var statsLayer = L.featureGroup().addTo(map);
+L.HexbinLayer = L.HexbinLayer.extend({
+	show: function(map) {
+		
+		//hexPlacesLayer._dataPrev = hexPlacesLayer._data;
+		//hexPlacesLayer.data([]).redraw();
+		if(this._dataOld) {
+			this._data = this._dataOld;
+			delete this._dataOld;
+		}
+		this.redraw();
+	},
+	hide: function(map) {
+		if(!this._dataOld) {
+			this._dataOld = this._data;
+			this._data = [];
+		}
+		this.redraw();
+	}	
+});
+//
+//https://github.com/Asymmetrik/leaflet-d3
+//http://jsfiddle.net/reblace/acjnbu8t/?utm_source=website&utm_medium=embed&utm_campaign=acjnbu8t
+//
+var hexPlacesLayer = new L.HexbinLayer({
+		radius: 20,
+		opacity: 0.8,
+		//colorScaleExtent: [ 1, undefined ],
+		//radiusScaleExtent: [ 1, undefined ],
+		colorRange: ['#a0b8b9','#225577'],
+		radiusRange: [8, 16]
+	})
+	.colorValue(function(d) {
+		return d.length*3;
+	})
+	.radiusValue(function(d) {
+		return d.length;
+	});
+
+var hexUsersLayer = new L.HexbinLayer({
+		radius: 10,
+		opacity: 0.9,
+		//colorScaleExtent: [ 1, undefined ],
+		//radiusScaleExtent: [ 1, undefined ],
+		colorRange: ['#f9b378','#ff8833'],
+		radiusRange: [3, 5]
+	})
+	.colorValue(function(d) {
+		return d.length*3;
+	})
+	.radiusValue(function(d) {
+		return d.length;
+	});
+
+var pingInterval = 1500;
+
+var pingPlacesLayer = L.pingLayer({
+		radiusRange: [2, 16]
+	}).addTo(map);
+
+var pingUsersLayer = L.pingLayer({
+		radiusRange: [2, 16]
+	}).addTo(map);
 
 $.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json', function(json) {
 	geoLayer.addData(json);
@@ -68,133 +136,46 @@ $.when(
 	$places.html('<big>'+pval+'</big> places');
 	$users.html('<big>'+uval+'</big> users ');
 
-	var i = 0;
-	var bbplaces = L.latLngBounds();
-	var lplaces = L.geoJSON(places.geojson, {
-		pointToLayer: function(point, loc) {
-			var r = point.properties.rank;
-			r = Math.min(r, 12);
-			r = Math.max(r, 5);
+	setInterval(function() {
+		pingPlacesLayer.ping(places.geojson.features[0].geometry.coordinates, 'pingPlaces');
+	}, pingInterval);
 
-			if(r>5)
-				bbplaces.extend(loc);
-			//TODO calc bbox server side
-			//
-			var icon = L.icon.pulse({
-				heartbeat: 2,
-				iconSize: [8,8],
-				color:'#257'
-			});
+	setInterval(function() {
+		pingUsersLayer.ping(users.geojson.features[0].geometry.coordinates, 'pingUsers');
+	}, pingInterval);
 
-			if(++i==1) {	//the latest created
-				return L.marker(loc, {
-					icon: icon
-				})
-			}
-			else
-				return L.circleMarker(loc, {radius: r })
-		},
-		style: {
-			weight:0,
-			fillOpacity:0.3,
-			fillColor:'#257',
-			color:'#257'
-		}
-	});
+	hexPlacesLayer.data( _.map(places.geojson.features, function(f) {
+		return f.geometry.coordinates;
+	}) );
 
-	//users 
-	users.geojson.features = users.geojson.features.filter(function(f) {
-		return f.geometry.coordinates.length;
-	});
-
-	var i = 0;
-	var bbusers = L.latLngBounds();
-	var lusers = L.geoJSON(users.geojson, {
-		pointToLayer: function(point, loc) {
-			var r = point.properties.rank;
-			r = Math.min(r, 3);
-			r = Math.max(r, 1);
-			
-			if(r>2)
-				bbusers.extend(loc);
-			//TODO calc bbox server side
-			
-			var icon = L.icon.pulse({
-				heartbeat: 2,
-				iconSize: [8, 8],
-				color:'#f83'
-			});
-
-			if(++i==1) {	//the latest created
-				return L.marker(loc, {
-					icon: icon
-				})
-			}
-			else
-				return L.circleMarker(loc, {radius: r })		
-		},
-		style: {
-			weight:0,
-			opacity:0.8,
-			fillOpacity:1,
-			fillColor:'#f83',
-			color:'#f61'
-		}
-	});
-
-	function getPadding(anim) {
-		var sOffset = $('.stats').offset();
-		return {
-			animate:anim,
-			paddingTopLeft: L.point((sOffset.left/3),300+sOffset.top/2),
-			paddingBottomRight: L.point(200,0)
-		}
-	}
+	hexUsersLayer.data( _.map(users.geojson.features, function(f) {
+		return f.geometry.coordinates;
+	}) );
 
 	function fitStats() {
-		statsLayer.removeLayer(lusers);
-		statsLayer.removeLayer(lplaces);		
-		statsLayer.addLayer(lplaces);
-		statsLayer.addLayer(lusers);
-/*
-		//var bb = statsLayer.getBounds();
-		//var bb = L.latLngBounds().extend(bbplaces).extend(bbusers);
-		var bb = L.latLngBounds()
-			.extend(bbplaces)
-			.extend(bbusers)
-			//.extend(lplaces.getBounds())
-			//.extend(lusers.getBounds());
-
-		map.fitBounds(bb, getPadding(false) );
-
-		var c = bb.getCenter(),
-			z = map.getBoundsZoom(bb);*/
-		map.setView([40,0], 3, {animate:false} );
-		//map.setZoom(z)
-		//map.zoomIn(1,{animate:false});
+		map.addLayer(geoLayer);
+		map.addLayer(hexPlacesLayer);
+		map.addLayer(hexUsersLayer);
+		map.setView(worldCenter, worldZoom, {animate: false });
+		hexPlacesLayer.show();
+		hexUsersLayer.show();
 	}
 
 	fitStats();
 
+	$('article').on('click', fitStats);	
+
 	$places.on('click', function(e) {
-		statsLayer.removeLayer(lusers);
-		statsLayer.removeLayer(lplaces);
-		map.once('zoomend moveend', function(e) {
-			statsLayer.addLayer(lplaces);
-		});
-		map.flyToBounds(bbplaces);
+		//map.removeLayer(hexUsersLayer);
+		////map.removeLayer(hexUsersLayer);
+		hexUsersLayer.hide();
+		hexPlacesLayer.show();
 	});
 	$users.on('click', function(e) {
-		
-		statsLayer.removeLayer(lusers);
-		statsLayer.removeLayer(lplaces);
-		map.once('zoomend moveend', function(e) {
-			statsLayer.addLayer(lusers);
-		});
-		map.flyToBounds(bbusers);
-	});
-	$('article').on('click', function() {
-		fitStats();
+		//map.removeLayer(hexPlacesLayer);
+		//map.addLayer(hexUsersLayer);
+		hexPlacesLayer.hide();
+		hexUsersLayer.show();
 	});
 });
 
@@ -211,9 +192,9 @@ $.when(
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    timeout: 1000
 	})
-).then(function(ret3, ret4) {
-	var usersCount = ret3[0],
-		placesCount = ret4[0];
+).then(function(retUsers, retPlaces) {
+	var usersCount = retUsers[0],
+		placesCount = retPlaces[0];
 
 	var chartUsers = []
 	for(var i in usersCount.stats.rows) {
@@ -230,6 +211,20 @@ $.when(
 			y: placesCount.stats.rows[i][1]
 		});
 	}
+
+	var lp = _.last(chartPlaces),
+		lu = _.last(chartUsers);
+		
+	if(lp.x.getTime() > lu.x.getTime())
+		chartUsers.push({
+			x: lp.x,
+			y: lu.y
+		});
+	else
+		chartPlaces.push({
+			x: lu.x,
+			y: lp.y
+		});
 
 	var chart = new Chartist.Line('.chartStats', {
 	  series: [

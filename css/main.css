@@ -1,5 +1,8 @@
 	/*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
-
+body {
+    margin: 0;
+    padding: 0
+}
 html {
     color: #222;
     font-size: .85em;
@@ -70,6 +73,23 @@ aside {
 	bottom: 0;
 	position: absolute;
 	z-index: -1;
+}
+
+.hexbin-hexagon {
+    stroke: #eee;
+    stroke-opacity: 0.2;
+    stroke-width: 0
+}
+.pingPlaces {
+    fill: #257;
+    stroke: #257;
+    stroke-width: 1px;
+}
+
+.pingUsers {
+    fill: #f83;
+    stroke: #f83;
+    stroke-width: 1px;
 }
 
 .ct-series-a .ct-point, .ct-series-a .ct-line, .ct-series-a .ct-bar, .ct-series-a .ct-slice-donut {
