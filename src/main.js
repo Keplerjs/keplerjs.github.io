@@ -1,7 +1,7 @@
 
 
 //var host = 'https://demo.keplerjs.io';
-var host = 'http://localhost:3000';
+var host = 'http://localhost:8800';
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore');
@@ -15,8 +15,14 @@ var d3L = require('@asymmetrik/leaflet-d3');
 require('../node_modules/leaflet/dist/leaflet.css');
 require('../node_modules/chartist/dist/chartist.css');
 
+
 $(function() {
 
+var	$legend = $('.chartLegend'),
+	$users = $('<a>',{'class': 'users'}).appendTo($legend),
+	$places = $('<a>',{'class': 'places'}).appendTo($legend),
+	$acts = $('<a>',{'class': 'acts'}).appendTo($legend);
+	
 var worldCenter = [40,0],
 	worldZoom = 3,
 	map = L.map('map', {
@@ -129,13 +135,6 @@ $.when(
 	var places = ret1[0],
 		users = ret2[0];
 
-	var	$legend = $('.chartLegend'),
-		$places =  $('<a>',{'class': 'places'}).appendTo($legend),
-		$users = $('<a>',{'class': 'users'}).appendTo($legend);
-
-	$places.html('<big>'+places.properties.count+'</big> places');
-	$users.html('<big>'+users.properties.count+'</big> users ');
-
 	setInterval(function() {
 		pingPlacesLayer.ping(places.features[0].geometry.coordinates, 'pingPlaces');
 	}, pingInterval);
@@ -146,8 +145,8 @@ $.when(
 
 	var pp = _.map(places.features, function(f) {
 		return f.geometry.coordinates;
-	})
-	console.log(pp)
+	});
+	
 	hexPlacesLayer.data( pp );
 
 	hexUsersLayer.data( _.map(users.features, function(f) {
@@ -204,6 +203,11 @@ $.when(
 		placesByDate = ret2[0],
 		placesActs = ret3[0];
 
+	$users.html('<big>'+usersByDate.count+'</big> users ');
+	$places.html('<big>'+placesByDate.count+'</big> places');	
+	$acts.html('<big>'+placesActs.count+'</big> activities');
+
+
 	var chartUsers = []
 	for(var i in usersByDate.rows) {
 		chartUsers.push({
@@ -217,6 +221,14 @@ $.when(
 		chartPlaces.push({
 			x: new Date(placesByDate.rows[i][0]),
 			y: placesByDate.rows[i][1]
+		});
+	}
+
+	var chartActs = []
+	for(var i in placesActs.rows) {
+		chartActs.push({
+			x: new Date(placesActs.rows[i][0]),
+			y: placesActs.rows[i][1]
 		});
 	}
 
@@ -243,7 +255,11 @@ $.when(
 	    {
 	      name: 'New Places',
 	      data: chartPlaces
-	    }    
+	    },
+	    {
+	      name: 'Activities',
+	      data: chartActs
+	    }	    
 	  ]
 	}, {
 		fullWidth: true,
@@ -259,7 +275,7 @@ $.when(
 		},
 		axisX: {
 			showGrid: false,
-			type: Chartist.FixedScaleAxis,
+			//type: Chartist.FixedScaleAxis,
 			divisor: 6,
 			labelInterpolationFnc: function(d) {
 			  var s = (new Date(d)).toDateString().split(' ')

@@ -98,11 +98,17 @@ aside {
 .ct-series-b .ct-point, .ct-series-b .ct-line, .ct-series-b .ct-bar, .ct-series-b .ct-slice-donut {
     stroke: #225577;
 }
+.ct-series-c .ct-point, .ct-series-c .ct-line, .ct-series-c .ct-car, .ct-series-c .ct-slice-donut {
+    stroke: #227755;
+}
 .ct-area {
     fill: #fc904a;
 }
 .ct-series-b .ct-area {
     fill: #225577;
+}
+.ct-series-c .ct-area {
+    fill: #227755;
 }
 
 .links {
