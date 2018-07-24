@@ -1,6 +1,7 @@
 
 
-var host = 'https://demo.keplerjs.io';
+//var host = 'https://demo.keplerjs.io';
+var host = 'http://localhost:3000';
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore');
@@ -124,31 +125,32 @@ $.when(
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    timeout: 1000
 	})
-).then(function(ret1, ret2, ret3, ret4) {
+).then(function(ret1, ret2) {
 	var places = ret1[0],
 		users = ret2[0];
 
-	var	$places = $('.stats .places')
-		$users = $('.stats .users'),
-		pval = (places && places.stats && places.stats.count),
-		uval = (users && users.stats && users.stats.count);
+	var	$legend = $('.chartLegend'),
+		$places =  $('<a>',{'class': 'places'}).appendTo($legend),
+		$users = $('<a>',{'class': 'users'}).appendTo($legend);
 
-	$places.html('<big>'+pval+'</big> places');
-	$users.html('<big>'+uval+'</big> users ');
+	$places.html('<big>'+places.properties.count+'</big> places');
+	$users.html('<big>'+users.properties.count+'</big> users ');
 
 	setInterval(function() {
-		pingPlacesLayer.ping(places.geojson.features[0].geometry.coordinates, 'pingPlaces');
+		pingPlacesLayer.ping(places.features[0].geometry.coordinates, 'pingPlaces');
 	}, pingInterval);
 
 	setInterval(function() {
-		pingUsersLayer.ping(users.geojson.features[0].geometry.coordinates, 'pingUsers');
+		pingUsersLayer.ping(users.features[0].geometry.coordinates, 'pingUsers');
 	}, pingInterval);
 
-	hexPlacesLayer.data( _.map(places.geojson.features, function(f) {
+	var pp = _.map(places.features, function(f) {
 		return f.geometry.coordinates;
-	}) );
+	})
+	console.log(pp)
+	hexPlacesLayer.data( pp );
 
-	hexUsersLayer.data( _.map(users.geojson.features, function(f) {
+	hexUsersLayer.data( _.map(users.features, function(f) {
 		return f.geometry.coordinates;
 	}) );
 
@@ -183,32 +185,38 @@ $.when(
 
 $.when(
 	$.ajax({
-		url: host+'/stats/users/count',
+		url: host+'/stats/users/bydate',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    timeout: 1000
 	}),
 	$.ajax({
-		url: host+'/stats/places/count',
+		url: host+'/stats/places/bydate',
+	    jsonp: 'jsonp', dataType: 'jsonp',
+	    timeout: 1000
+	}),
+	$.ajax({
+		url: host+'/stats/places/activities/bydate',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    timeout: 1000
 	})
-).then(function(retUsers, retPlaces) {
-	var usersCount = retUsers[0],
-		placesCount = retPlaces[0];
+).then(function(ret1, ret2, ret3) {
+	var usersByDate = ret1[0],
+		placesByDate = ret2[0],
+		placesActs = ret3[0];
 
 	var chartUsers = []
-	for(var i in usersCount.stats.rows) {
+	for(var i in usersByDate.rows) {
 		chartUsers.push({
-			x: new Date(usersCount.stats.rows[i][0]),
-			y: usersCount.stats.rows[i][1]
+			x: new Date(usersByDate.rows[i][0]),
+			y: usersByDate.rows[i][1]
 		});
 	}
 
 	var chartPlaces = []
-	for(var i in placesCount.stats.rows) {
+	for(var i in placesByDate.rows) {
 		chartPlaces.push({
-			x: new Date(placesCount.stats.rows[i][0]),
-			y: placesCount.stats.rows[i][1]
+			x: new Date(placesByDate.rows[i][0]),
+			y: placesByDate.rows[i][1]
 		});
 	}
 

@@ -108,38 +108,38 @@ aside {
 .links {
 	color: #fff;
 }
-aside.stats {
+#stats {
 	white-space: nowrap;
 	color: #9c0;
 	background: rgba(255,255,255, 0.5);
 }
-.stats h3 {
+#stats h3 {
 	margin-top: 20px;
 	display: inline-block;
 	vertical-align: baseline;
 }
-.stats .users,
-.stats .places {
+#stats .users,
+#stats .places {
 	font-size: 180%;
     line-height: 120%;
 	text-decoration: none;
 	cursor: pointer;
 	display: block;
 }
-aside.stats a:hover {
+#stats a:hover {
 	text-decoration: none;
 }
-aside.stats .places,
-aside.stats .places:hover {
+#stats .places,
+#stats .places:hover {
 	color: #225577;
 	text-shadow: 1px 1px 3px rgba(0,0,0, 0.5);
 }
-aside.stats .users,
-aside.stats .users:hover {
+#stats .users,
+#stats .users:hover {
 	color: #ff7722;
 	text-shadow: 1px 1px 3px rgba(0,0,0, 0.5);
 }
-aside.stats .demo {
+#stats .demo {
 	background: #9c0;
 	display: inline-block;
 	border-radius: 5px;
@@ -148,10 +148,10 @@ aside.stats .demo {
 	color: #fff;
 	text-decoration: none;
 }
-aside.stats a {
+#stats a {
 	opacity: 0.8;
 }
-aside.stats a:hover {
+#stats a:hover {
 	opacity: 1;
 }
 /* ===== Initializr Styles ==================================================
@@ -545,7 +545,7 @@ nav a:hover {
         width: 57%;
     }
 	.tech,
-	.main .stats,
+	.main #stats,
     .main aside {
         float: right;
         width: 30%;
