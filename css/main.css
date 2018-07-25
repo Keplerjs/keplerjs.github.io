@@ -99,7 +99,7 @@ aside {
     stroke: #225577;
 }
 .ct-series-c .ct-point, .ct-series-c .ct-line, .ct-series-c .ct-car, .ct-series-c .ct-slice-donut {
-    stroke: #227755;
+    stroke: #caf5ff;
 }
 .ct-area {
     fill: #fc904a;
@@ -108,7 +108,7 @@ aside {
     fill: #225577;
 }
 .ct-series-c .ct-area {
-    fill: #227755;
+    fill: #caf5ff;
 }
 
 .links {
@@ -124,26 +124,27 @@ aside {
 	display: inline-block;
 	vertical-align: baseline;
 }
-#stats .users,
-#stats .places {
+#stats .chartLegend a {
 	font-size: 180%;
     line-height: 120%;
 	text-decoration: none;
 	cursor: pointer;
 	display: block;
+    text-shadow: 1px 1px 3px rgba(0,0,0, 0.5);
+    opacity: 0.8;
 }
-#stats a:hover {
+#stats .chartLegend a:hover {
 	text-decoration: none;
+    opacity: 1
 }
-#stats .places,
-#stats .places:hover {
+#stats .places {
 	color: #225577;
-	text-shadow: 1px 1px 3px rgba(0,0,0, 0.5);
 }
-#stats .users,
-#stats .users:hover {
+#stats .users {
 	color: #ff7722;
-	text-shadow: 1px 1px 3px rgba(0,0,0, 0.5);
+}
+#stats .convers {
+    color: #caf5ff;
 }
 #stats .demo {
 	background: #9c0;

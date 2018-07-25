@@ -21,7 +21,7 @@ $(function() {
 var	$legend = $('.chartLegend'),
 	$users = $('<a>',{'class': 'users'}).appendTo($legend),
 	$places = $('<a>',{'class': 'places'}).appendTo($legend),
-	$acts = $('<a>',{'class': 'acts'}).appendTo($legend);
+	$convers = $('<a>',{'class': 'convers'}).appendTo($legend);
 	
 var worldCenter = [40,0],
 	worldZoom = 3,
@@ -122,12 +122,12 @@ $.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json', function(json)
 /* layers */
 $.when(
 	$.ajax({
-		url: host+'/stats/places',
+		url: host+'/stats/places/bygeo',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    timeout: 1000
 	}),
 	$.ajax({
-		url: host+'/stats/users',
+		url: host+'/stats/users/bygeo',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    timeout: 1000
 	})
@@ -180,7 +180,30 @@ $.when(
 	});
 });
 
-/* charts */
+///////////////// CHARTS
+///
+
+function normalizeAxisX(series) {
+
+	var lasts = _.map(series, function(vv) {
+			return _.last(vv);
+		}),
+		lmax = _.max(lasts, function(v) {
+			return v.x.getTime();
+		}).x.getTime();
+	
+	for(var s in series) {
+		var last = _.last(series[s]),
+			lastX = last.x.getTime();
+
+		if(lastX < lmax) {
+			series[s].push({
+				x: lmax,
+				y: last.y
+			});
+		}
+	}
+}
 
 $.when(
 	$.ajax({
@@ -194,19 +217,18 @@ $.when(
 	    timeout: 1000
 	}),
 	$.ajax({
-		url: host+'/stats/places/activities/bydate',
+		url: host+'/stats/convers/bydate',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    timeout: 1000
 	})
 ).then(function(ret1, ret2, ret3) {
 	var usersByDate = ret1[0],
 		placesByDate = ret2[0],
-		placesActs = ret3[0];
+		conversByDate = ret3[0];
 
-	$users.html('<big>'+usersByDate.count+'</big> users ');
+	$users.html('<big>'+usersByDate.count+'</big> users');
 	$places.html('<big>'+placesByDate.count+'</big> places');	
-	$acts.html('<big>'+placesActs.count+'</big> activities');
-
+	$convers.html('<big>'+conversByDate.count+'</big> messages');
 
 	var chartUsers = []
 	for(var i in usersByDate.rows) {
@@ -224,41 +246,26 @@ $.when(
 		});
 	}
 
-	var chartActs = []
-	for(var i in placesActs.rows) {
-		chartActs.push({
-			x: new Date(placesActs.rows[i][0]),
-			y: placesActs.rows[i][1]
+	var chartConvers = []
+	for(var i in conversByDate.rows) {
+		chartConvers.push({
+			x: new Date(conversByDate.rows[i][0]),
+			y: conversByDate.rows[i][1]
 		});
 	}
 
-	var lp = _.last(chartPlaces),
-		lu = _.last(chartUsers);
-		
-	if(lp.x.getTime() > lu.x.getTime())
-		chartUsers.push({
-			x: lp.x,
-			y: lu.y
-		});
-	else
-		chartPlaces.push({
-			x: lu.x,
-			y: lp.y
-		});
+	normalizeAxisX([chartUsers,chartPlaces,chartConvers]);
 
 	var chart = new Chartist.Line('.chartStats', {
 	  series: [
 	    {
-	      name: 'New Users',
 	      data: chartUsers
 	    },
 	    {
-	      name: 'New Places',
 	      data: chartPlaces
 	    },
 	    {
-	      name: 'Activities',
-	      data: chartActs
+	      data: chartConvers
 	    }	    
 	  ]
 	}, {
@@ -275,7 +282,7 @@ $.when(
 		},
 		axisX: {
 			showGrid: false,
-			//type: Chartist.FixedScaleAxis,
+			type: Chartist.FixedScaleAxis,
 			divisor: 6,
 			labelInterpolationFnc: function(d) {
 			  var s = (new Date(d)).toDateString().split(' ')
