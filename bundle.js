@@ -49895,9 +49895,7 @@ var css = ".leaflet-image-layer,.leaflet-layer,.leaflet-marker-icon,.leaflet-mar
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],42:[function(require,module,exports){
 
-
-//var host = 'https://demo.keplerjs.io';
-var host = 'http://localhost:8800';
+var host = 'https://demo.keplerjs.io';
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore');

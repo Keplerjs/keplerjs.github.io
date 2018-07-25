@@ -1,7 +1,5 @@
 
-
-//var host = 'https://demo.keplerjs.io';
-var host = 'http://localhost:8800';
+var host = 'https://demo.keplerjs.io';
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore');
