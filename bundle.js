@@ -1,18 +1,3 @@
-(function () {
-  var socket = document.createElement('script')
-  var script = document.createElement('script')
-  socket.setAttribute('src', 'http://localhost:3001/socket.io/socket.io.js')
-  script.type = 'text/javascript'
-
-  socket.onload = function () {
-    document.head.appendChild(script)
-  }
-  script.text = ['window.socket = io("http://localhost:3001");',
-  'socket.on("bundle", function() {',
-  'console.log("livereaload triggered")',
-  'window.location.reload();});'].join('\n')
-  document.head.appendChild(socket)
-}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 /*! @asymmetrik/leaflet-d3 - 4.1.0 - Copyright (c) 2007-2018 Asymmetrik Ltd, a Maryland Corporation + */
 (function (global, factory) {
@@ -7919,7 +7904,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 })));
 
 },{}],11:[function(require,module,exports){
-// https://d3js.org/d3-contour/ Version 1.2.0. Copyright 2018 Mike Bostock.
+// https://d3js.org/d3-contour/ Version 1.3.0. Copyright 2018 Mike Bostock.
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-array')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-array'], factory) :
@@ -8224,9 +8209,14 @@ function defaultY(d) {
   return d[1];
 }
 
+function defaultWeight() {
+  return 1;
+}
+
 var density = function() {
   var x = defaultX,
       y = defaultY,
+      weight = defaultWeight,
       dx = 960,
       dy = 500,
       r = 20, // blur radius
@@ -8241,10 +8231,11 @@ var density = function() {
         values1 = new Float32Array(n * m);
 
     data.forEach(function(d, i, data) {
-      var xi = (x(d, i, data) + o) >> k,
-          yi = (y(d, i, data) + o) >> k;
+      var xi = (+x(d, i, data) + o) >> k,
+          yi = (+y(d, i, data) + o) >> k,
+          wi = +weight(d, i, data);
       if (xi >= 0 && xi < n && yi >= 0 && yi < m) {
-        ++values0[xi + yi * n];
+        values0[xi + yi * n] += wi;
       }
     });
 
@@ -8306,6 +8297,10 @@ var density = function() {
 
   density.y = function(_) {
     return arguments.length ? (y = typeof _ === "function" ? _ : constant(+_), density) : y;
+  };
+
+  density.weight = function(_) {
+    return arguments.length ? (weight = typeof _ === "function" ? _ : constant(+_), density) : weight;
   };
 
   density.size = function(_) {
@@ -16599,7 +16594,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 })));
 
 },{"d3-color":10,"d3-interpolate":22}],28:[function(require,module,exports){
-// https://d3js.org/d3-scale/ Version 2.0.0. Copyright 2018 Mike Bostock.
+// https://d3js.org/d3-scale/ Version 2.1.0. Copyright 2018 Mike Bostock.
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-array'), require('d3-collection'), require('d3-interpolate'), require('d3-format'), require('d3-time'), require('d3-time-format')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-array', 'd3-collection', 'd3-interpolate', 'd3-format', 'd3-time', 'd3-time-format'], factory) :
@@ -17421,15 +17416,16 @@ function utcTime() {
 function sequential(interpolator) {
   var x0 = 0,
       x1 = 1,
+      k10 = 1,
       clamp = false;
 
   function scale(x) {
-    var t = (x - x0) / (x1 - x0);
+    var t = (x - x0) * k10;
     return interpolator(clamp ? Math.max(0, Math.min(1, t)) : t);
   }
 
   scale.domain = function(_) {
-    return arguments.length ? (x0 = +_[0], x1 = +_[1], scale) : [x0, x1];
+    return arguments.length ? (x0 = +_[0], x1 = +_[1], k10 = x0 === x1 ? 0 : 1 / (x1 - x0), scale) : [x0, x1];
   };
 
   scale.clamp = function(_) {
@@ -17442,6 +17438,38 @@ function sequential(interpolator) {
 
   scale.copy = function() {
     return sequential(interpolator).domain([x0, x1]).clamp(clamp);
+  };
+
+  return linearish(scale);
+}
+
+function diverging(interpolator) {
+  var x0 = 0,
+      x1 = 0.5,
+      x2 = 1,
+      k10 = 1,
+      k21 = 1,
+      clamp = false;
+
+  function scale(x) {
+    var t = 0.5 + ((x = +x) - x1) * (x < x1 ? k10 : k21);
+    return interpolator(clamp ? Math.max(0, Math.min(1, t)) : t);
+  }
+
+  scale.domain = function(_) {
+    return arguments.length ? (x0 = +_[0], x1 = +_[1], x2 = +_[2], k10 = x0 === x1 ? 0 : 0.5 / (x1 - x0), k21 = x1 === x2 ? 0 : 0.5 / (x2 - x1), scale) : [x0, x1, x2];
+  };
+
+  scale.clamp = function(_) {
+    return arguments.length ? (clamp = !!_, scale) : clamp;
+  };
+
+  scale.interpolator = function(_) {
+    return arguments.length ? (interpolator = _, scale) : interpolator;
+  };
+
+  scale.copy = function() {
+    return diverging(interpolator).domain([x0, x1, x2]).clamp(clamp);
   };
 
   return linearish(scale);
@@ -17462,6 +17490,7 @@ exports.scaleThreshold = threshold;
 exports.scaleTime = time;
 exports.scaleUtc = utcTime;
 exports.scaleSequential = sequential;
+exports.scaleDiverging = diverging;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
@@ -23960,7 +23989,7 @@ var d3Transition = require('d3-transition');
 var d3Voronoi = require('d3-voronoi');
 var d3Zoom = require('d3-zoom');
 
-var version = "5.4.0";
+var version = "5.5.0";
 
 Object.keys(d3Array).forEach(function (key) { exports[key] = d3Array[key]; });
 Object.keys(d3Axis).forEach(function (key) { exports[key] = d3Axis[key]; });
@@ -49888,7 +49917,7 @@ $(function() {
 var	$legend = $('.chartLegend'),
 	$users = $('<a>',{'class': 'users'}).appendTo($legend),
 	$places = $('<a>',{'class': 'places'}).appendTo($legend),
-	$acts = $('<a>',{'class': 'acts'}).appendTo($legend);
+	$convers = $('<a>',{'class': 'convers'}).appendTo($legend);
 	
 var worldCenter = [40,0],
 	worldZoom = 3,
@@ -49989,12 +50018,12 @@ $.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json', function(json)
 /* layers */
 $.when(
 	$.ajax({
-		url: host+'/stats/places',
+		url: host+'/stats/places/bygeo',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    timeout: 1000
 	}),
 	$.ajax({
-		url: host+'/stats/users',
+		url: host+'/stats/users/bygeo',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    timeout: 1000
 	})
@@ -50047,7 +50076,30 @@ $.when(
 	});
 });
 
-/* charts */
+///////////////// CHARTS
+///
+
+function normalizeAxisX(series) {
+
+	var lasts = _.map(series, function(vv) {
+			return _.last(vv);
+		}),
+		lmax = _.max(lasts, function(v) {
+			return v.x.getTime();
+		}).x.getTime();
+	
+	for(var s in series) {
+		var last = _.last(series[s]),
+			lastX = last.x.getTime();
+
+		if(lastX < lmax) {
+			series[s].push({
+				x: lmax,
+				y: last.y
+			});
+		}
+	}
+}
 
 $.when(
 	$.ajax({
@@ -50061,19 +50113,18 @@ $.when(
 	    timeout: 1000
 	}),
 	$.ajax({
-		url: host+'/stats/places/activities/bydate',
+		url: host+'/stats/convers/bydate',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    timeout: 1000
 	})
 ).then(function(ret1, ret2, ret3) {
 	var usersByDate = ret1[0],
 		placesByDate = ret2[0],
-		placesActs = ret3[0];
+		conversByDate = ret3[0];
 
-	$users.html('<big>'+usersByDate.count+'</big> users ');
+	$users.html('<big>'+usersByDate.count+'</big> users');
 	$places.html('<big>'+placesByDate.count+'</big> places');	
-	$acts.html('<big>'+placesActs.count+'</big> activities');
-
+	$convers.html('<big>'+conversByDate.count+'</big> messages');
 
 	var chartUsers = []
 	for(var i in usersByDate.rows) {
@@ -50091,41 +50142,26 @@ $.when(
 		});
 	}
 
-	var chartActs = []
-	for(var i in placesActs.rows) {
-		chartActs.push({
-			x: new Date(placesActs.rows[i][0]),
-			y: placesActs.rows[i][1]
+	var chartConvers = []
+	for(var i in conversByDate.rows) {
+		chartConvers.push({
+			x: new Date(conversByDate.rows[i][0]),
+			y: conversByDate.rows[i][1]
 		});
 	}
 
-	var lp = _.last(chartPlaces),
-		lu = _.last(chartUsers);
-		
-	if(lp.x.getTime() > lu.x.getTime())
-		chartUsers.push({
-			x: lp.x,
-			y: lu.y
-		});
-	else
-		chartPlaces.push({
-			x: lu.x,
-			y: lp.y
-		});
+	normalizeAxisX([chartUsers,chartPlaces,chartConvers]);
 
 	var chart = new Chartist.Line('.chartStats', {
 	  series: [
 	    {
-	      name: 'New Users',
 	      data: chartUsers
 	    },
 	    {
-	      name: 'New Places',
 	      data: chartPlaces
 	    },
 	    {
-	      name: 'Activities',
-	      data: chartActs
+	      data: chartConvers
 	    }	    
 	  ]
 	}, {
@@ -50142,7 +50178,7 @@ $.when(
 		},
 		axisX: {
 			showGrid: false,
-			//type: Chartist.FixedScaleAxis,
+			type: Chartist.FixedScaleAxis,
 			divisor: 6,
 			labelInterpolationFnc: function(d) {
 			  var s = (new Date(d)).toDateString().split(' ')
