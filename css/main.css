@@ -1,5 +1,8 @@
 	/*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
-
+body {
+    margin: 0;
+    padding: 0
+}
 html {
 	margin:0;
     color: #222;
@@ -73,11 +76,31 @@ aside {
 	z-index: -1;
 }
 
+.hexbin-hexagon {
+    stroke: #eee;
+    stroke-opacity: 0.2;
+    stroke-width: 0
+}
+.pingPlaces {
+    fill: #257;
+    stroke: #257;
+    stroke-width: 1px;
+}
+
+.pingUsers {
+    fill: #f83;
+    stroke: #f83;
+    stroke-width: 1px;
+}
+
 .ct-series-a .ct-point, .ct-series-a .ct-line, .ct-series-a .ct-bar, .ct-series-a .ct-slice-donut {
     stroke: #fc904a;
 }
 .ct-series-b .ct-point, .ct-series-b .ct-line, .ct-series-b .ct-bar, .ct-series-b .ct-slice-donut {
     stroke: #225577;
+}
+.ct-series-c .ct-point, .ct-series-c .ct-line, .ct-series-c .ct-car, .ct-series-c .ct-slice-donut {
+    stroke: #caf5ff;
 }
 .ct-area {
     fill: #fc904a;
@@ -85,42 +108,46 @@ aside {
 .ct-series-b .ct-area {
     fill: #225577;
 }
+.ct-series-c .ct-area {
+    fill: #caf5ff;
+}
 
 .links {
 	color: #fff;
 }
-aside.stats {
+#stats {
 	white-space: nowrap;
 	color: #9c0;
 	background: rgba(255,255,255, 0.5);
 }
-.stats h3 {
+#stats h3 {
 	margin-top: 20px;
 	display: inline-block;
 	vertical-align: baseline;
 }
-.stats .users,
-.stats .places {
+#stats .chartLegend a {
 	font-size: 180%;
     line-height: 120%;
 	text-decoration: none;
 	cursor: pointer;
 	display: block;
+    text-shadow: 1px 1px 3px rgba(0,0,0, 0.5);
+    opacity: 0.8;
 }
-aside.stats a:hover {
+#stats .chartLegend a:hover {
 	text-decoration: none;
+    opacity: 1
 }
-aside.stats .places,
-aside.stats .places:hover {
+#stats .places {
 	color: #225577;
-	text-shadow: 1px 1px 3px rgba(0,0,0, 0.5);
 }
-aside.stats .users,
-aside.stats .users:hover {
+#stats .users {
 	color: #ff7722;
-	text-shadow: 1px 1px 3px rgba(0,0,0, 0.5);
 }
-aside.stats .demo {
+#stats .convers {
+    color: #caf5ff;
+}
+#stats .demo {
 	background: #9c0;
 	display: inline-block;
 	border-radius: 5px;
@@ -129,10 +156,10 @@ aside.stats .demo {
 	color: #fff;
 	text-decoration: none;
 }
-aside.stats a {
+#stats a {
 	opacity: 0.8;
 }
-aside.stats a:hover {
+#stats a:hover {
 	opacity: 1;
 }
 /* ===== Initializr Styles ==================================================
@@ -526,7 +553,7 @@ nav a:hover {
         width: 57%;
     }
 	.tech,
-	.main .stats,
+	.main #stats,
     .main aside {
         float: right;
         width: 30%;
