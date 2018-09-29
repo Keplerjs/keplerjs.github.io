@@ -119,6 +119,7 @@ aside {
 	white-space: nowrap;
 	color: #9c0;
 	background: rgba(255,255,255, 0.5);
+    box-shadow: 0 0 5px rgba(0,0,0,0.1)
 }
 #stats h3 {
 	margin-top: 20px;
@@ -151,6 +152,7 @@ aside {
 	background: #9c0;
 	display: inline-block;
 	border-radius: 5px;
+    font-size: 26px;
 	padding: 10px;
     margin: 10px 0;
 	color: #fff;
@@ -240,7 +242,6 @@ input {
 .icon-twit{ background-position: -180px -390px; } 
 .icon-face{ background-position: -180px -420px; } 
 .icon-medi{ background-position: -180px -450px; } 
-
 
 .principles {
     background: rgba(153,204,0,0.6);	

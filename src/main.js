@@ -43,7 +43,7 @@ window.map = map;
 var geoLayer = L.geoJSON(null, {
 	style: {
 		weight: 1,
-		opacity: 0.8,
+		opacity: 0.3,
 		color: '#9c0',
 		fillColor: '#9c0',
 		fillOpacity: 0.1
@@ -268,7 +268,6 @@ $.when(
 	  ]
 	}, {
 		fullWidth: true,
-		height: '160px',
 		showPoint: false,
 		showArea: true,
 		chartPadding: {
