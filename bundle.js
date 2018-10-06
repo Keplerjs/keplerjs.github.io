@@ -49866,13 +49866,6 @@ require('../node_modules/leaflet/dist/leaflet.css');
 require('../node_modules/chartist/dist/chartist.css');
 
 
-$(function() {
-
-var	$legend = $('.chartLegend'),
-	$users = $('<a>',{'class': 'users'}).appendTo($legend),
-	$places = $('<a>',{'class': 'places'}).appendTo($legend),
-	$convers = $('<a>',{'class': 'convers'}).appendTo($legend);
-	
 var worldCenter = [40,0],
 	worldZoom = 3,
 	map = L.map('map', {
@@ -49892,6 +49885,11 @@ var worldCenter = [40,0],
 
 window.map = map;
 
+var	$legend = $('.chartLegend'),
+	$users = $('<a>',{'class': 'users'}).appendTo($legend),
+	$places = $('<a>',{'class': 'places'}).appendTo($legend),
+	$convers = $('<a>',{'class': 'convers'}).appendTo($legend);
+	
 var geoLayer = L.geoJSON(null, {
 	style: {
 		weight: 1,
@@ -49974,14 +49972,14 @@ $.when(
 	$.ajax({
 		url: host+'/stats/places/bygeo',
 	    jsonp: 'jsonp', dataType: 'jsonp',
-	    timeout: 1000
+	    //timeout: 1000
 	}),
 	$.ajax({
 		url: host+'/stats/users/bygeo',
 	    jsonp: 'jsonp', dataType: 'jsonp',
-	    timeout: 1000
+	    //timeout: 1000
 	})
-).then(function(ret1, ret2) {
+).done(function(ret1, ret2) {
 	var places = ret1[0],
 		users = ret2[0];
 
@@ -50055,23 +50053,25 @@ function normalizeAxisX(series) {
 	}
 }
 
+//https://api.jquery.com/jquery.when/
 $.when(
 	$.ajax({
 		url: host+'/stats/users/bydate',
 	    jsonp: 'jsonp', dataType: 'jsonp',
-	    timeout: 1000
+	    //timeout: 1000
 	}),
 	$.ajax({
 		url: host+'/stats/places/bydate',
 	    jsonp: 'jsonp', dataType: 'jsonp',
-	    timeout: 1000
+	    //timeout: 1000
 	}),
 	$.ajax({
 		url: host+'/stats/convers/bydate',
 	    jsonp: 'jsonp', dataType: 'jsonp',
-	    timeout: 1000
+	    //timeout: 1000
 	})
-).then(function(ret1, ret2, ret3) {
+).done(function(ret1, ret2, ret3) {
+
 	var usersByDate = ret1[0],
 		placesByDate = ret2[0],
 		conversByDate = ret3[0];
@@ -50141,5 +50141,4 @@ $.when(
 	});
 });
 
-});
 },{"../node_modules/chartist/dist/chartist.css":3,"../node_modules/leaflet/dist/leaflet.css":40,"@asymmetrik/leaflet-d3":1,"chartist":4,"d3":37,"jquery":38,"leaflet":39,"underscore":41}]},{},[42]);

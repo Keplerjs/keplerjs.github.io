@@ -53,6 +53,7 @@ section {
 aside {
 	margin-bottom: 50px;
 	border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1)
 }
 .browserupgrade {
     margin: 0.2em 0;
@@ -119,7 +120,6 @@ aside {
 	white-space: nowrap;
 	color: #9c0;
 	background: rgba(255,255,255, 0.5);
-    box-shadow: 0 0 5px rgba(0,0,0,0.1)
 }
 #stats h3 {
 	margin-top: 20px;
@@ -437,11 +437,8 @@ nav a:visited {
 nav a:hover {
 	color: white;
     cursor: pointer;
-	background: #9c0
-}
-
-nav a:hover {
-    text-decoration: underline;
+	border-bottom: 10px solid #9c0;
+    text-decoration: none;
 }
 
 /* ==============
