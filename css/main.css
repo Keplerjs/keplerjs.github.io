@@ -1,4 +1,22 @@
 	/*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
+.icon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    line-height: 1;
+    /* come .glyphicon */
+    vertical-align: text-bottom;/*non modificare!*/
+    height: 18px;
+    width: 18px;
+    background: url("http://demo.keplerjs.io/packages/keplerjs_theme/assets/images/sprite.svg") no-repeat;
+}
+.icon-git { background-position: -180px -360px; } 
+.icon-twit{ background-position: -180px -390px; } 
+.icon-face{ background-position: -180px -420px; } 
+.icon-medi{ background-position: -180px -450px; } 
+.icon-gplus{ background-position: -180px -480px; } 
+.icon-mail{ background-position: -180px -510px; } 
+
 body {
     margin: 0;
     padding: 0
@@ -227,22 +245,6 @@ input {
 /* ===================
     ALL: Orange Theme
    =================== */
-.icon {
-	position: relative;
-	top: 1px;
-	display: inline-block;
-	line-height: 1;
-	/* come .glyphicon */
-	vertical-align: text-bottom;/*non modificare!*/
-	height: 18px;
-	width: 18px;
-	background: url("https://demo.keplerjs.io/packages/keplerjs_theme/assets/images/sprite.svg") no-repeat;
-}
-.icon-git { background-position: -180px -360px; } 
-.icon-twit{ background-position: -180px -390px; } 
-.icon-face{ background-position: -180px -420px; } 
-.icon-medi{ background-position: -180px -450px; } 
-
 .principles {
     background: rgba(153,204,0,0.6);	
     color: white;
@@ -333,7 +335,7 @@ article {
 	font-size: 14px;
 	text-align: right;
 	float: right;
-	margin-left: 10px
+	margin: 0 2px 0 10px
 }
 .social a:hover {
 	text-decoration: none;
