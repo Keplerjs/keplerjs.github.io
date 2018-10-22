@@ -277,7 +277,7 @@ input {
 article {
 	background: rgba(255,255,255,0.3);
 	border-radius: 5px;
-	padding: 10px;
+    padding: 10px 2% 10px;
     box-shadow: 0 0 5px rgba(100,100,100,0.1);
 	margin-bottom: 16px;
 	text-shadow: 0 0 5px #eee;
