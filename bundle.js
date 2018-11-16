@@ -50139,6 +50139,39 @@ $.when(
 			}
 		}
 	});
+
+	/*$('.chartStats').on('dblclick', function(e) {
+		if(!chart._expand) {
+			var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+			var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+			chart._pheight = $(this).height();
+			chart._pwidth = $(this).width();
+			$(this).css({
+				top:0,
+				left:0,
+				bottom:0,
+				right:0,
+				height:h,
+				width:w,
+				position:'fixed',
+				zIndex:9999,
+				background:'rgba(255,255,255,0.9)'
+			});
+			chart.update();
+			chart._expand = true;
+		}
+		else{
+			$(this).css({
+				height: chart._pheight,
+				width: chart._pwidth,
+				position:'static',
+				zIndex:9999,
+				background:'none'
+			});
+			chart.update();
+			chart._expand = false;
+		}
+	});*/
 });
 
 },{"../node_modules/chartist/dist/chartist.css":3,"../node_modules/leaflet/dist/leaflet.css":40,"@asymmetrik/leaflet-d3":1,"chartist":4,"d3":37,"jquery":38,"leaflet":39,"underscore":41}]},{},[42]);
