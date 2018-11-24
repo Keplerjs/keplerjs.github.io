@@ -50,10 +50,10 @@
 
 <div class="main-container">
 	
-	<div id="map"></div> 
+<div id="map"></div> 
 
-    <div class="main wrapper clearfix">
-    <article>
+<div class="main wrapper clearfix">
+	<article>
         <header>
         	<p>
 			KeplerJs is a open source <a href="https://en.wikipedia.org/wiki/Geosocial_networking">geosocial</a> general-purpose solution that lets users share favorite places and join discussions in real-time. It can be seen as a platform where users can interact with other open data platforms <a href="http://www.openstreetmap.org/about">OpenStreetMap</a> among other sources.
@@ -139,7 +139,6 @@
 				under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT License</a>
 			</small>
 		</section>
-
     </article>
 
 	<aside id="stats">
@@ -149,18 +148,30 @@
 		<div class="chartStats" style="height:300px;width:100%"></div>
 	</aside>
 	
-    <aside class="principles">
-		<ul>
-		<li><h4>Fullstack</h4> Developed 100% in JavaScript using the <i>Meteor</i> the best <i>NodeJs</i> fullstack framework.</li>
-		<li><h4>Realtime</h4> All events and changes within the platform are automatically transmitted from the server to the clients through <i>websockets</i>.</li>
-		<li><h4>Geosocial</h4> The main user interface is a web map that contains objects that represent places, users that interact with each other.</li>
-		<li><h4>Extensible</h4> Development is based on an easily buildable plugins <a href="http://docs.keplerjs.io/architecture.html">architecture</a></li>
-		</ul>
-		<a style="float: right;" href="http://docs.keplerjs.io/">Learn more...</a>
-		<br />
-    </aside>
+	<aside class="news">
+		<a class="twitter-timeline" data-lang="en" data-height="350" data-link-color="#55cc00" href="https://twitter.com/Kepler_JS">Tweets by Kepler_JS</a>
+		<!-- <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+	</aside>
 
-    </div> <!-- #main -->
+</div> <!-- #main -->
+
+<div class="clearfix">
+	<section id="principles">
+		<ul>
+			<li><h4>Fullstack</h4> Developed 100% in JavaScript using the <i>Meteor</i> the best <i>NodeJs</i> fullstack framework.</li>
+			<li><h4>Realtime</h4> All events and changes within the platform are automatically transmitted from the server to the clients through <i>websockets</i>.</li>
+			<li><h4>Geosocial</h4> The main user interface is a web map that contains objects that represent places, users that interact with each other.</li>
+			<li><h4>Extensible</h4> Development is based on an easily buildable plugins <a href="http://docs.keplerjs.io/architecture.html">architecture</a></li>
+		</ul>
+	</section>
+	<section id="technologies">
+		<a class="tech meteor" href="https://www.meteor.com/" target="_blank"><span>meteor</span></a>
+		<a class="tech mongodb" href="https://www.mongodb.com/" target="_blank"><span>mongodb</span></a>
+		<a class="tech leaflet" href="https://leafletjs.com/" target="_blank"><span>leaflet</span></a>
+		<a class="tech nodejs" href="https://nodejs.org/" target="_blank"><span>nodejs</span></a>
+		<a class="tech openstreetmap" href="https://www.openstreetmap.org/#map=15/46.0444/11.1844&layers=C" target="_blank"><span>openstreetmap</span></a>
+		<a class="tech jquery" href="https://jquery.com/" target="_blank"><span>jquery</span></a>
+	</section>	
 </div> <!-- #main-container -->
 
 
@@ -221,10 +232,6 @@
     <footer class="wrapper">
 		<div class="links">
 			<ul>
-				<!--
-				<li><a href="https://keplerjs.tumblr.com/">Tumblr</a></li>
-				<li><a href="https://gitter.im/KeplerJs">Chat</a></li>
-				-->
 				<li><a href="https://medium.com/keplerjs">Blog</a> </li>
 				<li><a href="https://twitter.com/Kepler_JS">News</a></li>
 				<li><a href="https://atmospherejs.com/keplerjs">Plugins</a></li>
@@ -235,29 +242,28 @@
 				<li><a href="https://waffle.io/Keplerjs/Kepler">Issues</a></li>
 				<!-- <li><a href="https://groups.google.com/d/forum/keplerjs">Discussion</a></li> -->
 			</ul>
-			<br /><br />
-			<a class="github-button" href="https://github.com/Keplerjs/Kepler" data-size="large" data-show-count="true" aria-label="Star Keplerjs/KeplerJs on GitHub">GitHub Star</a>
-			<script async defer src="https://buttons.github.io/buttons.js"></script>
-			<br /><br />
-			<a href="https://twitter.com/Kepler_JS" class="twitter-follow-button" data-size="large" data-show-count="true">@Kepler_JS</a>
-			<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-			<br /><br />
-			<div class="fb-like" data-href="https://www.facebook.com/KeplerJs" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
-			<div id="fb-root"></div>
-			<script>(function(d, s, id) {
-			  var js, fjs = d.getElementsByTagName(s)[0];
-			  if (d.getElementById(id)) return;
-			  js = d.createElement(s); js.id = id;
-			  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=133848430551055";
-			  fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'facebook-jssdk'));
-			</script>
-		</div>
-		<div class="news">	
-			<a class="twitter-timeline" data-lang="en" data-width="400" data-height="210" data-link-color="#55cc00" href="https://twitter.com/Kepler_JS">Tweets by Kepler_JS</a>
-			<!-- <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script> -->
-		</div>
-		<div class="tech"></div>
+			<ul>
+				<li>
+					<a class="github-button" href="https://github.com/Keplerjs/Kepler" data-size="large" data-show-count="true" aria-label="Star Keplerjs/KeplerJs on GitHub">GitHub Star</a>
+					<script async defer src="https://buttons.github.io/buttons.js"></script>
+				</li>
+				<li>
+					<a href="https://twitter.com/Kepler_JS" class="twitter-follow-button" data-size="large" data-show-count="true">@Kepler_JS</a>
+					<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+				<li>
+					<span class="fb-like" data-href="https://www.facebook.com/KeplerJs" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="true"></span>
+					<span id="fb-root"></span>
+					<script>(function(d, s, id) {
+					  var js, fjs = d.getElementsByTagName(s)[0];
+					  if (d.getElementById(id)) return;
+					  js = d.createElement(s); js.id = id;
+					  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=133848430551055";
+					  fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));
+					</script>
+				</li>
+			</ul>
+		</div>		
 		<div class="copy">
 			<small>
 				<a href="mailto:info@keplerjs.io">info@keplerjs.io</a>

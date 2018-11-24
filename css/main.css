@@ -246,25 +246,31 @@ input {
 	color: #257;
 }
 
-/* ===================
-    ALL: Orange Theme
-   =================== */
-.principles {
+#principles,
+#technologies {
     background: rgba(153,204,0,0.6);	
     color: white;
-    border-top: 20px solid #257;
+    padding-top: 10px;
+    margin-top: 10px;
+/*    border-top: 20px solid #257;*/
     font-size: 14px;
     line-height: 17px;
+    overflow: hidden;
+    min-height: 80px;
 }
-.principles li {
+#principles li {
+    width: 22%;
+    min-width: 150px;
+    margin-right: 2%;
+    float: left;
 	list-style:none;
 	margin-bottom: 10px;
 }
-.principles a {
+#principles a {
 	color: #fff;
 	text-decoration: none;
 }
-.principles h4 {
+#principles h4 {
     margin: 0;
     color: #fff;
 	margin-right: 5px;
@@ -274,13 +280,36 @@ input {
 	font-size: 32px;
 	line-height: 32px;
 }
+.tech {
+    float: left;
+    list-style: none;
+    display: inline-block;
+    width: 200px;
+    height: 66px;
+    margin: 5px;
+    background: url('../images/tech.png') no-repeat;
+    opacity: 0.7;
+}
+#technologies a:hover,
+#technologies a:active {
+    opacity: 1;
+}
+.tech span {
+    visibility: hidden;
+}
+.tech.meteor {background-position: 0px 0px}
+.tech.mongodb {background-position: -200px 0px}
+.tech.leaflet {background-position: 0px -66px}
+.tech.nodejs {background-position: -200px -66px}
+.tech.openstreetmap {background-position: 0px -132px}
+.tech.jquery {background-position: -200px -132px}
+
 article {
 	background: rgba(255,255,255,0.3);
 	border-radius: 5px;
     padding: 10px 2% 10px;
     box-shadow: 0 0 5px rgba(100,100,100,0.1);
 	margin-bottom: 16px;
-	text-shadow: 0 0 5px #eee;
 }
 
 .header-container {
@@ -303,7 +332,7 @@ article {
 }
 .footer-container {
     background: #257;
-    min-height: 200px;
+    min-height: 180px;
     background: url('../images/cover-hex.png') repeat-x center bottom #257;
     text-shadow: 0 0 2px #257;
 }
@@ -346,22 +375,10 @@ article {
 .social a:hover {
 	text-decoration: none;
 }
-.tech {
-	height: 200px;
-	width: auto;
-	max-width: auto;
-	padding: 0px 5% 10px;
-	background: url('../images/tech.png') no-repeat center center rgba(255,255,255,0.8);
-	border-radius: 5px;
-	background-size: contain;
-	margin-bottom: 20px;
-	clear: both;
-}
 .news {
-	float: left;
-	width: 150px;
-	margin-bottom: 20px;	
-	opacity: 0.8
+    width: 350px;
+    float: right;
+	opacity: 0.8;
 }
 
 a.bitcoin {
@@ -465,6 +482,12 @@ nav a:hover {
     padding: 0px 2% 10px;
 }
 
+.main aside.news {
+    float: right;
+    padding: 0;
+    margin: 0px 2% 10px;
+}
+
 .footer-container footer {
     color: white;
     padding: 20px 0 10px 0;
@@ -558,26 +581,22 @@ nav a:hover {
         float: left;
         width: 57%;
     }
-	.tech,
 	.main #stats,
     .main aside {
         float: right;
         width: 30%;
         clear: right;
     }
-    .news {
-    	width: auto;
-    	max-width: 200px;
-    }
-    aside iframe {
-    	min-width: 500px;
-    }
-    .links {
-    	width: 33%;
+    .links ul {
+    	width: 30%;
     	float: left;
     }
     .links li {
-    	float: none;
+    	clear: both;
+    }
+    .buttons {
+        display: inline-block;
+        float: left;
     }
 }
 
