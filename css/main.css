@@ -238,6 +238,11 @@ input {
     border-radius:3px;
     background: #eee;
 }
+#tryitout,
+#contribute {
+    float: left;
+    width: 45%;
+}
 #tryitout a,
 #tryitout a:hover,
 #tryitout a:active,
@@ -245,7 +250,9 @@ input {
 	font-size: 18px;
 	color: #257;
 }
-
+#donate {
+    clear: both;
+}
 #principles,
 #technologies {
     background: rgba(153,204,0,0.6);	
