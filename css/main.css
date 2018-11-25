@@ -258,12 +258,14 @@ input {
     background: rgba(153,204,0,0.6);	
     color: white;
     padding-top: 10px;
-    margin-top: 10px;
 /*    border-top: 20px solid #257;*/
     font-size: 14px;
     line-height: 17px;
     overflow: hidden;
     min-height: 80px;
+}
+#technologies {
+    background-color: rgba(255,255,255,0.3);
 }
 #principles li {
     width: 22%;
