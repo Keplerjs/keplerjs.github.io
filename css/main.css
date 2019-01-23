@@ -264,9 +264,6 @@ input {
     overflow: hidden;
     min-height: 80px;
 }
-#technologies {
-    background-color: rgba(255,255,255,0.3);
-}
 #principles li {
     width: 22%;
     min-width: 150px;
@@ -289,19 +286,22 @@ input {
 	font-size: 32px;
 	line-height: 32px;
 }
-.tech {
-    float: left;
-    list-style: none;
-    display: inline-block;
-    width: 200px;
-    height: 66px;
-    margin: 5px;
-    background: url('../images/tech.png') no-repeat;
-    opacity: 0.7;
+#technologies {
+    text-align: center;
+    background-color: rgba(255,255,255,0.3);
 }
 #technologies a:hover,
 #technologies a:active {
     opacity: 1;
+}
+.tech {
+    list-style: none;
+    display: inline-block;
+    width: 200px;
+    height: 66px;
+    margin: 5px 2%;
+    background: url('../images/tech.png') no-repeat;
+    opacity: 0.7;
 }
 .tech span {
     visibility: hidden;
