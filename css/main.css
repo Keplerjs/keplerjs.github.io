@@ -16,6 +16,7 @@
 .icon-medi{ background-position: -180px -450px; } 
 .icon-gplus{ background-position: -180px -480px; } 
 .icon-mail{ background-position: -180px -510px; } 
+.icon-news{ background-position: -180px -540px; } 
 
 body {
     margin: 0;
@@ -464,6 +465,7 @@ nav a {
 
     color: white;
     background: #257;
+    background: #888
 }
 nav a:visited {
 	color:white;
