@@ -131,6 +131,48 @@ aside {
 .ct-series-c .ct-area {
     fill: #caf5ff;
 }
+.ct-chart-donut,
+.ct-chart-pie {
+    fill-opacity:0.8;
+}
+.ct-chart-donut .ct-label,
+.ct-chart-pie .ct-label {
+    dominant-baseline: central;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: capitalize;
+    /*text-transform: uppercase;*/
+    fill:#004529;
+    opacity: 1;
+    fill-opacity:1;
+    stroke: #fff;
+}
+.ct-slice-donut-solid {
+    stroke-opacity:1;
+    stroke-width:4px;
+    stroke: #f3f5eb;
+}
+
+.ct-series-a .ct-slice-donut-solid{fill:#004529;}
+.ct-series-b .ct-slice-donut-solid{fill:#006837;}
+.ct-series-c .ct-slice-donut-solid{fill:#238443;}
+.ct-series-d .ct-slice-donut-solid{fill:#41ab5d;}
+.ct-series-e .ct-slice-donut-solid{fill:#78c679;}
+.ct-series-f .ct-slice-donut-solid{fill:#addd8e;}
+.ct-series-g .ct-slice-donut-solid{fill:#d9f0a3;}
+.ct-series-h .ct-slice-donut-solid{fill:#f7fcb9;}
+.ct-series-i .ct-slice-donut-solid{fill:#f7fcb9;}
+.ct-series-j .ct-slice-donut-solid{fill:#f7fcb9;}
+.ct-series-k .ct-slice-donut-solid{fill:#f7fcb9;}
+
+
+
+
+
+
+
+
+
 
 .links {
 	color: #fff;
@@ -145,7 +187,8 @@ aside {
 	display: inline-block;
 	vertical-align: baseline;
 }
-#stats .chartLegend a {
+#stats .chartLegend a,
+#stats .chartLegend2 a {
 	font-size: 180%;
     line-height: 120%;
 	text-decoration: none;
@@ -154,7 +197,8 @@ aside {
     text-shadow: 1px 1px 3px rgba(0,0,0, 0.5);
     opacity: 0.8;
 }
-#stats .chartLegend a:hover {
+#stats .chartLegend a:hover,
+#stats .chartLegend2 a:hover {
 	text-decoration: none;
     opacity: 1
 }
@@ -166,6 +210,9 @@ aside {
 }
 #stats .convers {
     color: #caf5ff;
+}
+#stats .countries {
+    color: #225577;
 }
 #stats .demo {
 	background: #9c0;

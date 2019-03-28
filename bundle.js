@@ -50330,7 +50330,6 @@ var d3L = require('@asymmetrik/leaflet-d3');
 require('../node_modules/leaflet/dist/leaflet.css');
 require('../node_modules/chartist/dist/chartist.css');
 
-
 var worldCenter = [40,0],
 	worldZoom = 3,
 	map = L.map('map', {
@@ -50351,9 +50350,11 @@ var worldCenter = [40,0],
 window.map = map;
 
 var	$legend = $('.chartLegend'),
+	$legend2 = $('.chartLegend2'),
 	$users = $('<a>',{'class': 'users'}).appendTo($legend),
 	$places = $('<a>',{'class': 'places'}).appendTo($legend),
-	$convers = $('<a>',{'class': 'convers'}).appendTo($legend);
+	$convers = $('<a>',{'class': 'convers'}).appendTo($legend),
+	$countries = $('<a>',{'class': 'countries'}).appendTo($legend2);
 	
 var geoLayer = L.geoJSON(null, {
 	style: {
@@ -50604,39 +50605,69 @@ $.when(
 			}
 		}
 	});
+});
 
-	/*$('.chartStats').on('dblclick', function(e) {
-		if(!chart._expand) {
-			var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-			var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-			chart._pheight = $(this).height();
-			chart._pwidth = $(this).width();
-			$(this).css({
-				top:0,
-				left:0,
-				bottom:0,
-				right:0,
-				height:h,
-				width:w,
-				position:'fixed',
-				zIndex:9999,
-				background:'rgba(255,255,255,0.9)'
-			});
-			chart.update();
-			chart._expand = true;
+$.when(
+	$.ajax({
+		url: host+'/stats/places/byfield/geoinfo.naz',
+	    jsonp: 'jsonp', dataType: 'jsonp',
+	    //timeout: 1000
+	})
+	//TODO other charts
+).done(function(ret1) {
+
+	var placesByField = ret1;
+
+	$countries.html('<big>'+placesByField.rows.length+'</big> countries');
+
+	var limit = 8,
+		//rows = _.first(placesByField.rows, limit),
+		rows = placesByField.rows,
+		labels = [],
+		series = [];
+
+	var tot = 0;//placesByField.count;
+		otherlab = 'Others',
+		otherval = 0;
+
+	for(var i in rows) {
+		let lab = rows[i][0],
+			val = rows[i][1];
+
+		if(lab==='united kingdom')
+			lab = 'UK';
+
+		if(i < limit) {
+			labels.push(lab);
+			series.push(val);
 		}
-		else{
-			$(this).css({
-				height: chart._pheight,
-				width: chart._pwidth,
-				position:'static',
-				zIndex:9999,
-				background:'none'
-			});
-			chart.update();
-			chart._expand = false;
-		}
-	});*/
+		else
+			otherval += val;
+		
+		tot += val;
+	}
+
+	labels.push(otherlab);
+	series.push(otherval);
+
+	var chart = new Chartist.Pie('.chartStats2', {
+		labels: labels,
+		series: series
+	}, {
+		donut: true,
+
+		donutWidth: 60,
+		donutSolid: true,
+		//startAngle: 270,
+		total: tot,
+		showLabel: true,
+		/*axisX: {
+			position: 'start'
+		},
+		axisY: {
+			position: 'end'
+		}*/
+	});
 });
 
 },{"../node_modules/chartist/dist/chartist.css":3,"../node_modules/leaflet/dist/leaflet.css":40,"@asymmetrik/leaflet-d3":1,"chartist":4,"d3":37,"jquery":38,"leaflet":39,"underscore":41}]},{},[42]);
