@@ -303,7 +303,7 @@ $.when(
 
 	$countries.html('<big>'+placesByField.rows.length+'</big> countries');
 
-	var limit = 8,
+	var limit = 10,
 		//rows = _.first(placesByField.rows, limit),
 		rows = placesByField.rows,
 		labels = [],
@@ -339,16 +339,13 @@ $.when(
 	}, {
 		donut: true,
 
-		donutWidth: 60,
+		donutWidth: 40,
 		donutSolid: true,
 		//startAngle: 270,
 		total: tot,
 		showLabel: true,
-		/*axisX: {
-			position: 'start'
-		},
-		axisY: {
-			position: 'end'
-		}*/
+		chartPadding: 50,
+    	labelOffset: 30,
+		labelDirection: 'explode'
 	});
 });

@@ -131,26 +131,19 @@ aside {
 .ct-series-c .ct-area {
     fill: #caf5ff;
 }
-.ct-chart-donut,
-.ct-chart-pie {
-    fill-opacity:0.8;
-}
-.ct-chart-donut .ct-label,
-.ct-chart-pie .ct-label {
+.ct-chart-donut .ct-label {
     dominant-baseline: central;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 12px;
     text-transform: capitalize;
-    /*text-transform: uppercase;*/
-    fill:#004529;
-    opacity: 1;
+    opacity:1;
     fill-opacity:1;
-    stroke: #fff;
 }
 .ct-slice-donut-solid {
+    fill-opacity:0.8;
     stroke-opacity:1;
     stroke-width:4px;
     stroke: #f3f5eb;
+    opacity: 0.9;
 }
 
 .ct-series-a .ct-slice-donut-solid{fill:#004529;}
@@ -160,19 +153,10 @@ aside {
 .ct-series-e .ct-slice-donut-solid{fill:#78c679;}
 .ct-series-f .ct-slice-donut-solid{fill:#addd8e;}
 .ct-series-g .ct-slice-donut-solid{fill:#d9f0a3;}
-.ct-series-h .ct-slice-donut-solid{fill:#f7fcb9;}
-.ct-series-i .ct-slice-donut-solid{fill:#f7fcb9;}
-.ct-series-j .ct-slice-donut-solid{fill:#f7fcb9;}
-.ct-series-k .ct-slice-donut-solid{fill:#f7fcb9;}
-
-
-
-
-
-
-
-
-
+.ct-series-h .ct-slice-donut-solid{fill:#fdffe1;}
+.ct-series-i .ct-slice-donut-solid{fill:#fdffe1;}
+.ct-series-j .ct-slice-donut-solid{fill:#fdffe1;}
+.ct-series-k .ct-slice-donut-solid{fill:#ffffff;}
 
 .links {
 	color: #fff;
