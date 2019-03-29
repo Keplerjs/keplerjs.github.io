@@ -18852,7 +18852,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 })));
 
 },{}],30:[function(require,module,exports){
-// https://d3js.org/d3-shape/ v1.3.5 Copyright 2019 Mike Bostock
+// https://d3js.org/d3-shape/ v1.3.4 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-path')) :
 typeof define === 'function' && define.amd ? define(['exports', 'd3-path'], factory) :
@@ -20645,7 +20645,7 @@ function expand(series, order) {
 }
 
 function diverging(series, order) {
-  if (!((n = series.length) > 0)) return;
+  if (!((n = series.length) > 1)) return;
   for (var i, j = 0, d, dy, yp, yn, n, m = series[order[0]].length; j < m; ++j) {
     for (yp = yn = 0, i = 0; i < n; ++i) {
       if ((dy = (d = series[order[i]][j])[1] - d[0]) >= 0) {
@@ -50588,10 +50588,6 @@ $.when(
 		fullWidth: true,
 		showPoint: false,
 		showArea: true,
-		chartPadding: {
-			left: 0,
-			right: 0,
-		},
 		axisY: {
 			//showGrid: false
 		},
@@ -50621,6 +50617,7 @@ $.when(
 	$countries.html('<big>'+placesByField.rows.length+'</big> countries');
 
 	var limit = 10,
+		minval = 5,
 		//rows = _.first(placesByField.rows, limit),
 		rows = placesByField.rows,
 		labels = [],
@@ -50629,6 +50626,10 @@ $.when(
 	var tot = 0;//placesByField.count;
 		otherlab = 'Others',
 		otherval = 0;
+	
+	limit = _.filter(rows, function(o) {
+		return o[1] > minval;
+	}).length;
 
 	for(var i in rows) {
 		let lab = rows[i][0],
@@ -50655,15 +50656,18 @@ $.when(
 		series: series
 	}, {
 		donut: true,
-
 		donutWidth: 40,
 		donutSolid: true,
 		//startAngle: 270,
 		total: tot,
 		showLabel: true,
-		chartPadding: 50,
     	labelOffset: 30,
-		labelDirection: 'explode'
+		labelDirection: 'explode',
+
+		fullWidth: true,
+		showPoint: false,
+		showArea: true,
+		chartPadding: 30,
 	});
 });
 

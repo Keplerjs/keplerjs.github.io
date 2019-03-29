@@ -271,10 +271,6 @@ $.when(
 		fullWidth: true,
 		showPoint: false,
 		showArea: true,
-		chartPadding: {
-			left: 0,
-			right: 0,
-		},
 		axisY: {
 			//showGrid: false
 		},
@@ -304,6 +300,7 @@ $.when(
 	$countries.html('<big>'+placesByField.rows.length+'</big> countries');
 
 	var limit = 10,
+		minval = 5,
 		//rows = _.first(placesByField.rows, limit),
 		rows = placesByField.rows,
 		labels = [],
@@ -312,6 +309,10 @@ $.when(
 	var tot = 0;//placesByField.count;
 		otherlab = 'Others',
 		otherval = 0;
+	
+	limit = _.filter(rows, function(o) {
+		return o[1] > minval;
+	}).length;
 
 	for(var i in rows) {
 		let lab = rows[i][0],
@@ -338,14 +339,17 @@ $.when(
 		series: series
 	}, {
 		donut: true,
-
 		donutWidth: 40,
 		donutSolid: true,
 		//startAngle: 270,
 		total: tot,
 		showLabel: true,
-		chartPadding: 50,
     	labelOffset: 30,
-		labelDirection: 'explode'
+		labelDirection: 'explode',
+
+		fullWidth: true,
+		showPoint: false,
+		showArea: true,
+		chartPadding: 30,
 	});
 });

@@ -131,6 +131,10 @@ aside {
 .ct-series-c .ct-area {
     fill: #caf5ff;
 }
+
+.ct-chart-line .ct-series {
+    opacity: 0.9;
+}
 .ct-chart-donut .ct-label {
     dominant-baseline: central;
     font-size: 12px;
@@ -157,6 +161,17 @@ aside {
 .ct-series-i .ct-slice-donut-solid{fill:#fdffe1;}
 .ct-series-j .ct-slice-donut-solid{fill:#fdffe1;}
 .ct-series-k .ct-slice-donut-solid{fill:#ffffff;}
+.ct-series-l .ct-slice-donut-solid{fill:#ffffff;}
+.ct-series-m .ct-slice-donut-solid{fill:#ffffff;}
+.ct-series-n .ct-slice-donut-solid{fill:#ffffff;}
+.ct-series-o .ct-slice-donut-solid{fill:#ffffff;}
+.ct-series-p .ct-slice-donut-solid{fill:#ffffff;}
+.ct-series-q .ct-slice-donut-solid{fill:#ffffff;}
+.ct-series-r .ct-slice-donut-solid{fill:#ffffff;}
+.ct-series-s .ct-slice-donut-solid{fill:#ffffff;}
+.ct-series-t .ct-slice-donut-solid{fill:#ffffff;}
+.ct-series-u .ct-slice-donut-solid{fill:#ffffff;}
+.ct-series-v .ct-slice-donut-solid{fill:#ffffff;}
 
 .links {
 	color: #fff;
@@ -178,7 +193,7 @@ aside {
 	text-decoration: none;
 	cursor: pointer;
 	display: block;
-    text-shadow: 1px 1px 3px rgba(0,0,0, 0.5);
+    text-shadow: 0 0 1px rgba(0,0,0, 0.5);
     opacity: 0.8;
 }
 #stats .chartLegend a:hover,
@@ -196,7 +211,7 @@ aside {
     color: #caf5ff;
 }
 #stats .countries {
-    color: #225577;
+    color: #5da371;
 }
 #stats .demo {
 	background: #9c0;
