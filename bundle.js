@@ -18852,7 +18852,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 })));
 
 },{}],30:[function(require,module,exports){
-// https://d3js.org/d3-shape/ v1.3.4 Copyright 2019 Mike Bostock
+// https://d3js.org/d3-shape/ v1.3.5 Copyright 2019 Mike Bostock
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-path')) :
 typeof define === 'function' && define.amd ? define(['exports', 'd3-path'], factory) :
@@ -20645,7 +20645,7 @@ function expand(series, order) {
 }
 
 function diverging(series, order) {
-  if (!((n = series.length) > 1)) return;
+  if (!((n = series.length) > 0)) return;
   for (var i, j = 0, d, dy, yp, yn, n, m = series[order[0]].length; j < m; ++j) {
     for (yp = yn = 0, i = 0; i < n; ++i) {
       if ((dy = (d = series[order[i]][j])[1] - d[0]) >= 0) {
@@ -50316,7 +50316,7 @@ var css = ".leaflet-image-layer,.leaflet-layer,.leaflet-marker-icon,.leaflet-mar
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],42:[function(require,module,exports){
 
-var host = 'https://demo.keplerjs.io';
+var host = 'http://demo.keplerjs.local';
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore');
@@ -50354,7 +50354,8 @@ var	$legend = $('.chartLegend'),
 	$users = $('<a>',{'class': 'users'}).appendTo($legend),
 	$places = $('<a>',{'class': 'places'}).appendTo($legend),
 	$convers = $('<a>',{'class': 'convers'}).appendTo($legend),
-	$countries = $('<a>',{'class': 'countries'}).appendTo($legend2);
+	$countries = $('<a>',{'class': 'countries'}).appendTo($legend2),
+	$languages = $('<a>',{'class': 'languages'}).appendTo($legend2);
 	
 var geoLayer = L.geoJSON(null, {
 	style: {
@@ -50608,13 +50609,22 @@ $.when(
 		url: host+'/stats/places/byfield/geoinfo.naz',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
+	}),
+	$.ajax({
+		url: host+'/stats/users/byfield/lang',
+	    jsonp: 'jsonp', dataType: 'jsonp',
+	    //timeout: 1000
 	})
 	//TODO other charts
-).done(function(ret1) {
+).done(function(ret1,ret2) {
 
-	var placesByField = ret1;
+	var placesByField = ret1[0],
+		usersByField = ret2[0];
+
+console.log('usersByField',placesByField)
 
 	$countries.html('<big>'+placesByField.rows.length+'</big> countries');
+	$languages.html('<big>'+usersByField.rows.length+'</big> languages');
 
 	var limit = 10,
 		minval = 5,
@@ -50651,7 +50661,7 @@ $.when(
 	labels.push(otherlab);
 	series.push(otherval);
 
-	var chart = new Chartist.Pie('.chartStats2', {
+	new Chartist.Pie('.chartStats2', {
 		labels: labels,
 		series: series
 	}, {
@@ -50669,6 +50679,21 @@ $.when(
 		showArea: true,
 		chartPadding: 30,
 	});
+
+/*	new Chartist.Pie('.chartStats3', {
+		labels: labels,
+		series: series
+	}, {
+		total: tot,
+		showLabel: true,
+    	labelOffset: 30,
+		labelDirection: 'explode',
+
+		fullWidth: true,
+		showPoint: false,
+		showArea: true,
+		chartPadding: 30,
+	});*/
 });
 
 },{"../node_modules/chartist/dist/chartist.css":3,"../node_modules/leaflet/dist/leaflet.css":40,"@asymmetrik/leaflet-d3":1,"chartist":4,"d3":37,"jquery":38,"leaflet":39,"underscore":41}]},{},[42]);

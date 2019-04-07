@@ -1,5 +1,5 @@
 
-var host = 'https://demo.keplerjs.io';
+var host = 'http://demo.keplerjs.local';
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore');
@@ -37,7 +37,8 @@ var	$legend = $('.chartLegend'),
 	$users = $('<a>',{'class': 'users'}).appendTo($legend),
 	$places = $('<a>',{'class': 'places'}).appendTo($legend),
 	$convers = $('<a>',{'class': 'convers'}).appendTo($legend),
-	$countries = $('<a>',{'class': 'countries'}).appendTo($legend2);
+	$countries = $('<a>',{'class': 'countries'}).appendTo($legend2),
+	$languages = $('<a>',{'class': 'languages'}).appendTo($legend2);
 	
 var geoLayer = L.geoJSON(null, {
 	style: {
@@ -291,13 +292,22 @@ $.when(
 		url: host+'/stats/places/byfield/geoinfo.naz',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
+	}),
+	$.ajax({
+		url: host+'/stats/users/byfield/lang',
+	    jsonp: 'jsonp', dataType: 'jsonp',
+	    //timeout: 1000
 	})
 	//TODO other charts
-).done(function(ret1) {
+).done(function(ret1,ret2) {
 
-	var placesByField = ret1;
+	var placesByField = ret1[0],
+		usersByField = ret2[0];
+
+console.log('usersByField',placesByField)
 
 	$countries.html('<big>'+placesByField.rows.length+'</big> countries');
+	$languages.html('<big>'+usersByField.rows.length+'</big> languages');
 
 	var limit = 10,
 		minval = 5,
@@ -334,7 +344,7 @@ $.when(
 	labels.push(otherlab);
 	series.push(otherval);
 
-	var chart = new Chartist.Pie('.chartStats2', {
+	new Chartist.Pie('.chartStats2', {
 		labels: labels,
 		series: series
 	}, {
@@ -352,4 +362,19 @@ $.when(
 		showArea: true,
 		chartPadding: 30,
 	});
+
+/*	new Chartist.Pie('.chartStats3', {
+		labels: labels,
+		series: series
+	}, {
+		total: tot,
+		showLabel: true,
+    	labelOffset: 30,
+		labelDirection: 'explode',
+
+		fullWidth: true,
+		showPoint: false,
+		showArea: true,
+		chartPadding: 30,
+	});*/
 });
