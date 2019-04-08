@@ -50351,11 +50351,11 @@ window.map = map;
 
 var	$legend = $('.chartLegend'),
 	$legend2 = $('.chartLegend2'),
-	$users = $('<a>',{'class': 'users'}).appendTo($legend),
-	$places = $('<a>',{'class': 'places'}).appendTo($legend),
-	$convers = $('<a>',{'class': 'convers'}).appendTo($legend),
-	$countries = $('<a>',{'class': 'countries'}).appendTo($legend2),
-	$languages = $('<a>',{'class': 'languages'}).appendTo($legend2);
+	$users = $('<b>',{'class': 'users'}).appendTo($legend),
+	$places = $('<b>',{'class': 'places'}).appendTo($legend),
+	$convers = $('<b>',{'class': 'convers'}).appendTo($legend),
+	$countries = $('<b>',{'class': 'countries'}).appendTo($legend2),
+	$languages = $('<b>',{'class': 'languages'}).appendTo($legend2);
 	
 var geoLayer = L.geoJSON(null, {
 	style: {
@@ -50479,7 +50479,7 @@ $.when(
 
 	fitStats();
 
-	$('article').on('click', fitStats);	
+	/*$('article').on('click', fitStats);	
 
 	$places.on('click', function(e) {
 		//map.removeLayer(hexUsersLayer);
@@ -50492,7 +50492,7 @@ $.when(
 		//map.addLayer(hexUsersLayer);
 		hexPlacesLayer.hide();
 		hexUsersLayer.show();
-	});
+	});*/
 });
 
 ///////////////// CHARTS
@@ -50545,7 +50545,7 @@ $.when(
 
 	$users.html('<big>'+usersByDate.count+'</big> users');
 	$places.html('<big>'+placesByDate.count+'</big> places');	
-	$convers.html('<big>'+conversByDate.count+'</big> messages');
+	$convers.html('<big>'+conversByDate.count+'</big> talks');
 
 	var chartUsers = []
 	for(var i in usersByDate.rows) {
@@ -50679,7 +50679,7 @@ $.when(
 //USERS
 
 	var usersLimit = 10,
-		minval =  10,
+		minval =  15,
 		labels = [],
 		series = [];
 

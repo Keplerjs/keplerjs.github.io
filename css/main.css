@@ -212,20 +212,14 @@ aside {
 	display: inline-block;
 	vertical-align: baseline;
 }
-#stats .chartLegend a,
-#stats .chartLegend2 a {
+#stats .chartLegend b,
+#stats .chartLegend2 b {
 	font-size: 120%;
     line-height: 120%;
 	text-decoration: none;
-	cursor: pointer;
 	display: block;
     text-shadow: 0 0 1px rgba(0,0,0, 0.5);
     opacity: 0.8;
-}
-#stats .chartLegend a:hover,
-#stats .chartLegend2 a:hover {
-	text-decoration: none;
-    opacity: 1
 }
 #stats .places {
 	color: #225577;
