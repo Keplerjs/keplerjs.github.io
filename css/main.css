@@ -135,9 +135,10 @@ aside {
 .ct-chart-line .ct-series {
     opacity: 0.9;
 }
+.ct-chart-pie .ct-label,
 .ct-chart-donut .ct-label {
     dominant-baseline: central;
-    font-size: 12px;
+    font-size: 11px;
     text-transform: capitalize;
     opacity:1;
     fill-opacity:1;
@@ -150,28 +151,53 @@ aside {
     opacity: 0.9;
 }
 
-.ct-series-a .ct-slice-donut-solid{fill:#004529;}
-.ct-series-b .ct-slice-donut-solid{fill:#006837;}
-.ct-series-c .ct-slice-donut-solid{fill:#238443;}
-.ct-series-d .ct-slice-donut-solid{fill:#41ab5d;}
-.ct-series-e .ct-slice-donut-solid{fill:#78c679;}
-.ct-series-f .ct-slice-donut-solid{fill:#addd8e;}
-.ct-series-g .ct-slice-donut-solid{fill:#d9f0a3;}
-.ct-series-h .ct-slice-donut-solid{fill:#fdffe1;}
-.ct-series-i .ct-slice-donut-solid{fill:#fdffe1;}
-.ct-series-j .ct-slice-donut-solid{fill:#fdffe1;}
-.ct-series-k .ct-slice-donut-solid{fill:#ffffff;}
-.ct-series-l .ct-slice-donut-solid{fill:#ffffff;}
-.ct-series-m .ct-slice-donut-solid{fill:#ffffff;}
-.ct-series-n .ct-slice-donut-solid{fill:#ffffff;}
-.ct-series-o .ct-slice-donut-solid{fill:#ffffff;}
-.ct-series-p .ct-slice-donut-solid{fill:#ffffff;}
-.ct-series-q .ct-slice-donut-solid{fill:#ffffff;}
-.ct-series-r .ct-slice-donut-solid{fill:#ffffff;}
-.ct-series-s .ct-slice-donut-solid{fill:#ffffff;}
-.ct-series-t .ct-slice-donut-solid{fill:#ffffff;}
-.ct-series-u .ct-slice-donut-solid{fill:#ffffff;}
-.ct-series-v .ct-slice-donut-solid{fill:#ffffff;}
+.chartStats2 .ct-series-a path {fill:#004529}
+.chartStats2 .ct-series-b path {fill:#006837}
+.chartStats2 .ct-series-c path {fill:#238443}
+.chartStats2 .ct-series-d path {fill:#41ab5d}
+.chartStats2 .ct-series-e path {fill:#78c679}
+.chartStats2 .ct-series-f path {fill:#addd8e}
+.chartStats2 .ct-series-g path {fill:#d9f0a3}
+.chartStats2 .ct-series-h path {fill:#fdffe1}
+.chartStats2 .ct-series-i path {fill:#fdffe1}
+.chartStats2 .ct-series-j path {fill:#fdffe1}
+.chartStats2 .ct-series-k path {fill:#ffffff}
+.chartStats2 .ct-series-l path {fill:#ffffff}
+.chartStats2 .ct-series-m path {fill:#ffffff}
+.chartStats2 .ct-series-n path {fill:#ffffff}
+.chartStats2 .ct-series-o path {fill:#ffffff}
+.chartStats2 .ct-series-p path {fill:#ffffff}
+.chartStats2 .ct-series-q path {fill:#ffffff}
+.chartStats2 .ct-series-r path {fill:#ffffff}
+.chartStats2 .ct-series-s path {fill:#ffffff}
+.chartStats2 .ct-series-t path {fill:#ffffff}
+.chartStats2 .ct-series-u path {fill:#ffffff}
+.chartStats2 .ct-series-v path {fill:#ffffff}
+
+/*pie*/
+.chartStats3 .ct-series-a path {fill:#fd8d3c}
+.chartStats3 .ct-series-b path {fill:#feb24c}
+.chartStats3 .ct-series-c path {fill:#fed976}
+.chartStats3 .ct-series-d path {fill:#ffeda0}
+.chartStats3 .ct-series-e path {fill:#ffffcc}
+.chartStats3 .ct-series-f path {fill:#ffffcd}
+.chartStats3 .ct-series-g path {fill:#ffffdd}
+.chartStats3 .ct-series-h path {fill:#ffffee}
+.chartStats3 .ct-series-i path {fill:#ffffef}
+.chartStats3 .ct-series-j path {fill:#ffffff}
+.chartStats3 .ct-series-k path {fill:#ffffff}
+.chartStats3 .ct-series-l path {fill:#ffffff}
+.chartStats3 .ct-series-m path {fill:#ffffff}
+.chartStats3 .ct-series-n path {fill:#ffffff}
+.chartStats3 .ct-series-o path {fill:#ffffff}
+.chartStats3 .ct-series-p path {fill:#ffffff}
+.chartStats3 .ct-series-q path {fill:#ffffff}
+.chartStats3 .ct-series-r path {fill:#ffffff}
+.chartStats3 .ct-series-s path {fill:#ffffff}
+.chartStats3 .ct-series-t path {fill:#ffffff}
+.chartStats3 .ct-series-u path {fill:#ffffff}
+.chartStats3 .ct-series-v path {fill:#ffffff}
+
 
 .links {
 	color: #fff;
@@ -188,7 +214,7 @@ aside {
 }
 #stats .chartLegend a,
 #stats .chartLegend2 a {
-	font-size: 180%;
+	font-size: 120%;
     line-height: 120%;
 	text-decoration: none;
 	cursor: pointer;
@@ -212,6 +238,9 @@ aside {
 }
 #stats .countries {
     color: #5da371;
+}
+#stats .languages {
+    color: #feb24c
 }
 #stats .demo {
 	background: #9c0;
