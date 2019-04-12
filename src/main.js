@@ -1,5 +1,5 @@
 
-var host = 'https://demo.keplerjs.io';
+var baseUrl = 'https://demo.keplerjs.io/api/stats';
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore');
@@ -117,15 +117,20 @@ $.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json', function(json)
 	geoLayer.addData(json);
 });
 
+/* api */
+$.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json', function(json) {
+	geoLayer.addData(json);
+});
+
 /* layers */
 $.when(
 	$.ajax({
-		url: host+'/stats/places/bygeo',
+		url: baseUrl+'/places/bygeo',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
 	}),
 	$.ajax({
-		url: host+'/stats/users/bygeo',
+		url: baseUrl+'/users/bygeo',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
 	})
@@ -206,17 +211,17 @@ function normalizeAxisX(series) {
 //https://api.jquery.com/jquery.when/
 $.when(
 	$.ajax({
-		url: host+'/stats/users/bydate',
+		url: baseUrl+'/users/bydate',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
 	}),
 	$.ajax({
-		url: host+'/stats/places/bydate',
+		url: baseUrl+'/places/bydate',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
 	}),
 	$.ajax({
-		url: host+'/stats/convers/bydate',
+		url: baseUrl+'/convers/bydate',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
 	})
@@ -289,12 +294,12 @@ $.when(
 
 $.when(
 	$.ajax({
-		url: host+'/stats/places/byfield/geoinfo.naz',
+		url: baseUrl+'/places/byfield/geoinfo.naz',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
 	}),
 	$.ajax({
-		url: host+'/stats/users/byfield/lang',
+		url: baseUrl+'/users/byfield/lang',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
 	})
