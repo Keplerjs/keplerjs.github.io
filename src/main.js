@@ -1,5 +1,5 @@
 
-var baseUrl = 'http://demo.keplerjs.local/api';
+var baseUrl = 'https://demo.keplerjs.io/api';
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore');
