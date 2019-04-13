@@ -50316,7 +50316,7 @@ var css = ".leaflet-image-layer,.leaflet-layer,.leaflet-marker-icon,.leaflet-mar
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],42:[function(require,module,exports){
 
-var baseUrl = 'https://demo.keplerjs.io/api/stats';
+var baseUrl = 'http://demo.keplerjs.local/api';
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore');
@@ -50349,7 +50349,8 @@ var worldCenter = [40,0],
 
 window.map = map;
 
-var	$legend = $('.chartLegend'),
+var	$version = $('.version'),
+	$legend = $('.chartLegend'),
 	$legend2 = $('.chartLegend2'),
 	$users = $('<b>',{'class': 'users'}).appendTo($legend),
 	$places = $('<b>',{'class': 'places'}).appendTo($legend),
@@ -50434,20 +50435,22 @@ $.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json', function(json)
 	geoLayer.addData(json);
 });
 
-/* api */
-$.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json', function(json) {
-	geoLayer.addData(json);
+/* base api */
+$.getJSON(baseUrl, function(json) {
+	if(json && json.version) {
+		$version.text('v'+json.version)
+	}
 });
 
 /* layers */
 $.when(
 	$.ajax({
-		url: baseUrl+'/places/bygeo',
+		url: baseUrl+'/stats/places/bygeo',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
 	}),
 	$.ajax({
-		url: baseUrl+'/users/bygeo',
+		url: baseUrl+'/stats/users/bygeo',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
 	})
@@ -50528,17 +50531,17 @@ function normalizeAxisX(series) {
 //https://api.jquery.com/jquery.when/
 $.when(
 	$.ajax({
-		url: baseUrl+'/users/bydate',
+		url: baseUrl+'/stats/users/bydate',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
 	}),
 	$.ajax({
-		url: baseUrl+'/places/bydate',
+		url: baseUrl+'/stats/places/bydate',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
 	}),
 	$.ajax({
-		url: baseUrl+'/convers/bydate',
+		url: baseUrl+'/stats/convers/bydate',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
 	})
@@ -50611,12 +50614,12 @@ $.when(
 
 $.when(
 	$.ajax({
-		url: baseUrl+'/places/byfield/geoinfo.naz',
+		url: baseUrl+'/stats/places/byfield/geoinfo.naz',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
 	}),
 	$.ajax({
-		url: baseUrl+'/users/byfield/lang',
+		url: baseUrl+'/stats/users/byfield/lang',
 	    jsonp: 'jsonp', dataType: 'jsonp',
 	    //timeout: 1000
 	})
