@@ -50444,17 +50444,12 @@ $.getJSON(baseUrl, function(json) {
 
 /* layers */
 $.when(
-	$.ajax({
-		url: baseUrl+'/stats/places/bygeo',
-	    jsonp: 'jsonp', dataType: 'jsonp',
-	    //timeout: 1000
-	}),
-	$.ajax({
-		url: baseUrl+'/stats/users/bygeo',
-	    jsonp: 'jsonp', dataType: 'jsonp',
-	    //timeout: 1000
-	})
+	$.getJSON(baseUrl+'/stats/places/bygeo'),
+	$.getJSON(baseUrl+'/stats/users/bygeo')
 ).done(function(ret1, ret2) {
+
+	console.log(ret1);
+return 
 	var places = ret1[0],
 		users = ret2[0];
 
@@ -50530,21 +50525,9 @@ function normalizeAxisX(series) {
 
 //https://api.jquery.com/jquery.when/
 $.when(
-	$.ajax({
-		url: baseUrl+'/stats/users/bydate',
-	    jsonp: 'jsonp', dataType: 'jsonp',
-	    //timeout: 1000
-	}),
-	$.ajax({
-		url: baseUrl+'/stats/places/bydate',
-	    jsonp: 'jsonp', dataType: 'jsonp',
-	    //timeout: 1000
-	}),
-	$.ajax({
-		url: baseUrl+'/stats/convers/bydate',
-	    jsonp: 'jsonp', dataType: 'jsonp',
-	    //timeout: 1000
-	})
+	$.getJSON(baseUrl+'/stats/users/bydate'),
+	$.getJSON(baseUrl+'/stats/places/bydate'),
+	$.getJSON(baseUrl+'/stats/convers/bydate')
 ).done(function(ret1, ret2, ret3) {
 
 	var usersByDate = ret1[0],
@@ -50613,16 +50596,8 @@ $.when(
 });
 
 $.when(
-	$.ajax({
-		url: baseUrl+'/stats/places/byfield/geoinfo.naz',
-	    jsonp: 'jsonp', dataType: 'jsonp',
-	    //timeout: 1000
-	}),
-	$.ajax({
-		url: baseUrl+'/stats/users/byfield/lang',
-	    jsonp: 'jsonp', dataType: 'jsonp',
-	    //timeout: 1000
-	})
+	$.getJSON(baseUrl+'/stats/places/byfield/geoinfo.naz'),
+	$.getJSON(baseUrl+'/stats/users/byfield/lang')
 	//TODO other charts
 ).done(function(ret1,ret2) {
 
