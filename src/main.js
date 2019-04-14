@@ -131,8 +131,6 @@ $.when(
 	$.getJSON(baseUrl+'/stats/users/bygeo')
 ).done(function(ret1, ret2) {
 
-	console.log(ret1);
-return 
 	var places = ret1[0],
 		users = ret2[0];
 
