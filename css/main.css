@@ -334,33 +334,9 @@ input {
     background: rgba(153,204,0,0.6);	
     color: white;
     padding-top: 10px;
-/*    border-top: 20px solid #257;*/
-    font-size: 14px;
     line-height: 17px;
     overflow: hidden;
     min-height: 80px;
-}
-#principles li {
-    width: 22%;
-    min-width: 150px;
-    margin-right: 2%;
-    float: left;
-	list-style:none;
-	margin-bottom: 10px;
-}
-#principles a {
-	color: #fff;
-	text-decoration: none;
-}
-#principles h4 {
-    margin: 0;
-    color: #fff;
-	margin-right: 5px;
-	display: inline-block;
-	float: left;
-	vertical-align: top;	
-	font-size: 32px;
-	line-height: 32px;
 }
 #technologies {
     text-align: center;
@@ -388,6 +364,37 @@ input {
 .tech.nodejs {background-position: -200px -66px}
 .tech.openstreetmap {background-position: 0px -132px}
 .tech.jquery {background-position: -200px -132px}
+
+#principles li {
+    width: 22%;
+    min-width: 150px;
+    margin-right: 2%;
+    float: left;
+    list-style:none;
+    margin-bottom: 10px;
+    line-height: 1.25em;
+}
+#principles a {
+    color: #fff;
+    text-decoration: none;
+}
+#principles h4 {
+    display: inline;
+    font-size: 32px;
+}
+.prin {
+    float: left;
+    margin-right: 5px;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background: url('../images/principles.svg') no-repeat;
+    opacity: 0.8;
+}
+.prin.fullstack { background-position: 0px 0px; }
+.prin.realtime { background-position: -100px 0px; }
+.prin.geosocial { background-position: -200px 0px; }
+.prin.extensible { background-position: -300px 0px; }
 
 article {
 	background: rgba(255,255,255,0.3);
