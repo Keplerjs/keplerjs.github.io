@@ -10,8 +10,13 @@ var Chartist = require('chartist');
 var d3 = require('d3');
 var d3L = require('@asymmetrik/leaflet-d3');
 
+var slick = require('slick-carousel');
+
 require('../node_modules/leaflet/dist/leaflet.css');
 require('../node_modules/chartist/dist/chartist.css');
+
+//require('../node_modules/slick-carousel/slick/slick.css');
+//require('../node_modules/slick-carousel/slick/slick-theme.css');
 
 var worldCenter = [40,0],
 	worldZoom = 3,
@@ -33,6 +38,7 @@ var worldCenter = [40,0],
 window.map = map;
 
 var	$version = $('.version'),
+	$slides = $('#slides'),
 	$legend = $('.chartLegend'),
 	$legend2 = $('.chartLegend2'),
 	$users = $('<b>',{'class': 'users'}).appendTo($legend),
@@ -390,3 +396,14 @@ $.when(
 		chartPadding: 30,
 	});
 });
+
+// https://github.com/kenwheeler/slick
+/*$slides.slick({
+	autoplay: true,
+	slidesPerRow: 5,
+	adaptiveHeight: false,
+	autoplaySpeed: 2000,
+	centerMode: false,
+	arrows: false,
+	dots: true
+});*/
