@@ -80,7 +80,6 @@ aside {
 .demo .version {    
     background: #f7f7f7;
     color: #9c0;
-    padding:2px;
     font-size: 16px;
     border-radius: 3px; 
 }
@@ -334,7 +333,7 @@ input {
     min-height: 80px;
 }
 #principles {
-    background: rgba(153,204,0,0.5);    
+    background: rgba(153,204,0,0.3);    
     color: white;
 }
 #slides {
@@ -380,8 +379,10 @@ input {
     margin-right: 2%;
     float: left;
     list-style:none;
+    font-weight: bold;
     margin-bottom: 10px;
     line-height: 1.25em;
+    text-shadow: 0 0 3px #84a71b;
 }
 #principles a {
     color: #fff;

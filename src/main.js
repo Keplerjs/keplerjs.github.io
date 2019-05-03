@@ -39,6 +39,7 @@ window.map = map;
 
 var	$version = $('.version'),
 	$slides = $('#slides'),
+	$stats = $('#stats'),
 	$legend = $('.chartLegend'),
 	$legend2 = $('.chartLegend2'),
 	$users = $('<b>',{'class': 'users'}).appendTo($legend),
@@ -215,7 +216,12 @@ $.when(
 	$.getJSON(baseUrl+'/stats/users/bydate'),
 	$.getJSON(baseUrl+'/stats/places/bydate'),
 	$.getJSON(baseUrl+'/stats/convers/bydate')
-).done(function(ret1, ret2, ret3) {
+)
+.fail(function(a) {
+	console.log('fail',a);
+	$stats.height(60);
+})
+.done(function(ret1, ret2, ret3) {
 
 	var usersByDate = ret1[0],
 		placesByDate = ret2[0],
