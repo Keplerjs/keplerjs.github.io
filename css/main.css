@@ -610,6 +610,9 @@ nav a:hover {
 /* ==========================================================================
    Media Queries
    ========================================================================== */
+    .twitter-timeline {
+    display: none !important;
+   }
 
 @media only screen and (min-width: 480px) {
 
@@ -665,7 +668,9 @@ nav a:hover {
 /* ============
     WIDE: Menu
    ============ */
-
+    .twitter-timeline {
+    display: inline-block !important;
+   }
     .title {
         float: left;
     }

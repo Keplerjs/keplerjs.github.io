@@ -10,7 +10,7 @@ var Chartist = require('chartist');
 var d3 = require('d3');
 var d3L = require('@asymmetrik/leaflet-d3');
 
-var slick = require('slick-carousel');
+//var slick = require('slick-carousel');
 
 require('../node_modules/leaflet/dist/leaflet.css');
 require('../node_modules/chartist/dist/chartist.css');
@@ -404,7 +404,9 @@ $.when(
 });
 
 // https://github.com/kenwheeler/slick
-/*$slides.slick({
+/*
+if(slick)
+$slides.slick({
 	autoplay: true,
 	slidesPerRow: 5,
 	adaptiveHeight: false,
