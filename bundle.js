@@ -50316,7 +50316,7 @@ var css = ".leaflet-image-layer,.leaflet-layer,.leaflet-marker-icon,.leaflet-mar
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],42:[function(require,module,exports){
 
-var baseUrl = 'https://demo.keplerjs.io/api';
+var baseUrl = window.baseUrl || 'https://demo.keplerjs.io/api';
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore');
