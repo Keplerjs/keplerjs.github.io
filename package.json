@@ -9,13 +9,13 @@
   "author": {
     "name": "Stefano Cudini",
     "email": "stefano.cudini@gmail.com",
-    "url": "http://labs.easyblog.it/"
+    "url": "https://labs.easyblog.it/"
   },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Keplerjs/keplerjs.github.io/issues"
   },
-  "homepage": "http://keplerjs.io",
+  "homepage": "https://keplerjs.io",
   "main": "bundle.js",
   "scripts": {
     "build": "browserify src/main.js -o bundle.js",
