@@ -17,6 +17,7 @@
 .icon-gplus{ background-position: -180px -480px; } 
 .icon-mail{ background-position: -180px -510px; } 
 .icon-news{ background-position: -180px -540px; } 
+.icon-help{ background-position: -180px -600px; } 
 
 body {
     margin: 0;
@@ -555,16 +556,19 @@ nav a {
     text-decoration: none;
     font-weight: bold;
 
-    color: white;
-    background: #257;
+    color: #257;
+    background: rgba(255,255,255,0.5);
+    box-shadow: 0 0 5px rgba(100,100,100,0.1);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 nav a:visited {
-	color:white;
+	color:#257;
 }
 nav a:hover {
-	color: white;
+	color: #257;
     cursor: pointer;
-	border-bottom: 10px solid #9c0;
+	border-bottom: 5px solid #257;
     text-decoration: none;
 }
 
