@@ -290,8 +290,7 @@ article h5 {
     margin-bottom: 5px;
 }
 article h2 { 
-	color: #9c0; 
-	text-shadow: 0 0 1px #360;
+	color: #9c0;
 }
 p {
     margin-top:0;
@@ -568,7 +567,7 @@ nav a:visited {
 nav a:hover {
 	color: #257;
     cursor: pointer;
-	border-bottom: 5px solid #257;
+	border-bottom: 5px solid #9c0;
     text-decoration: none;
 }
 
