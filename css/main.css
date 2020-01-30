@@ -289,6 +289,10 @@ article h5 {
 	color: #257;
     margin-bottom: 5px;
 }
+article h2 { 
+	color: #9c0; 
+	text-shadow: 0 0 1px #360;
+}
 p {
     margin-top:0;
 }
@@ -315,13 +319,6 @@ input {
 #contribute {
     float: left;
     width: 45%;
-}
-#tryitout a,
-#tryitout a:hover,
-#tryitout a:active,
-#tryitout a:visited {
-	font-size: 18px;
-	color: #257;
 }
 #donate {
     clear: both;
@@ -383,7 +380,7 @@ input {
     font-weight: bold;
     margin-bottom: 10px;
     line-height: 1.25em;
-    text-shadow: 0 0 3px #84a71b;
+    text-shadow: 0 0 2px #582;
 }
 #principles a {
     color: #fff;
@@ -503,6 +500,9 @@ aside ul {
 }
 footer {
 	overflow:hidden;
+}
+footer li {
+	line-height: 30px;
 }
 .title {
 	text-align: center;
