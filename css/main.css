@@ -333,6 +333,7 @@ input {
     line-height: 17px;
     overflow: hidden;
     min-height: 80px;
+    font-size: 14px
 }
 #principles {
     background: rgba(153,204,0,0.4);  
