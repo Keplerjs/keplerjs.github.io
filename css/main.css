@@ -488,7 +488,9 @@ article {
     float: right;
 	opacity: 0.8;
 }
-
+.showcase {
+border-top: 20px red
+}​
 a.bitcoin {
     font-family: courier;
     font-size:12px;
