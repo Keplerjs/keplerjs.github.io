@@ -18,7 +18,7 @@ require('../node_modules/chartist/dist/chartist.css');
 //require('../node_modules/slick-carousel/slick/slick.css');
 //require('../node_modules/slick-carousel/slick/slick-theme.css');
 
-var worldCenter = [40,0],
+var worldCenter = [60,0],
 	worldZoom = 3,
 	map = L.map('map', {
 		center: worldCenter,
@@ -121,6 +121,17 @@ var pingUsersLayer = L.pingLayer({
 		radiusRange: [2, 16]
 	}).addTo(map);
 
+
+function fitStats() {
+	map.addLayer(geoLayer);
+	map.addLayer(hexPlacesLayer);
+	map.addLayer(hexUsersLayer);
+	map.setView(worldCenter, worldZoom, {animate: false });
+	hexPlacesLayer.show();
+	hexUsersLayer.show();
+}
+
+
 $.getJSON('https://unpkg.com/geojson-resources@1.1.0/world.json', function(json) {
 	geoLayer.addData(json);
 });
@@ -159,31 +170,8 @@ $.when(
 		return f.geometry.coordinates;
 	}) );
 
-	function fitStats() {
-		map.addLayer(geoLayer);
-		map.addLayer(hexPlacesLayer);
-		map.addLayer(hexUsersLayer);
-		map.setView(worldCenter, worldZoom, {animate: false });
-		hexPlacesLayer.show();
-		hexUsersLayer.show();
-	}
-
 	fitStats();
 
-	/*$('article').on('click', fitStats);	
-
-	$places.on('click', function(e) {
-		//map.removeLayer(hexUsersLayer);
-		////map.removeLayer(hexUsersLayer);
-		hexUsersLayer.hide();
-		hexPlacesLayer.show();
-	});
-	$users.on('click', function(e) {
-		//map.removeLayer(hexPlacesLayer);
-		//map.addLayer(hexUsersLayer);
-		hexPlacesLayer.hide();
-		hexUsersLayer.show();
-	});*/
 });
 
 ///////////////// CHARTS
@@ -218,7 +206,9 @@ $.when(
 	$.getJSON(baseUrl+'/stats/convers/bydate')
 )
 .fail(function(a) {
+	
 	console.log('fail',a);
+
 	$stats.height(60);
 })
 .done(function(ret1, ret2, ret3) {
@@ -257,7 +247,7 @@ $.when(
 
 	normalizeAxisX([chartUsers,chartPlaces,chartConvers]);
 
-	var chart = new Chartist.Line('.chartStats', {
+	new Chartist.Line('.chartStats', {
 	  series: [
 	    {
 	      data: chartUsers
@@ -333,7 +323,7 @@ $.when(
 	labels.push(otherlab);
 	series.push(otherval);
 
-	new Chartist.Pie('.chartStats2', {
+	var chart = new Chartist.Pie('.chartStats2', {
 		labels: labels,
 		series: series
 	}, {

@@ -266,7 +266,7 @@ article {
    Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
    ========================================================================== */
 body {
-    font-family: 'Source Sans Pro',sans-serif;
+    font-family: Roboto, sans-serif;
     font-size: 16px;
     background: #eee;
     color: #333;
@@ -490,7 +490,7 @@ article {
 	opacity: 0.8;
 }
 .showcase {
-border-top: 20px red
+	box-shadow: 0 0 2px rgba(0,0,0,1) inset
 }​
 a.bitcoin {
     font-family: courier;
