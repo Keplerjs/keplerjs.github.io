@@ -290,7 +290,7 @@ $.when(
 	$countries.html('<big>'+placesByField.rows.length+'</big> places countries');
 	$languages.html('<big>'+usersByField.rows.length+'</big> users languages');
 
-	var limit = 10,
+	var limit = 15,
 		minval = 5,
 		labels = [],
 		series = [];
