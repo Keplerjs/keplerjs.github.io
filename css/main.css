@@ -182,7 +182,9 @@ article {
 .chartStats2 .ct-series-u path {fill:#ffffff}
 .chartStats2 .ct-series-v path {fill:#ffffff}
 .chartStats2 .ct-series-w path {fill:#ffffff}
-
+.chartStats2 .ct-series-x path {fill:#ffffff}
+.chartStats2 .ct-series-y path {fill:#ffffff}
+.chartStats3 .ct-series-z path {fill:#ffffff}
 /*pie*/
 .chartStats3 .ct-series-a path {fill:#fd8d3c}
 .chartStats3 .ct-series-b path {fill:#feb24c}
@@ -207,7 +209,9 @@ article {
 .chartStats3 .ct-series-u path {fill:#ffffff}
 .chartStats3 .ct-series-v path {fill:#ffffff}
 .chartStats3 .ct-series-w path {fill:#ffffff}
-
+.chartStats3 .ct-series-x path {fill:#ffffff}
+.chartStats3 .ct-series-y path {fill:#ffffff}
+.chartStats3 .ct-series-z path {fill:#ffffff}
 
 .links {
 	color: #fff;
