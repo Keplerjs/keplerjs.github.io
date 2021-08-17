@@ -50217,6 +50217,8 @@ $.getJSON(baseUrl, function(json) {
 	if(json && json.version) {
 		$version.text('v'+json.version)
 	}
+}).fail(function() {
+	$('#stats').remove();
 });
 
 /* layers */
