@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/Keplerjs/keplerjs.github.io/issues"
   },
-  "homepage": "https://keplerjs.io",
+  "homepage": "https://kepler.opengeo.tech",
   "main": "bundle.js",
   "scripts": {
     "build": "browserify src/main.js -o bundle.js",
