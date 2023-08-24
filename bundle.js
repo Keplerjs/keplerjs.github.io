@@ -50075,7 +50075,7 @@ var css = ".leaflet-image-layer,.leaflet-layer,.leaflet-marker-icon,.leaflet-mar
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],42:[function(require,module,exports){
 
-var baseUrl = window.baseUrl || 'https://demo.keplerjs.io/api';
+var baseUrl = window.baseUrl || 'https://kepler-demo.opengeo.tech/api';
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore');
@@ -50123,7 +50123,7 @@ var	$version = $('.version'),
 	$convers = $('<b>',{'class': 'convers'}).appendTo($legend),
 	$countries = $('<b>',{'class': 'countries'}).appendTo($legend2),
 	$languages = $('<b>',{'class': 'languages'}).appendTo($legend2);
-	
+
 var geoLayer = L.geoJSON(null, {
 	style: {
 		weight: 1,
@@ -50136,7 +50136,7 @@ var geoLayer = L.geoJSON(null, {
 
 L.HexbinLayer = L.HexbinLayer.extend({
 	show: function(map) {
-		
+
 		//hexPlacesLayer._dataPrev = hexPlacesLayer._data;
 		//hexPlacesLayer.data([]).redraw();
 		if(this._dataOld) {
@@ -50151,7 +50151,7 @@ L.HexbinLayer = L.HexbinLayer.extend({
 			this._data = [];
 		}
 		this.redraw();
-	}	
+	}
 });
 //
 //https://github.com/Asymmetrik/leaflet-d3
@@ -50241,7 +50241,7 @@ $.when(
 	var pp = _.map(places.features, function(f) {
 		return f.geometry.coordinates;
 	});
-	
+
 	hexPlacesLayer.data( pp );
 
 	hexUsersLayer.data( _.map(users.features, function(f) {
@@ -50263,7 +50263,7 @@ function normalizeAxisX(series) {
 		lmax = _.max(lasts, function(v) {
 			return v.x.getTime();
 		}).x.getTime();
-	
+
 	for(var s in series) {
 		var last = _.last(series[s]),
 			lastX = last.x.getTime();
@@ -50284,7 +50284,7 @@ $.when(
 	$.getJSON(baseUrl+'/stats/convers/bydate')
 )
 .fail(function(a) {
-	
+
 	console.log('fail',a);
 
 	$stats.height(60);
@@ -50296,7 +50296,7 @@ $.when(
 		conversByDate = ret3[0];
 
 	$users.html('<big>'+usersByDate.count+'</big> users');
-	$places.html('<big>'+placesByDate.count+'</big> places');	
+	$places.html('<big>'+placesByDate.count+'</big> places');
 	$convers.html('<big>'+conversByDate.count+'</big> talks');
 
 	var chartUsers = []
@@ -50335,7 +50335,7 @@ $.when(
 	    },
 	    {
 	      data: chartConvers
-	    }	    
+	    }
 	  ]
 	}, {
 		fullWidth: true,
@@ -50376,7 +50376,7 @@ $.when(
 	var tot = 0;//placesByField.count;
 		otherlab = 'Others',
 		otherval = 0;
-	
+
 	var placesLimit = _.filter(placesByField.rows, function(o) {
 		return o[1] > minval;
 	}).length;
@@ -50394,7 +50394,7 @@ $.when(
 		}
 		else
 			otherval += val;
-		
+
 		tot += val;
 	}
 
@@ -50445,7 +50445,7 @@ $.when(
 		}
 		else
 			otherval += val;
-		
+
 		tot += val;
 	}
 

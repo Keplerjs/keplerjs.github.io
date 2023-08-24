@@ -1,5 +1,5 @@
 
-var baseUrl = window.baseUrl || 'https://demo.keplerjs.io/api';
+var baseUrl = window.baseUrl || 'https://kepler-demo.opengeo.tech/api';
 
 var $ = jQuery = require('jquery');
 var _ = require('underscore');

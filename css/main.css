@@ -8,7 +8,7 @@
     vertical-align: text-bottom;/*non modificare!*/
     height: 18px;
     width: 18px;
-    background: url("http://demo.keplerjs.io/packages/keplerjs_theme/assets/images/sprite.svg") no-repeat;
+    background: url("http://kepler-demo.opengeo.tech/packages/keplerjs_theme/assets/images/sprite.svg") no-repeat;
 }
 .icon-git { background-position: -180px -360px; } 
 .icon-twit{ background-position: -180px -390px; } 
